@@ -7,7 +7,7 @@
 
       <!-- Lefy aligned nav items -->
       <b-navbar-brand href="#"> <a href="#"> <!-- Forward the homepage while pressed the img-->
-        <img src="../assets/logo.jpg" height="50" width="52" alt="Logo"/>
+        <img src="../assets/logo.png" height="50" width="52" alt="Logo"/>
       </a></b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
