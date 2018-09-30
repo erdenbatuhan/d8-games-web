@@ -1,28 +1,22 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+  <div id="app" class = "overlay">
+    <HomePage></HomePage>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import HomePage from "./components/HomePage";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HomePage
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style scoped>
+.overlay{
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  text-rendering: optimizeLegibility;
 }
 </style>

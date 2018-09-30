@@ -4,6 +4,9 @@ package-lock.json
 # ignore IntelliJ IDEA generated files
 .idea/
 
+# ignore dist
+dist/
+
 # ignore node/grunt dependency directories
 node_modules/
 
