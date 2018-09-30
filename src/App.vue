@@ -1,6 +1,6 @@
 <template>
   <div id="app" class = "overlay">
-    <HomePage/>
+    <HomePage></HomePage>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import HomePage from "./components/HomePage";
 export default {
   name: 'App',
   components: {
-    HomePage,
+    HomePage
   }
 }
 </script>
