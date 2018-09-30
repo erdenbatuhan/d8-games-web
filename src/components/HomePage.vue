@@ -43,7 +43,7 @@
 </script>
 
 <style scoped>
-  .background{
+  .background {
     background: url("../assets/background.png");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
@@ -59,12 +59,12 @@
     z-index: 1000;
   }
 
-  .navbar{
+  .navbar {
     background-color: #000;
 
   }
 
-  .header{
+  .header {
     background-color: transparent;
     position: absolute;
     width: max-content;
