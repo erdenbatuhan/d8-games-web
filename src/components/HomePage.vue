@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="background">
     <!-- Homepage Navigator Bar -->
     <b-navbar class="navbar" toggleable="md" type="dark">
 
@@ -43,9 +43,20 @@
 </script>
 
 <style scoped>
-  .home{
-    text-align: center;
-    text-rendering: optimizeLegibility;
+  .background{
+    background: url("../assets/background.png");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
 
   .navbar{

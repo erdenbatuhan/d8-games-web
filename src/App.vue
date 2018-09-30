@@ -15,19 +15,8 @@ export default {
 }
 </script>
 <style scoped>
-  .overlay {
-    background: url("assets/background.png");
-    background-repeat: no-repeat;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-    background-position:center;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
+.overlay{
+  text-align: center;
+  text-rendering: optimizeLegibility;
+}
 </style>
