@@ -1,22 +1,25 @@
 <template>
   <div id="app" class = "overlay">
-    <HomePage></HomePage>
+    <!-- <HomePage></HomePage> -->
+  <LoginPage></LoginPage>
   </div>
 </template>
 
 <script>
-import HomePage from "./components/HomePage";
+import HomePage from "./components/HomePage"
+import LoginPage from './components/LoginPage'
 
 export default {
   name: 'App',
   components: {
-    HomePage
+    HomePage,
+    LoginPage
   }
 }
 </script>
 <style scoped>
-.overlay{
-  text-align: center;
-  text-rendering: optimizeLegibility;
-}
+  .overlay{
+    text-align: center;
+    text-rendering: optimizeLegibility;
+  }
 </style>
