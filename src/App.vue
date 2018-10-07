@@ -1,9 +1,9 @@
 <template>
   <div id="app" class = "overlay">
-    <!-- <HomePage></HomePage> -->
+    <HomePage></HomePage>
     <!-- <LoginPage></LoginPage> -->
     <!-- <GamesPage></GamesPage> -->
-    <AdminPage></AdminPage>
+    <!-- <AdminPage></AdminPage> -->
   </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
   .overlay {
     text-align: center;
