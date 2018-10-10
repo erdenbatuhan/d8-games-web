@@ -1,8 +1,9 @@
 <template>
-  <!-- Put navbar here -->
-  <div id = "GamesPage">
-  <h1 id="header">Our Games</h1>
 
+  <div id = "GamesPage">
+    <HomePageNavBar></HomePageNavBar>
+
+  <h1 id="header">Our Games</h1>
   <b-container id="games-grid">
     <b-row class = "row">
       <b-col class = "col" sm="4">
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+
     export default {
         name: "GamesPage"
     }

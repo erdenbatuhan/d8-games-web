@@ -46,6 +46,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   #emailInput {
     margin-bottom: 10px;
   }
@@ -53,15 +54,17 @@
   #passwordInput {
     margin-bottom: 15px;
   }
+
   #promisedForm {
     color: black;
   }
+
   #submitButton {
     width: 25%;
     position: absolute;
     top: 120%;
     left: 50%;
     transform: translate(-50%, -50%);
-
   }
+
 </style>

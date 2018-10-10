@@ -1,38 +1,15 @@
 <template>
   <div class="background">
-    <!-- Homepage Navigator Bar -->
-    <b-navbar class="navbar" toggleable="md" type="dark">
-
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-      <!-- Lefy aligned nav items -->
-      <b-navbar-brand href="#"> <a href="#"> <!-- Forward the homepage while pressed the img-->
-        <img src="../assets/logo.jpg" height="50" width="52" alt="Logo"/>
-      </a></b-navbar-brand>
-
-      <b-collapse is-nav id="nav_collapse">
-
-        <b-navbar-nav class="navbar-nav-left">
-          <b-nav-item-dropdown id="games_ddown" text="Games" right>
-            <b-dropdown-item href="#">Jelly Portal</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item href="#">Contacts</b-nav-item>
-        </b-navbar-nav>
-
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#" right>Login</b-nav-item>
-        </b-navbar-nav>
-
-      </b-collapse>
-    </b-navbar>
-      <!-- Settling the header middle of the page -->
-        <b-jumbotron class="header" header="D8 Games" lead="A motto gonna be here" >
-        </b-jumbotron>
-    <div class="games_grid">
-
-    </div>
+    <HomePageNavBar></HomePageNavBar>
+    <b-jumbotron container-fluid="true" bg-variant="" text-variant="black" class="jumbotron">
+      <template slot="header">
+        D8 Games
+      </template>
+      <template slot="lead">
+        We are a small Start-Up company made up from 6 Game Developers!
+      </template>
+      <hr class="my-4">
+    </b-jumbotron>
   </div>
 </template>
 
@@ -59,9 +36,25 @@
     z-index: 1000;
   }
 
-  .navbar {
-    background-color: #000;
+   .jumbotron {
+     background: transparent;
+     margin-bottom: 0px;
+   }
 
+  .background {
+    background: url("../assets/bg-img.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
 
   .header {

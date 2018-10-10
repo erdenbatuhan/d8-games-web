@@ -1,7 +1,5 @@
 <template>
   <div id="app" class = "overlay">
-    <!-- <HomePage></HomePage> -->
-    <!-- <LoginPage></LoginPage> -->
     <GamesPage></GamesPage>
   </div>
 </template>
