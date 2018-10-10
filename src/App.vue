@@ -1,8 +1,9 @@
 <template>
   <div id="app" class = "overlay">
-    <!-- <HomePage></HomePage> -->
+    <HomePage></HomePage>
     <!-- <LoginPage></LoginPage> -->
-    <GamesPage></GamesPage>
+    <!-- <GamesPage></GamesPage> -->
+    <!-- <AdminPage></AdminPage> -->
   </div>
 </template>
 
@@ -10,16 +11,19 @@
 import HomePage from './components/HomePage'
 import LoginPage from './components/LoginPage'
 import GamesPage from './components/GamesPage'
+import AdminPage from './components/AdminPage'
 
 export default {
   name: 'App',
   components: {
     HomePage,
     LoginPage,
-    GamesPage
+    GamesPage,
+    AdminPage
   }
 }
 </script>
+
 <style scoped>
   .overlay {
     text-align: center;
