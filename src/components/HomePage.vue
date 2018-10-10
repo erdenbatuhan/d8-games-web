@@ -14,28 +14,15 @@
 </template>
 
 <script>
+  import HomePageNavBar from "./HomePageNavBar";
+
   export default {
-    name: 'HomePage'
+    name: 'HomePage',
+    components: {HomePageNavBar: HomePageNavBar}
   }
 </script>
 
 <style scoped>
-  .background {
-    background: url("../assets/background.png");
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: center;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-
    .jumbotron {
      background: transparent;
      margin-bottom: 0px;
@@ -61,10 +48,8 @@
     background-color: transparent;
     position: absolute;
     width: max-content;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     color: #fff;
+    text-align: center;
+    vertical-align: middle;
   }
-
 </style>

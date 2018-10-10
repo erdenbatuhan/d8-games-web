@@ -31,8 +31,8 @@
         return {
           employees: employees
         }
-      }
-    }
+     }
+   }
 </script>
 
 <style scoped>
