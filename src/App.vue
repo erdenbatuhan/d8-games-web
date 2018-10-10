@@ -5,19 +5,20 @@
 </template>
 
 <script>
-import HomePage from './components/HomePage'
-import LoginPage from './components/LoginPage'
-import GamesPage from './components/GamesPage'
+  import HomePage from './components/HomePage'
+  import LoginPage from './components/LoginPage'
+  import GamesPage from './components/GamesPage'
 
-export default {
-  name: 'App',
-  components: {
-    HomePage,
-    LoginPage,
-    GamesPage
+  export default {
+    name: 'App',
+    components: {
+      HomePage,
+      LoginPage,
+      GamesPage
+    }
   }
-}
 </script>
+
 <style scoped>
   .overlay {
     text-align: center;

@@ -23,8 +23,6 @@
     }
 </script>
 <style scoped>
-
-
     #admin-page-user-img {
         height: auto;
         width: auto;

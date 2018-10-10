@@ -1,6 +1,6 @@
 <template>
   <div id="AdminPage">
-    <AdminPageNavbar/>
+    <AdminPageNavbar></AdminPageNavbar>
     <br>
     <div class="container">
       <div class="row">
@@ -8,13 +8,11 @@
           <EmployeeInfo :employees="employees"/>
           <Summary :employees="employees"/>
         </div>
-
         <div class="col-9">
           <div id="work-info">
-            calendar
+            Calendar
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -27,7 +25,7 @@
   import EmployeeInfo from "./EmployeeInfo";
 
   export default {
-      name: "AdminPage",
+    name: "AdminPage",
     components: {EmployeeInfo, Summary, AdminPageNavbar},
     data() {
         return {
@@ -35,15 +33,11 @@
         }
       }
     }
-
 </script>
 
 <style scoped>
-
   #work-info {
     margin-left: 5%;
     margin-top: 5%;
   }
-
-
 </style>
