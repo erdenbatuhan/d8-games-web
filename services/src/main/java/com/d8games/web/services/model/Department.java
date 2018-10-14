@@ -3,14 +3,16 @@ package com.d8games.web.services.model;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "department")
 @EntityListeners(AuditingEntityListener.class)
-public class Department {
+public class Department implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "department_id")
     private Long departmentId;
 
     @NotBlank
@@ -18,7 +20,7 @@ public class Department {
 
     @OneToOne
     @JoinColumn(name = "manager_id", referencedColumnName = "user_id")
-    private User user;
+    private User manager;
 
     public Long getDepartmentId() {
         return departmentId;
@@ -36,11 +38,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public User getUser() {
-        return user;
+    public User getManager() {
+        return manager;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

@@ -16,6 +16,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @NotBlank
@@ -23,10 +24,6 @@ public class User implements Serializable {
 
     @NotBlank
     private String userSurname;
-
-    @OneToOne
-    @JoinColumn(name = "title_id", referencedColumnName = "title_id")
-    private Title title;
 
     @Lob
     @Column(length = 100000)
@@ -36,6 +33,10 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date userStartingDate;
+
+    @OneToOne
+    @JoinColumn(name = "title_id", referencedColumnName = "title_id")
+    private Title title;
 
     public Long getUserId() {
         return userId;
@@ -61,14 +62,6 @@ public class User implements Serializable {
         this.userSurname = userSurname;
     }
 
-    public Title getTitle() {
-        return title;
-    }
-
-    public void setTitle(Title title) {
-        this.title = title;
-    }
-
     public byte[] getUserPhoto() {
         return userPhoto;
     }
@@ -83,5 +76,13 @@ public class User implements Serializable {
 
     public void setUserStartingDate(Date userStartingDate) {
         this.userStartingDate = userStartingDate;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 }
