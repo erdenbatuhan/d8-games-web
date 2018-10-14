@@ -24,6 +24,7 @@
       AdminPage,
       Calendar
     }
+  }
 </script>
 
 <style scoped>
