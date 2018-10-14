@@ -1,62 +1,68 @@
-# ignore package-lock.json
-package-lock.json
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
 
-# ignore IntelliJ IDEA generated files
-.idea/
+# Generated files
+.idea/**/contentModel.xml
 
-# ignore dist
-dist/
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
 
-# ignore node/grunt dependency directories
-node_modules/
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
 
-# ignore composer vendor directory
-/vendor
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
 
-# ignore components loaded via Bower
-/bower_components
+# CMake
+cmake-build-*/
 
-# ignore jekyll build directory
-/_site
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
 
-# ignore OS generated files
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+# OS generated files
 .DS_Store
 ehthumbs.db
 Thumbs.db
-
-# ignore Editor files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
-
-# ignore log files and databases
-*.log
-*.sql
-*.sqlite
-
-# ignore compiled files
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# ignore packaged files
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# -------------------------
-# BEGIN Whitelisted Files
-# -------------------------
- 
-# track these files, if they exist
-!.gitignore
-!.editorconfig
-!.phpcs.xml.dist
