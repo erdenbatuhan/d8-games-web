@@ -3,6 +3,7 @@
     <!-- <HomePage></HomePage> -->
     <!-- <LoginPage></LoginPage> -->
     <!-- <GamesPage></GamesPage> -->
+    <!-- <Calendar></Calendar> -->
     <AdminPage></AdminPage>
   </div>
 </template>
@@ -12,6 +13,7 @@
   import LoginPage from './components/LoginPage'
   import GamesPage from './components/GamesPage'
   import AdminPage from './components/AdminPage'
+  import Calendar from './components/Calendar'
 
   export default {
     name: 'App',
@@ -19,7 +21,8 @@
       HomePage,
       LoginPage,
       GamesPage,
-      AdminPage
+      AdminPage,
+      Calendar
     }
 </script>
 
