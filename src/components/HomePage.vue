@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div class="background">
     <HomePageNavBar></HomePageNavBar>
-
-    <b-jumbotron class="header" header="D8 Games" lead="Put a motto here"></b-jumbotron>
-
-    <img src="../assets/background.png" alt="" class="bg">
+    <b-jumbotron container-fluid="true" bg-variant="" text-variant="black" class="jumbotron">
+      <template slot="header">
+        D8 Games
+      </template>
+      <template slot="lead">
+        We are a small Start-Up company made up from 6 Game Developers!
+      </template>
+      <hr class="my-4">
+    </b-jumbotron>
   </div>
 </template>
 
@@ -18,15 +23,25 @@
 </script>
 
 <style scoped>
+   .jumbotron {
+     background: transparent;
+     margin-bottom: 0px;
+   }
 
-  .bg {
-    /* Set rules to fill background */
-    min-height: 100%;
-    min-width: 1024px;
-
-    /* Set up proportionate scaling */
+  .background {
+    background: url("../assets/bg-img.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
     width: 100%;
-    height: auto;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
 
   .header {

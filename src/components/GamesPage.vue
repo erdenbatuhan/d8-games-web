@@ -1,8 +1,8 @@
 <template>
-  <!-- Put navbar here -->
   <div id = "GamesPage">
-  <h1 id="header">Our Games</h1>
+    <HomePageNavBar></HomePageNavBar>
 
+  <h1 id="header"> Our Games </h1>
   <b-container id="games-grid">
     <b-row class = "row">
       <b-col class = "col" sm="4">
@@ -12,19 +12,16 @@
       <b-col class = "col" sm="4">
         <img src="../assets/bioshockWallpaper.jpg" alt="" class="gameImg">
         <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
-
       </b-col>
       <b-col class = "col" sm="4">
         <img src="../assets/yugioh.jpg" alt="" class="gameImg">
         <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
-
       </b-col>
     </b-row>
   </b-container>
 
   </div>
 </template>
-
 <script>
     export default {
         name: "GamesPage"
