@@ -1,52 +1,86 @@
 package com.d8games.web.services.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "title")
+@Table(name = "TITLE")
 @EntityListeners(AuditingEntityListener.class)
 public class Title implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "title_id")
-    private Long titleId;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "ID", unique = true, updatable = false, nullable = false)
+    private String id;
 
-    @NotBlank
-    private String titleName;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
-    @NotBlank
-    private String titleWage;
+    @Column(name = "OFFICE_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
+    private Double officeHoursNeededPerMonth;
+
+    @Column(name = "HOME_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
+    private Double homeHoursNeededPerMonth;
+
+    @Column(name = "SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
+    private Double salaryPerHour;
+
+    @Column(name = "OVERTIME_SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
+    private Double overtimeSalaryPerHour;
 
     @OneToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
     private Department department;
 
-    public Long getTitleId() {
-        return titleId;
+    public String getId() {
+        return id;
     }
 
-    public void setTitleId(Long titleId) {
-        this.titleId = titleId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTitleName() {
-        return titleName;
+    public String getName() {
+        return name;
     }
 
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitleWage() {
-        return titleWage;
+    public Double getOfficeHoursNeededPerMonth() {
+        return officeHoursNeededPerMonth;
     }
 
-    public void setTitleWage(String titleWage) {
-        this.titleWage = titleWage;
+    public void setOfficeHoursNeededPerMonth(Double officeHoursNeededPerMonth) {
+        this.officeHoursNeededPerMonth = officeHoursNeededPerMonth;
+    }
+
+    public Double getHomeHoursNeededPerMonth() {
+        return homeHoursNeededPerMonth;
+    }
+
+    public void setHomeHoursNeededPerMonth(Double homeHoursNeededPerMonth) {
+        this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
+    }
+
+    public Double getSalaryPerHour() {
+        return salaryPerHour;
+    }
+
+    public void setSalaryPerHour(Double salaryPerHour) {
+        this.salaryPerHour = salaryPerHour;
+    }
+
+    public Double getOvertimeSalaryPerHour() {
+        return overtimeSalaryPerHour;
+    }
+
+    public void setOvertimeSalaryPerHour(Double overtimeSalaryPerHour) {
+        this.overtimeSalaryPerHour = overtimeSalaryPerHour;
     }
 
     public Department getDepartment() {

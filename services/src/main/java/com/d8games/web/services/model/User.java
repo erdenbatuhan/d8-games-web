@@ -1,81 +1,79 @@
 package com.d8games.web.services.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"userStartingDate"}, allowGetters = true)
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "ID", unique = true, updatable = false, nullable = false)
+    private String id;
 
-    @NotBlank
-    private String userName;
+    @Column(name = "NAME", updatable = false, nullable = false)
+    private String name;
 
-    @NotBlank
-    private String userSurname;
+    @Column(name = "SURNAME", updatable = false, nullable = false)
+    private String surname;
 
-    @Lob
-    @Column(length = 100000)
-    private byte[] userPhoto;
+    @Column(name = "PHOTO", nullable = false)
+    private String photo;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date userStartingDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "STARTING_DATE", updatable = false, nullable = false)
+    private Date startingDate;
 
     @OneToOne
-    @JoinColumn(name = "title_id", referencedColumnName = "title_id")
+    @JoinColumn(name = "TITLE_ID", referencedColumnName = "ID", nullable = false)
     private Title title;
 
-    public Long getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserSurname() {
-        return userSurname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public byte[] getUserPhoto() {
-        return userPhoto;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setUserPhoto(byte[] userPhoto) {
-        this.userPhoto = userPhoto;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public Date getUserStartingDate() {
-        return userStartingDate;
+    public Date getStartingDate() {
+        return startingDate;
     }
 
-    public void setUserStartingDate(Date userStartingDate) {
-        this.userStartingDate = userStartingDate;
+    public void setStartingDate(Date startingDate) {
+        this.startingDate = startingDate;
     }
 
     public Title getTitle() {

@@ -1,41 +1,43 @@
 package com.d8games.web.services.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "department")
+@Table(name = "DEPARTMENT")
 @EntityListeners(AuditingEntityListener.class)
 public class Department implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "department_id")
-    private Long departmentId;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "ID", unique = true, updatable = false, nullable = false)
+    private String id;
 
-    @NotBlank
-    private String departmentName;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
-    @OneToOne
-    @JoinColumn(name = "manager_id", referencedColumnName = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
     private User manager;
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public String getId() {
+        return id;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getManager() {
