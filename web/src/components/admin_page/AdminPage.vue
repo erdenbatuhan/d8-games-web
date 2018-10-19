@@ -8,7 +8,7 @@
                 <div class="col-1"> <!-- Empty Column --> </div>
                 <div class="col-2">
                     <employee-info :employees="employees"></employee-info>
-                    <summary :employees="employees"></summary>
+                    <employee-summary :employees="employees"></employee-summary>
                 </div>
                 <div class="col-8">
                     <div id="work-info">
@@ -26,13 +26,13 @@
 <script>
     import employees from '../../employees.json'
     import navbar from "../Navbar";
-    import summary from "./Summary";
+    import employeeSummary from "./EmployeeSummary";
     import employeeInfo from "./EmployeeInfo";
     import calendar from "./Calendar";
 
     export default {
         name: "AdminPage",
-        components: {employeeInfo, summary, navbar, calendar},
+        components: {navbar, employeeSummary, employeeInfo, calendar},
         data() {
             return {
                 employees: employees

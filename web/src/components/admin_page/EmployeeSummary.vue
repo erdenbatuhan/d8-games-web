@@ -1,16 +1,16 @@
 <template>
-    <div class="card" id="summary" style="width: 18rem;">
+    <div class="card" style="width: 18rem;">
         <b-card no-body>
             <div class="card-header">Summary</div>
             <b-tabs card>
                 <b-tab title="Week" active>
                     <ul class="list-group list-group-flush">
-                        <work-info :employees="employees" :isWeek="true"></work-info>
+                        <employee-summary-info :employees="employees" :isWeek="true"></employee-summary-info>
                     </ul>
                 </b-tab>
                 <b-tab title="Month">
                      <ul class="list-group list-group-flush">
-                         <work-info :employees="employees" :isWeek="false"></work-info>
+                         <employee-summary-info :employees="employees" :isWeek="false"></employee-summary-info>
                      </ul>
                 </b-tab>
             </b-tabs>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-    import workInfo from "./WorkInfo";
+    import employeeSummaryInfo from "./EmployeeSummaryInfo";
 
     export default {
-        name: 'Summary',
+        name: 'EmployeeSummary',
         components: {
-            WorkInfo
+            employeeSummaryInfo
         },
         props: {
             employees: {}

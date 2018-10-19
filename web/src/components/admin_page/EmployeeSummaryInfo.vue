@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: 'WorkInfo',
+        name: 'EmployeeSummaryInfo',
         props: {
             employees: {}
         },
