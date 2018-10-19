@@ -14,16 +14,12 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <b-button variant="success" class="btn btn-medium vouch-buttons" id="left-button">Vouch IN
-                    </b-button>
+                    <b-button variant="success" class="btn btn-medium vouch-buttons" id="left-button">Vouch IN</b-button>
                 </li>
                 <li class="nav-item">
-                    <b-button variant="success" class="btn btn-medium vouch-buttons" id="right-button">Vouch OUT
-                    </b-button>
+                    <b-button variant="success" class="btn btn-medium vouch-buttons" id="right-button">Vouch OUT</b-button>
                 </li>
-                <li>
-                    <img src="../assets/myImg.jpg" class="navbar-img" alt="">
-                </li>
+                <li><img src="../assets/myImg.jpg" class="navbar-img" alt=""></li>
             </ul>
         </div>
     </nav>

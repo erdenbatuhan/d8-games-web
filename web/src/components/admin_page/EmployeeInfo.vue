@@ -9,11 +9,10 @@
             <p class="card-text text-left" id="department"><b>Department:</b> {{employees[0].department}} </p>
             <p class="card-text text-left" id="joinDate"><b>Time Since Join:</b> {{employees[0].joinDate}}</p>
         </div>
-        <br>
+      <br>
     </div>
-    <br>
-  </div>
 </template>
+
 <script>
     export default {
         name: 'EmployeeInfo',
@@ -22,6 +21,7 @@
         }
     }
 </script>
+
 <style scoped>
     #admin-page-user-img {
         height: auto;

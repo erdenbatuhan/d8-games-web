@@ -16,20 +16,20 @@
   import Calendar from './components/admin_page/Calendar'
 
   export default {
-    name: 'App',
-    components: {
-      HomePage,
-      LoginPage,
-      GamesPage,
-      AdminPage,
-      Calendar
-    }
+      name: 'App',
+      components: {
+          HomePage,
+          LoginPage,
+          GamesPage,
+          AdminPage,
+          Calendar
+      }
   }
 </script>
 
 <style scoped>
-  .overlay {
-    text-align: center;
-    text-rendering: optimizeLegibility;
-  }
+    .overlay {
+        text-align: center;
+        text-rendering: optimizeLegibility;
+    }
 </style>
