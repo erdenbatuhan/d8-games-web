@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card employee-card" style="width: 18rem;">
-        <img id="admin-page-user-img" src="../assets/myImg.jpg" alt="">
+        <img id="admin-page-user-img" src="../../assets/myImg.jpg" alt="">
         <div class="card-body">
             <h5 class="card-title">{{employees[0].name}}</h5>
             <hr class="title-hr">

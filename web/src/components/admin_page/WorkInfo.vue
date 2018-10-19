@@ -11,6 +11,6 @@
         props: {
             employees: {}
         },
-      WeekOrMonth: "" // TODO: fix this variable and use it to determine which info to print, gets assigned in summary.
+        WeekOrMonth: "" // TODO: fix this variable and use it to determine which info to print, gets assigned in summary.
     }
 </script>

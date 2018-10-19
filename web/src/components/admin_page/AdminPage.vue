@@ -19,8 +19,8 @@
 </template>
 
 <script>
-  import employees from '../employees.json'
-  import AdminPageNavbar from "./AdminPageNavbar";
+  import employees from '../../employees.json'
+  import AdminPageNavbar from "../AdminPageNavbar";
   import Summary from "./Summary";
   import EmployeeInfo from "./EmployeeInfo";
 

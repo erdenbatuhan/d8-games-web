@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import HomePageNavBar from "./HomePageNavBar";
+  import HomePageNavBar from "../HomePageNavBar";
 
   export default {
     name: 'HomePage',
@@ -29,7 +29,7 @@
    }
 
   .background {
-    background: url("../assets/bg-img.jpg");
+    background: url("../../assets/bg-img.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
