@@ -9,11 +9,11 @@
 </template>
 
 <script>
-    import HomePage from './components/HomePage'
-    import LoginPage from './components/LoginPage'
-    import GamesPage from './components/GamesPage'
-    import AdminPage from './components/AdminPage'
-    import Calendar from './components/Calendar'
+  import HomePage from './components/home_page/HomePage'
+  import LoginPage from './components/login_page/LoginPage'
+  import GamesPage from './components/games_page/GamesPage'
+  import AdminPage from './components/admin_page/AdminPage'
+  import Calendar from './components/admin_page/Calendar'
 
   export default {
       name: 'App',

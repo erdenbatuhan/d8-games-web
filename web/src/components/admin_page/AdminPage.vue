@@ -24,11 +24,10 @@
 </template>
 
 <script>
-    import employees from '../employees.json'
-    import AdminPageNavbar from "./AdminPageNavbar";
-    import Summary from "./Summary";
-    import EmployeeInfo from "./EmployeeInfo";
-    import Calendar from "./Calendar";
+  import employees from '../../employees.json'
+  import AdminPageNavbar from "../AdminPageNavbar";
+  import Summary from "./Summary";
+  import EmployeeInfo from "./EmployeeInfo";
 
   export default {
     name: "AdminPage",
