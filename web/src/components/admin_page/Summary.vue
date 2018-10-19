@@ -5,12 +5,12 @@
             <b-tabs card>
                 <b-tab title="Week" active>
                     <ul class="list-group list-group-flush">
-                        <WorkInfo :employees="employees" :WeekOrMonth="Week"/>
+                        <work-info :employees="employees" :isWeek="true"></work-info>
                     </ul>
                 </b-tab>
                 <b-tab title="Month">
                      <ul class="list-group list-group-flush">
-                         <WorkInfo :employees="employees" :WeekOrMonth="Month"></WorkInfo>
+                         <work-info :employees="employees" :isWeek="false"></work-info>
                      </ul>
                 </b-tab>
             </b-tabs>
@@ -19,13 +19,15 @@
 </template>
 
 <script>
-    import WorkInfo from "./WorkInfo";
+    import workInfo from "./WorkInfo";
 
-  export default {
-      name: 'Summary',
-      components: {WorkInfo},
-      props: {
-          employees: {}
-      }
-  }
+    export default {
+        name: 'Summary',
+        components: {
+            WorkInfo
+        },
+        props: {
+            employees: {}
+        }
+    }
 </script>

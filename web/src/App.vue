@@ -1,30 +1,29 @@
 <template>
-  <div id="app" class = "overlay">
-    <!-- <HomePage></HomePage> -->
-    <!-- <LoginPage></LoginPage> -->
-    <!-- <GamesPage></GamesPage> -->
-    <!-- <Calendar></Calendar> -->
-    <AdminPage></AdminPage>
-  </div>
+    <div id="app" class = "overlay">
+        <admin-page></admin-page>
+        <!-- <login-page></login-page> -->
+        <!-- <games-page></games-page> -->
+        <!-- <calendar></calendar> -->
+    </div>
 </template>
 
 <script>
-  import HomePage from './components/home_page/HomePage'
-  import LoginPage from './components/login_page/LoginPage'
-  import GamesPage from './components/games_page/GamesPage'
-  import AdminPage from './components/admin_page/AdminPage'
-  import Calendar from './components/admin_page/Calendar'
+    import homePage from './components/home_page/HomePage'
+    import loginPage from './components/login_page/LoginPage'
+    import gamesPage from './components/games_page/GamesPage'
+    import adminPage from './components/admin_page/AdminPage'
+    import calendar from './components/admin_page/Calendar'
 
-  export default {
-      name: 'App',
-      components: {
-          HomePage,
-          LoginPage,
-          GamesPage,
-          AdminPage,
-          Calendar
-      }
-  }
+    export default {
+    name: 'App',
+        components: {
+            homePage,
+            loginPage,
+            gamesPage,
+            adminPage,
+            calendar
+        }
+    }
 </script>
 
 <style scoped>

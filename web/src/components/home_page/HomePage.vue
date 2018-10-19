@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <HomePageNavBar></HomePageNavBar>
+    <navbar></navbar>
     <b-jumbotron container-fluid="true" bg-variant="" text-variant="black" class="jumbotron">
       <template slot="header">
         D8 Games
@@ -14,11 +14,13 @@
 </template>
 
 <script>
-  import HomePageNavBar from "../HomePageNavBar";
+  import navbar from "../Navbar";
 
   export default {
     name: 'HomePage',
-    components: {HomePageNavBar: HomePageNavBar}
+    components: {
+      navbar
+    }
   }
 </script>
 

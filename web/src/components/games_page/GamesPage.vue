@@ -1,25 +1,22 @@
 <template>
   <div id = "GamesPage">
-    <HomePageNavBar></HomePageNavBar>
-
-  <h1 id="header"> Our Games </h1>
-  <b-container id="games-grid">
-    <b-row class = "row">
-      <b-col class = "col" sm="4">
-        <img src="../../assets/darkSoulsWallpaper.jpg" alt="" class="gameImg">
-        <figcaption class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</figcaption>
-      </b-col>
-      <b-col class = "col" sm="4">
-        <img src="../../assets/bioshockWallpaper.jpg" alt="" class="gameImg">
-        <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
-      </b-col>
-      <b-col class = "col" sm="4">
-        <img src="../../assets/yugioh.jpg" alt="" class="gameImg">
-        <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
-      </b-col>
-    </b-row>
-  </b-container>
-
+    <h1 id="header"> Our Games </h1>
+    <b-container id="games-grid">
+      <b-row class = "row">
+        <b-col class = "col" sm="4">
+          <img src="../../assets/darkSoulsWallpaper.jpg" alt="" class="gameImg">
+          <figcaption class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</figcaption>
+        </b-col>
+        <b-col class = "col" sm="4">
+          <img src="../../assets/bioshockWallpaper.jpg" alt="" class="gameImg">
+          <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
+        </b-col>
+        <b-col class = "col" sm="4">
+          <img src="../../assets/yugioh.jpg" alt="" class="gameImg">
+          <p class = "gameInfo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit laudantium minima, officiis repudiandae! Consequuntur debitis, dolorem doloremque et, facilis fugiat id ipsam maxime molestiae tempore unde velit, voluptatem!</p>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>

@@ -10,8 +10,8 @@
     export default {
         name: 'WorkInfo',
         props: {
-          employees: {}
+            employees: {}
         },
-        WeekOrMonth: "" // TODO: fix this variable and use it to determine which info to print, gets assigned in summary.
+        isWeek: false
     }
 </script>
