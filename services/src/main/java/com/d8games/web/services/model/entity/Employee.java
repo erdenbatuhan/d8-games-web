@@ -1,4 +1,4 @@
-package com.d8games.web.services.model;
+package com.d8games.web.services.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,9 +8,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "EMPLOYEE")
 @EntityListeners(AuditingEntityListener.class)
-public class User implements Serializable {
+@SuppressWarnings("unused")
+public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

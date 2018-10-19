@@ -1,6 +1,5 @@
-package com.d8games.web.services.model;
+package com.d8games.web.services.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
@@ -9,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "DEPARTMENT")
 @EntityListeners(AuditingEntityListener.class)
+@SuppressWarnings("unused")
 public class Department implements Serializable {
 
     @Id
@@ -20,9 +20,9 @@ public class Department implements Serializable {
     @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
-    private User manager;
+    private Employee manager;
 
     public String getId() {
         return id;
@@ -40,11 +40,11 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public User getManager() {
+    public Employee getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(Employee manager) {
         this.manager = manager;
     }
 }

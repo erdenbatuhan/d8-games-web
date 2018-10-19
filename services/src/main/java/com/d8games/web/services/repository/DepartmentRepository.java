@@ -1,6 +1,6 @@
 package com.d8games.web.services.repository;
 
-import com.d8games.web.services.model.Department;
+import com.d8games.web.services.model.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.d8games.web.services.model;
+package com.d8games.web.services.model.entity;
 
 import com.d8games.web.services.exception.AllocationTypeMismatch;
 import com.d8games.web.services.util.ProjectConstants;
@@ -11,6 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "ALLOCATION")
 @EntityListeners(AuditingEntityListener.class)
+@SuppressWarnings("unused")
 public class Allocation implements Serializable {
 
     @Id
@@ -26,9 +27,9 @@ public class Allocation implements Serializable {
     @Column(name = "TYPE", updatable = false, nullable = false)
     private String type;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", updatable = false, nullable = false)
-    private User user;
+    private Employee employee;
 
     public String getId() {
         return id;
@@ -57,11 +58,11 @@ public class Allocation implements Serializable {
             throw new AllocationTypeMismatch(type);
     }
 
-    public User getUser() {
-        return user;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

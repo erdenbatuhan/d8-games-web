@@ -1,4 +1,4 @@
-package com.d8games.web.services.model;
+package com.d8games.web.services.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "TITLE")
 @EntityListeners(AuditingEntityListener.class)
+@SuppressWarnings("unused")
 public class Title implements Serializable {
 
     @Id
