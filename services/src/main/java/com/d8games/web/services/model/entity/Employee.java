@@ -16,72 +16,72 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ID", unique = true, updatable = false, nullable = false)
-    private String id;
+    @Column(name = "EMPLOYEE_ID", unique = true, updatable = false, nullable = false)
+    private String employeeId;
 
-    @Column(name = "NAME", updatable = false, nullable = false)
-    private String name;
+    @Column(name = "EMPLOYEE_NAME", updatable = false, nullable = false)
+    private String employeeName;
 
-    @Column(name = "SURNAME", updatable = false, nullable = false)
-    private String surname;
+    @Column(name = "EMPLOYEE_SURNAME", updatable = false, nullable = false)
+    private String employeeSurname;
 
-    @Column(name = "PHOTO", nullable = false)
-    private String photo;
+    @Column(name = "EMPLOYEE_PHOTO", nullable = false)
+    private String employeePhoto;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "STARTING_DATE", updatable = false, nullable = false)
-    private Date startingDate;
+    @Column(name = "EMPLOYEE_STARTING_DATE", updatable = false, nullable = false)
+    private Date employeeStartingDate;
 
     @OneToOne
-    @JoinColumn(name = "TITLE_ID", referencedColumnName = "ID", nullable = false)
-    private Title title;
+    @JoinColumn(name = "EMPLOYEE_TITLE_ID", referencedColumnName = "TITLE_ID", nullable = false)
+    private Title employeeTitle;
 
-    public String getId() {
-        return id;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getEmployeeSurname() {
+        return employeeSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setEmployeeSurname(String employeeSurname) {
+        this.employeeSurname = employeeSurname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getEmployeePhoto() {
+        return employeePhoto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setEmployeePhoto(String employeePhoto) {
+        this.employeePhoto = employeePhoto;
     }
 
-    public Date getStartingDate() {
-        return startingDate;
+    public Date getEmployeeStartingDate() {
+        return employeeStartingDate;
     }
 
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
+    public void setEmployeeStartingDate(Date employeeStartingDate) {
+        this.employeeStartingDate = employeeStartingDate;
     }
 
-    public Title getTitle() {
-        return title;
+    public Title getEmployeeTitle() {
+        return employeeTitle;
     }
 
-    public void setTitle(Title title) {
-        this.title = title;
+    public void setEmployeeTitle(Title employeeTitle) {
+        this.employeeTitle = employeeTitle;
     }
 }

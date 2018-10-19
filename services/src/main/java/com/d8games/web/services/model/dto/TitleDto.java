@@ -1,34 +1,43 @@
 package com.d8games.web.services.model.dto;
 
+import com.d8games.web.services.model.entity.Department;
+
 @SuppressWarnings("unused")
 public class TitleDto {
 
-    private String id;
-    private String name;
+    private String titleId;
+    private String titleName;
     private Double officeHoursNeededPerMonth;
     private Double homeHoursNeededPerMonth;
     private Double salaryPerHour;
     private Double overtimeSalaryPerHour;
-    private String departmentId;
+    private Department titleDepartment;
 
-    public TitleDto() {
-
+    public TitleDto(String titleId, String titleName, Double officeHoursNeededPerMonth, Double homeHoursNeededPerMonth,
+                    Double salaryPerHour, Double overtimeSalaryPerHour, Department titleDepartment) {
+        this.titleId = titleId;
+        this.titleName = titleName;
+        this.officeHoursNeededPerMonth = officeHoursNeededPerMonth;
+        this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
+        this.salaryPerHour = salaryPerHour;
+        this.overtimeSalaryPerHour = overtimeSalaryPerHour;
+        this.titleDepartment = titleDepartment;
     }
 
-    public String getId() {
-        return id;
+    public String getTitleId() {
+        return titleId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTitleId(String titleId) {
+        this.titleId = titleId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitleName() {
+        return titleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
     }
 
     public Double getOfficeHoursNeededPerMonth() {
@@ -63,11 +72,11 @@ public class TitleDto {
         this.overtimeSalaryPerHour = overtimeSalaryPerHour;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public Department getTitleDepartment() {
+        return titleDepartment;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setTitleDepartment(Department titleDepartment) {
+        this.titleDepartment = titleDepartment;
     }
 }

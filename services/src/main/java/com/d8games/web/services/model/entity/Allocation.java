@@ -17,52 +17,52 @@ public class Allocation implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ID", unique = true, updatable = false, nullable = false)
-    private String id;
+    @Column(name = "ALLOCATION_ID", unique = true, updatable = false, nullable = false)
+    private String allocationId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATE", updatable = false, nullable = false)
-    private Date date;
+    @Column(name = "ALLOCATION_DATE", updatable = false, nullable = false)
+    private Date allocationDate;
 
-    @Column(name = "TYPE", updatable = false, nullable = false)
-    private String type;
+    @Column(name = "ALLOCATION_TYPE", updatable = false, nullable = false)
+    private String allocationType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", updatable = false, nullable = false)
-    private Employee employee;
+    @JoinColumn(name = "ALLOCATION_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", updatable = false, nullable = false)
+    private Employee allocationEmployee;
 
-    public String getId() {
-        return id;
+    public String getAllocationId() {
+        return allocationId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAllocationId(String allocationId) {
+        this.allocationId = allocationId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getAllocationDate() {
+        return allocationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAllocationDate(Date allocationDate) {
+        this.allocationDate = allocationDate;
     }
 
-    public String getType() {
-        return type;
+    public String getAllocationType() {
+        return allocationType;
     }
 
-    public void setType(String type) throws AllocationTypeMismatch {
-        if (type.equals(ProjectConstants.ALLOCATION_TYPE_IN) || type.equals(ProjectConstants.ALLOCATION_TYPE_OUT))
-            this.type = type;
+    public void setAllocationType(String allocationType) throws AllocationTypeMismatch {
+        if (allocationType.equals(ProjectConstants.ALLOCATION_TYPE_IN) || allocationType.equals(ProjectConstants.ALLOCATION_TYPE_OUT))
+            this.allocationType = allocationType;
         else
-            throw new AllocationTypeMismatch(type);
+            throw new AllocationTypeMismatch(allocationType);
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getAllocationEmployee() {
+        return allocationEmployee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setAllocationEmployee(Employee allocationEmployee) {
+        this.allocationEmployee = allocationEmployee;
     }
 }

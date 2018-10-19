@@ -1,46 +1,43 @@
 package com.d8games.web.services.controller;
 
 import com.d8games.web.services.model.entity.Employee;
-import com.d8games.web.services.model.entity.Title;
-import com.d8games.web.services.repository.EmployeeRepository;
-import com.d8games.web.services.repository.TitleRepository;
+import com.d8games.web.services.service.EmployeeService;
+import com.d8games.web.services.service.TitleService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/services/controller/employee")
 public class EmployeeController {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @Autowired
-    TitleRepository titleRepository;
+    private TitleService titleService;
 
     @GetMapping(value="/getAll")
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<Employee> getEmployees() {
+        return employeeService.getAllDepartments();
     }
 
-    @PutMapping(value = "/addEmployee/values")
-    public HttpStatus addEmployee(@RequestParam String name, @RequestParam String surname,
-                                  @RequestParam String photo, @RequestParam String titleId) {
+    @PutMapping(value = "/save")
+    public HttpStatus saveEmployee(@RequestParam String employeeName, @RequestParam String employeeSurname,
+                                   @RequestParam String employeePhoto, @RequestParam String employeeTitleId) {
         Employee employee = new Employee();
 
-        employee.setName(name);
-        employee.setSurname(surname);
-        employee.setPhoto(photo);
-        employee.setStartingDate(new Date());
+        employee.setEmployeeName(employeeName);
+        employee.setEmployeeSurname(employeeSurname);
+        employee.setEmployeePhoto(employeePhoto);
+        employee.setEmployeeStartingDate(new Date());
+        employee.setEmployeeTitle(titleService.getTitleByTitleId(employeeTitleId));
 
-        Optional<Title> optionalTitle = titleRepository.findById(titleId);
-        optionalTitle.ifPresent(title -> employee.setTitle(title));
-
-        employeeRepository.save(employee);
+        employeeService.saveEmployee(employee);
         return HttpStatus.OK;
     }
 }

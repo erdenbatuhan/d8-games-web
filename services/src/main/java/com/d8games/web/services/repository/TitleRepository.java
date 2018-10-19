@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TitleRepository extends JpaRepository<Title, String> {
 
+    Title getTitleByTitleId(String titleId);
 }

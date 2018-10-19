@@ -1,48 +1,53 @@
 package com.d8games.web.services.model.dto;
 
+import com.d8games.web.services.model.entity.Employee;
+
 import java.util.Date;
 
 @SuppressWarnings("unused")
 public class AllocationDto {
 
-    private String id;
-    private Date date;
-    private String type;
-    private String userId;
+    private String allocationId;
+    private Date allocationDate;
+    private String allocationType;
+    private Employee allocationEmployee;
 
-    public AllocationDto() {
-
+    public AllocationDto(String allocationId, Date allocationDate, String allocationType, Employee allocationEmployee) {
+        this.allocationId = allocationId;
+        this.allocationDate = allocationDate;
+        this.allocationType = allocationType;
+        this.allocationEmployee = allocationEmployee;
     }
 
-    public String getId() {
-        return id;
+    public String getAllocationId() {
+        return allocationId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAllocationId(String allocationId) {
+        this.allocationId = allocationId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getAllocationDate() {
+        return allocationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAllocationDate(Date allocationDate) {
+        this.allocationDate = allocationDate;
     }
 
-    public String getType() {
-        return type;
+    public String getAllocationType() {
+        return allocationType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAllocationType(String allocationType) {
+        this.allocationType = allocationType;
     }
 
-    public String getUserId() {
-        return userId;
+    public Employee getAllocationEmployee() {
+        return allocationEmployee;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAllocationEmployee(Employee allocationEmployee) {
+        this.allocationEmployee = allocationEmployee;
     }
 }

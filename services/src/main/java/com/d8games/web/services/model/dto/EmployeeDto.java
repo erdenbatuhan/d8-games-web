@@ -1,66 +1,74 @@
 package com.d8games.web.services.model.dto;
 
+import com.d8games.web.services.model.entity.Title;
+
 import java.util.Date;
 
 @SuppressWarnings("unused")
 public class EmployeeDto {
 
-    private String id;
-    private String name;
-    private String surname;
-    private String photo;
-    private Date startingDate;
-    private String titleId;
+    private String employeeId;
+    private String employeeName;
+    private String employeeSurname;
+    private String employeePhoto;
+    private Date employeeStartingDate;
+    private Title employeeTitle;
 
-    public EmployeeDto() {
-
+    public EmployeeDto(String employeeId, String employeeName, String employeeSurname,
+                       String employeePhoto, Date employeeStartingDate, Title employeeTitle) {
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.employeeSurname = employeeSurname;
+        this.employeePhoto = employeePhoto;
+        this.employeeStartingDate = employeeStartingDate;
+        this.employeeTitle = employeeTitle;
     }
 
-    public String getId() {
-        return id;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getEmployeeSurname() {
+        return employeeSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setEmployeeSurname(String employeeSurname) {
+        this.employeeSurname = employeeSurname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getEmployeePhoto() {
+        return employeePhoto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setEmployeePhoto(String employeePhoto) {
+        this.employeePhoto = employeePhoto;
     }
 
-    public Date getStartingDate() {
-        return startingDate;
+    public Date getEmployeeStartingDate() {
+        return employeeStartingDate;
     }
 
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
+    public void setEmployeeStartingDate(Date employeeStartingDate) {
+        this.employeeStartingDate = employeeStartingDate;
     }
 
-    public String getTitleId() {
-        return titleId;
+    public Title getEmployeeTitle() {
+        return employeeTitle;
     }
 
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
+    public void setEmployeeTitle(Title employeeTitle) {
+        this.employeeTitle = employeeTitle;
     }
 }

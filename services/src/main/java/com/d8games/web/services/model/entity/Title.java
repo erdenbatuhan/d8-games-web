@@ -14,11 +14,11 @@ public class Title implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ID", unique = true, updatable = false, nullable = false)
-    private String id;
+    @Column(name = "TITLE_ID", unique = true, updatable = false, nullable = false)
+    private String titleId;
 
-    @Column(name = "NAME", unique = true, nullable = false)
-    private String name;
+    @Column(name = "TITLE_NAME", unique = true, nullable = false)
+    private String titleName;
 
     @Column(name = "OFFICE_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
     private Double officeHoursNeededPerMonth;
@@ -33,23 +33,23 @@ public class Title implements Serializable {
     private Double overtimeSalaryPerHour;
 
     @OneToOne
-    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
-    private Department department;
+    @JoinColumn(name = "TITLE_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID", nullable = false)
+    private Department titleDepartment;
 
-    public String getId() {
-        return id;
+    public String getTitleId() {
+        return titleId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTitleId(String titleId) {
+        this.titleId = titleId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitleName() {
+        return titleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
     }
 
     public Double getOfficeHoursNeededPerMonth() {
@@ -84,11 +84,11 @@ public class Title implements Serializable {
         this.overtimeSalaryPerHour = overtimeSalaryPerHour;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Department getTitleDepartment() {
+        return titleDepartment;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setTitleDepartment(Department titleDepartment) {
+        this.titleDepartment = titleDepartment;
     }
 }

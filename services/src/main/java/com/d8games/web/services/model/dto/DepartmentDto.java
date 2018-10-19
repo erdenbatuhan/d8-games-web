@@ -1,37 +1,41 @@
 package com.d8games.web.services.model.dto;
 
+import com.d8games.web.services.model.entity.Department;
+
 @SuppressWarnings("unused")
 public class DepartmentDto {
 
-    private String id;
-    private String name;
-    private String managerId;
+    private String departmentId;
+    private String departmentActualName;
+    private Department departmentManager;
 
-    public DepartmentDto() {
-
+    public DepartmentDto(String departmentId, String departmentActualName, Department departmentManager) {
+        this.departmentId = departmentId;
+        this.departmentActualName = departmentActualName;
+        this.departmentManager = departmentManager;
     }
 
-    public String getId() {
-        return id;
+    public String getDepartmentId() {
+        return departmentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartmentActualName() {
+        return departmentActualName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartmentActualName(String departmentActualName) {
+        this.departmentActualName = departmentActualName;
     }
 
-    public String getManagerId() {
-        return managerId;
+    public Department getDepartmentManager() {
+        return departmentManager;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setDepartmentManager(Department departmentManager) {
+        this.departmentManager = departmentManager;
     }
 }
