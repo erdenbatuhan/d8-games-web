@@ -1,5 +1,6 @@
 package com.d8games.web.services.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "TITLE")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @SuppressWarnings("unused")
 public class Title implements Serializable {
 

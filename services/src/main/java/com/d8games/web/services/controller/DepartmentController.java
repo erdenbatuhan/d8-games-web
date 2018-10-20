@@ -19,7 +19,7 @@ public class DepartmentController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(value="/getAll")
+    @GetMapping(value = "/getAll")
     public List<Department> getAllDepartments() {
         return departmentService.getAllDepartments();
     }

@@ -20,9 +20,14 @@ public class EmployeeController {
     @Autowired
     private TitleService titleService;
 
-    @GetMapping(value="/getAll")
+    @GetMapping(value = "/getAll")
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+
+    @GetMapping(value = "/getById")
+    public Employee getEmployeeById(@RequestParam String employeeId) {
+        return employeeService.getEmployeeByEmployeeId(employeeId);
     }
 
     @PutMapping(value = "/save")

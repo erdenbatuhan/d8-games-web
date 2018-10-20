@@ -1,5 +1,6 @@
 package com.d8games.web.services.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "EMPLOYEE")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @SuppressWarnings("unused")
 public class Employee implements Serializable {
 

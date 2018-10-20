@@ -2,6 +2,7 @@ package com.d8games.web.services.model.entity;
 
 import com.d8games.web.services.exception.AllocationTypeMismatch;
 import com.d8games.web.services.util.ProjectConstants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "ALLOCATION")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @SuppressWarnings("unused")
 public class Allocation implements Serializable {
 

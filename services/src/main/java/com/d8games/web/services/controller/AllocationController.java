@@ -20,7 +20,7 @@ public class AllocationController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(value="/getAll")
+    @GetMapping(value = "/getAll")
     public List<Allocation> getAllAllocations() {
         return allocationService.getAllAllocations();
     }
@@ -37,5 +37,4 @@ public class AllocationController {
         allocationService.saveAllocation(allocation);
         return HttpStatus.OK;
     }
-
 }
