@@ -6,12 +6,10 @@ import com.d8games.web.services.model.entity.Department;
 public class DepartmentDto {
 
     private String departmentId;
-    private String departmentActualName;
     private Department departmentManager;
 
-    public DepartmentDto(String departmentId, String departmentActualName, Department departmentManager) {
+    public DepartmentDto(String departmentId, Department departmentManager) {
         this.departmentId = departmentId;
-        this.departmentActualName = departmentActualName;
         this.departmentManager = departmentManager;
     }
 
@@ -21,14 +19,6 @@ public class DepartmentDto {
 
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
-    }
-
-    public String getDepartmentActualName() {
-        return departmentActualName;
-    }
-
-    public void setDepartmentActualName(String departmentActualName) {
-        this.departmentActualName = departmentActualName;
     }
 
     public Department getDepartmentManager() {

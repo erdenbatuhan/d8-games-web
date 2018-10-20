@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AllocationRepository extends JpaRepository<Allocation, String> {
 
+    Allocation getAllocationByAllocationId(String allocationId);
 }

@@ -33,7 +33,7 @@ public class Employee implements Serializable {
     @Column(name = "EMPLOYEE_STARTING_DATE", updatable = false, nullable = false)
     private Date employeeStartingDate;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_TITLE_ID", referencedColumnName = "TITLE_ID", nullable = false)
     private Title employeeTitle;
 

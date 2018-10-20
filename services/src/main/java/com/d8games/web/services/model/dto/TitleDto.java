@@ -1,26 +1,20 @@
 package com.d8games.web.services.model.dto;
 
 import com.d8games.web.services.model.entity.Department;
+import com.d8games.web.services.model.entity.WorkInfo;
 
 @SuppressWarnings("unused")
 public class TitleDto {
 
     private String titleId;
     private String titleName;
-    private Double officeHoursNeededPerMonth;
-    private Double homeHoursNeededPerMonth;
-    private Double salaryPerHour;
-    private Double overtimeSalaryPerHour;
+    private WorkInfo titleWorkInfo;
     private Department titleDepartment;
 
-    public TitleDto(String titleId, String titleName, Double officeHoursNeededPerMonth, Double homeHoursNeededPerMonth,
-                    Double salaryPerHour, Double overtimeSalaryPerHour, Department titleDepartment) {
+    public TitleDto(String titleId, String titleName, WorkInfo titleWorkInfo, Department titleDepartment) {
         this.titleId = titleId;
         this.titleName = titleName;
-        this.officeHoursNeededPerMonth = officeHoursNeededPerMonth;
-        this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
-        this.salaryPerHour = salaryPerHour;
-        this.overtimeSalaryPerHour = overtimeSalaryPerHour;
+        this.titleWorkInfo = titleWorkInfo;
         this.titleDepartment = titleDepartment;
     }
 
@@ -40,36 +34,12 @@ public class TitleDto {
         this.titleName = titleName;
     }
 
-    public Double getOfficeHoursNeededPerMonth() {
-        return officeHoursNeededPerMonth;
+    public WorkInfo getTitleWorkInfo() {
+        return titleWorkInfo;
     }
 
-    public void setOfficeHoursNeededPerMonth(Double officeHoursNeededPerMonth) {
-        this.officeHoursNeededPerMonth = officeHoursNeededPerMonth;
-    }
-
-    public Double getHomeHoursNeededPerMonth() {
-        return homeHoursNeededPerMonth;
-    }
-
-    public void setHomeHoursNeededPerMonth(Double homeHoursNeededPerMonth) {
-        this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
-    }
-
-    public Double getSalaryPerHour() {
-        return salaryPerHour;
-    }
-
-    public void setSalaryPerHour(Double salaryPerHour) {
-        this.salaryPerHour = salaryPerHour;
-    }
-
-    public Double getOvertimeSalaryPerHour() {
-        return overtimeSalaryPerHour;
-    }
-
-    public void setOvertimeSalaryPerHour(Double overtimeSalaryPerHour) {
-        this.overtimeSalaryPerHour = overtimeSalaryPerHour;
+    public void setTitleWorkInfo(WorkInfo titleWorkInfo) {
+        this.titleWorkInfo = titleWorkInfo;
     }
 
     public Department getTitleDepartment() {

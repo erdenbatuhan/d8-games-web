@@ -3,7 +3,6 @@ package com.d8games.web.services.controller;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,8 @@ public class EmployeeController {
     private TitleService titleService;
 
     @GetMapping(value="/getAll")
-    public List<Employee> getEmployees() {
-        return employeeService.getAllDepartments();
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     @PutMapping(value = "/save")
@@ -34,7 +33,7 @@ public class EmployeeController {
         employee.setEmployeeName(employeeName);
         employee.setEmployeeSurname(employeeSurname);
         employee.setEmployeePhoto(employeePhoto);
-        employee.setEmployeeStartingDate(new Date());
+        employee.setEmployeeStartingDate(new Date()); // Get the current date
         employee.setEmployeeTitle(titleService.getTitleByTitleId(employeeTitleId));
 
         employeeService.saveEmployee(employee);

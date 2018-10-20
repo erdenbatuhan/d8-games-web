@@ -20,19 +20,11 @@ public class Title implements Serializable {
     @Column(name = "TITLE_NAME", unique = true, nullable = false)
     private String titleName;
 
-    @Column(name = "OFFICE_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
-    private Double officeHoursNeededPerMonth;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TITLE_WORK_INFO_ID", referencedColumnName = "WORK_INFO_ID", nullable = false)
+    private WorkInfo titleWorkInfo;
 
-    @Column(name = "HOME_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
-    private Double homeHoursNeededPerMonth;
-
-    @Column(name = "SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
-    private Double salaryPerHour;
-
-    @Column(name = "OVERTIME_SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
-    private Double overtimeSalaryPerHour;
-
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TITLE_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID", nullable = false)
     private Department titleDepartment;
 
@@ -52,36 +44,12 @@ public class Title implements Serializable {
         this.titleName = titleName;
     }
 
-    public Double getOfficeHoursNeededPerMonth() {
-        return officeHoursNeededPerMonth;
+    public WorkInfo getTitleWorkInfo() {
+        return titleWorkInfo;
     }
 
-    public void setOfficeHoursNeededPerMonth(Double officeHoursNeededPerMonth) {
-        this.officeHoursNeededPerMonth = officeHoursNeededPerMonth;
-    }
-
-    public Double getHomeHoursNeededPerMonth() {
-        return homeHoursNeededPerMonth;
-    }
-
-    public void setHomeHoursNeededPerMonth(Double homeHoursNeededPerMonth) {
-        this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
-    }
-
-    public Double getSalaryPerHour() {
-        return salaryPerHour;
-    }
-
-    public void setSalaryPerHour(Double salaryPerHour) {
-        this.salaryPerHour = salaryPerHour;
-    }
-
-    public Double getOvertimeSalaryPerHour() {
-        return overtimeSalaryPerHour;
-    }
-
-    public void setOvertimeSalaryPerHour(Double overtimeSalaryPerHour) {
-        this.overtimeSalaryPerHour = overtimeSalaryPerHour;
+    public void setTitleWorkInfo(WorkInfo titleWorkInfo) {
+        this.titleWorkInfo = titleWorkInfo;
     }
 
     public Department getTitleDepartment() {
