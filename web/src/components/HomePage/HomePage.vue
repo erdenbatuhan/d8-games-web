@@ -25,10 +25,10 @@
 </script>
 
 <style scoped>
-   .jumbotron {
-     background: transparent;
-     margin-bottom: 0px;
-   }
+  .jumbotron {
+    background: transparent;
+    margin-bottom: 0px;
+  }
 
   .background {
     background: url("../../assets/bg-img.jpg");
@@ -44,14 +44,5 @@
     top: 0;
     left: 0;
     z-index: 1000;
-  }
-
-  .header {
-    background-color: transparent;
-    position: absolute;
-    width: max-content;
-    color: #fff;
-    text-align: center;
-    vertical-align: middle;
   }
 </style>
