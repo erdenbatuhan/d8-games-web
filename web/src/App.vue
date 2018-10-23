@@ -1,9 +1,6 @@
 <template>
   <div id="app" class = "overlay">
-    <home-page></home-page>
-    <!-- <login-page></login-page> -->
-    <!-- <games-page></games-page> -->
-    <!-- <calendar></calendar> -->
+  <router-view></router-view>
   </div>
 </template>
 

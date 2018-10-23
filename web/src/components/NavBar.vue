@@ -11,30 +11,61 @@
 
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav class="navbar-nav-left">
-        <b-nav-item-dropdown text="Games" right>
-          <b-dropdown-item href="#">Jelly Portal</b-dropdown-item>
+        <b-nav-item-dropdown text="Pages"> <!-- TODO: make sure the pages are navigatable (maybe html for each page and components inside?)-->
+          <b-dropdown-item href="#"><router-link to="/">Home Page</router-link></b-dropdown-item>
+          <b-dropdown-item href="#"><router-link to="games">Games Page</router-link></b-dropdown-item>
+          <b-dropdown-item href="#"><router-link to="/">Contact Us</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
-
-        <b-nav-item href="#">Contacts</b-nav-item>
       </b-navbar-nav>
 
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#" right>Login</b-nav-item>
-      </b-navbar-nav>
-    </b-collapse>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item v-if="caller==='HomePage'" right><router-link to="/adminlogin" id="adminlogin">adminlogin</router-link></b-nav-item>
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="caller==='AdminPage'">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <b-button variant="secondary" class="btn btn-medium vouch-buttons" id="left-button">Vouch IN</b-button>
+              </li>
+              <li class="nav-item">
+                <b-button variant="secondary" class="btn btn-medium vouch-buttons" id="right-button">Vouch OUT</b-button>
+              </li>
+              <li><img src="../assets/myImg.jpg" class="navbar-img" alt=""></li>
+            </ul>
+          </div>
+        </b-navbar-nav>
+      </b-collapse>
   </b-navbar>
 </template>
 
 <script>
-    export default {
-      name: 'Navbar',
-      props: {}
+  export default {
+    name: 'Navbar',
+    props: {
+      caller:''
     }
+  }
 </script>
 
 <style scoped>
-    b-navbar {
-      background-color: #000;
-    }
+  b-navbar {
+    background-color: #000;
+  }
+
+  .navbar-img {
+    height: auto;
+    width: auto;
+    max-height: 70px;
+    max-width: 250px;
+    border-radius: 50%;
+  }
+
+  .vouch-buttons {
+    margin-top: 15px;
+    margin-right: 20px;
+  }
+
+  #adminlogin {
+    color:white;
+    text-decoration: none;
+  }
 </style>

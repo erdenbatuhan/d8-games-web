@@ -1,6 +1,6 @@
 <template>
   <div id="AdminPage">
-    <navbar></navbar>
+    <navbar :caller="name"></navbar>
     <br><br>
 
     <div class="container-fluid">
@@ -35,7 +35,8 @@
     components: {navbar, employeeSummary, employeeCard, calendar},
     data() {
       return {
-        employees: employees
+        employees: employees,
+        name:"AdminPage"
       }
     }
   }

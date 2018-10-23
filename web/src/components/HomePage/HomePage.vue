@@ -1,7 +1,7 @@
 <template>
   <div class="background">
-    <navbar></navbar>
-    <b-jumbotron container-fluid="true" bg-variant="" text-variant="black" class="jumbotron">
+    <navbar :caller="name"></navbar>
+    <b-jumbotron container-fluid bg-variant="" text-variant="black" class="jumbotron">
       <template slot="header">
         D8 Games
       </template>
@@ -20,6 +20,11 @@
     name: 'HomePage',
     components: {
       navbar
+    },
+    data() {
+      return {
+        name:"HomePage"
+      }
     }
   }
 </script>
@@ -31,13 +36,11 @@
   }
 
   .background {
-    background: url("../../assets/bg-img.jpg");
-    background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-position: center;
+    background: url("../../assets/bg-img.jpg") no-repeat center;
     position: fixed;
     width: 100%;
     height: 100%;

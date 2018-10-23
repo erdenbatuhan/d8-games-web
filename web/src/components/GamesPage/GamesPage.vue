@@ -1,5 +1,6 @@
 <template>
   <div id = "GamesPage">
+    <Navbar :caller="name"></Navbar>
     <h1 id="header"> Our Games </h1>
     <b-container id="games-grid">
       <b-row class = "row">
@@ -21,14 +22,23 @@
 </template>
 
 <script>
+  import Navbar from "../Navbar"
   export default {
-    name: "GamesPage"
+    name: "GamesPage",
+    components: {
+      Navbar
+    },
+    data() {
+      return {
+        name: "GamesPage"
+      }
+    }
   }
 </script>
 
 <style scoped>
   #header {
-    margin-left: 200px;
+    margin-left: 50px;
   }
 
   #games-grid {
