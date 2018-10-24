@@ -4,13 +4,13 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col" v-for="item in days">{{item.day}}</th>
+          <th scope="col" v-for="item in days"> {{ item.day }} </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for= "item in hours">
-        <th>{{item.hour}}</th>
-        <td v-for="index in 7">{{dummyData}}</td>
+        <th> {{ item.hour }} </th>
+        <td v-for="index in 7"> {{ dummyData }} </td>
         </tr>
       </tbody>
     </table>

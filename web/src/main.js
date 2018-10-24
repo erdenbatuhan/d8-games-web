@@ -1,37 +1,49 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+import VueRouter from 'vue-router'
+
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueRouter from 'vue-router'
-import HomePage from "./components/HomePage/HomePage"
-import AdminPage from "./components/AdminPage/AdminPage"
-import GamesPage from "./components/GamesPage/GamesPage"
-import LoginPage from "./components/LoginPage/LoginPage"
+
+import App from './App'
+
+import home from "./components/home/home.vue"
+import employeeProfile from "./components/employee-profile/employee-profile.vue"
+import ourGames from "./components/our-games/our-games.vue"
+import employeeLogin from "./components/employee-login/employee-login.vue"
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
+
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
   routes: [
-    {path: '/', component: HomePage},
-    {path: '/admin', component: AdminPage},
-    {path: '/games', component: GamesPage},
-    {path: '/adminlogin', component: LoginPage}
+    {
+      path: '/',
+      component: home
+    },
+    {
+      path: '/employeeProfile',
+      component: employeeProfile
+    },
+    {
+      path: '/ourGames',
+      component: ourGames
+    },
+    {
+      path: '/employeeLogin',
+      component: employeeLogin
+    }
   ],
   mode: 'history'
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: {App},
+  components: {
+    App
+  },
   template: '<App/>',
 })
-
-
-

@@ -19,15 +19,12 @@
 </template>
 
 <script>
-  import employeeSummaryInfo from "./EmployeeSummaryInfo";
+  import employeeSummaryInfo from "./employee-summary-info.vue";
 
   export default {
-    name: 'EmployeeSummary',
     components: {
       employeeSummaryInfo
     },
-    props: {
-      employees: {}
-    }
+    props: ['employees']
   }
 </script>

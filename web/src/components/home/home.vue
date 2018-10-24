@@ -1,7 +1,7 @@
 <template>
   <div class="background">
-    <navbar :caller="name"></navbar>
-    <b-jumbotron container-fluid bg-variant="" text-variant="black" class="jumbotron">
+    <navbar></navbar>
+    <b-jumbotron class="floating-above" ontainer-fluid bg-variant="" text-variant="black">
       <template slot="header">
         D8 Games
       </template>
@@ -14,38 +14,37 @@
 </template>
 
 <script>
-  import navbar from "../Navbar";
+  import navbar from "../navbar/navbar.vue";
 
   export default {
-    name: 'HomePage',
     components: {
       navbar
     },
     data() {
       return {
-        name:"HomePage"
+        name: "home"
       }
     }
   }
 </script>
 
 <style scoped>
-  .jumbotron {
-    background: transparent;
-    margin-bottom: 0px;
-  }
-
   .background {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background: url("../../assets/bg-img.jpg") no-repeat center;
+    background: url("/static/images/home/backgroundImage.jpg") no-repeat center;
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
+  }
+
+  .floating-above {
+    background: transparent;
+    margin-bottom: 0;
   }
 </style>
