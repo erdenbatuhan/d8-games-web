@@ -38,7 +38,7 @@ public class EmployeeController {
         employee.setEmployeeName(employeeName);
         employee.setEmployeeSurname(employeeSurname);
         employee.setEmployeePhoto(employeePhoto);
-        employee.setEmployeeStartingDate(new Date()); // Get the current date
+        employee.setEmployeeJoinDate(new Date()); // Get the current date
         employee.setEmployeeTitle(titleService.getTitleByTitleId(employeeTitleId));
 
         employeeService.saveEmployee(employee);

@@ -11,16 +11,16 @@ public class EmployeeDto {
     private String employeeName;
     private String employeeSurname;
     private String employeePhoto;
-    private Date employeeStartingDate;
+    private Date employeeJoinDate;
     private Title employeeTitle;
 
     public EmployeeDto(String employeeId, String employeeName, String employeeSurname,
-                       String employeePhoto, Date employeeStartingDate, Title employeeTitle) {
+                       String employeePhoto, Date employeeJoinDate, Title employeeTitle) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
         this.employeePhoto = employeePhoto;
-        this.employeeStartingDate = employeeStartingDate;
+        this.employeeJoinDate = employeeJoinDate;
         this.employeeTitle = employeeTitle;
     }
 
@@ -56,12 +56,12 @@ public class EmployeeDto {
         this.employeePhoto = employeePhoto;
     }
 
-    public Date getEmployeeStartingDate() {
-        return employeeStartingDate;
+    public Date getEmployeeJoinDate() {
+        return employeeJoinDate;
     }
 
-    public void setEmployeeStartingDate(Date employeeStartingDate) {
-        this.employeeStartingDate = employeeStartingDate;
+    public void setEmployeeJoinDate(Date employeeJoinDate) {
+        this.employeeJoinDate = employeeJoinDate;
     }
 
     public Title getEmployeeTitle() {

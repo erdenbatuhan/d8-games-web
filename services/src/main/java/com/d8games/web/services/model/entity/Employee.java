@@ -31,9 +31,9 @@ public class Employee implements Serializable {
     private String employeePhoto;
 
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EMPLOYEE_STARTING_DATE", updatable = false, nullable = false)
-    private Date employeeStartingDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
+    private Date employeeJoinDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_TITLE_ID", referencedColumnName = "TITLE_ID", nullable = false)
@@ -71,12 +71,12 @@ public class Employee implements Serializable {
         this.employeePhoto = employeePhoto;
     }
 
-    public Date getEmployeeStartingDate() {
-        return employeeStartingDate;
+    public Date getEmployeeJoinDate() {
+        return employeeJoinDate;
     }
 
-    public void setEmployeeStartingDate(Date employeeStartingDate) {
-        this.employeeStartingDate = employeeStartingDate;
+    public void setEmployeeJoinDate(Date employeeJoinDate) {
+        this.employeeJoinDate = employeeJoinDate;
     }
 
     public Title getEmployeeTitle() {
