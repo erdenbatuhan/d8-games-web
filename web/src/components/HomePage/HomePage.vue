@@ -1,7 +1,7 @@
 <template>
   <div class="background">
-    <HomePageNavBar></HomePageNavBar>
-    <b-jumbotron container-fluid="true" bg-variant="" text-variant="black" class="jumbotron">
+    <navbar :caller="name"></navbar>
+    <b-jumbotron container-fluid bg-variant="" text-variant="black" class="jumbotron">
       <template slot="header">
         D8 Games
       </template>
@@ -14,42 +14,38 @@
 </template>
 
 <script>
-  import HomePageNavBar from "./HomePageNavBar";
+  import navbar from "../Navbar";
 
   export default {
     name: 'HomePage',
-    components: {HomePageNavBar: HomePageNavBar}
+    components: {
+      navbar
+    },
+    data() {
+      return {
+        name:"HomePage"
+      }
+    }
   }
 </script>
 
 <style scoped>
-   .jumbotron {
-     background: transparent;
-     margin-bottom: 0px;
-   }
+  .jumbotron {
+    background: transparent;
+    margin-bottom: 0px;
+  }
 
   .background {
-    background: url("../assets/bg-img.jpg");
-    background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-position: center;
+    background: url("../../assets/bg-img.jpg") no-repeat center;
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-  }
-
-  .header {
-    background-color: transparent;
-    position: absolute;
-    width: max-content;
-    color: #fff;
-    text-align: center;
-    vertical-align: middle;
   }
 </style>
