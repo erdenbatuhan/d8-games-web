@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import navbar from "../navbar/navbar.vue";
+  import navbar from '../navbar/navbar.vue';
 
   export default {
     components: {
@@ -22,7 +22,7 @@
     },
     data() {
       return {
-        name: "home"
+        name: 'home'
       }
     }
   }

@@ -17,8 +17,8 @@ public class WorkInfoService {
         return workInfoRepository.findAll();
     }
 
-    public WorkInfo getWorkInfoByWorkInfoId(String workInfoId) {
-        return workInfoRepository.getWorkInfoByWorkInfoId(workInfoId);
+    public WorkInfo getById(String id) {
+        return workInfoRepository.getWorkInfoByWorkInfoId(id);
     }
 
     public void saveWorkInfo(WorkInfo workInfo) {

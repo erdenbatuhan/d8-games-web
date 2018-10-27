@@ -13,15 +13,15 @@ public class TitleService {
     @Autowired
     TitleRepository titleRepository;
 
-    public List<Title> getAllTitles() {
+    public List<Title> getAll() {
         return titleRepository.findAll();
     }
 
-    public Title getTitleByTitleId(String titleId) {
-        return titleRepository.getTitleByTitleId(titleId);
+    public Title getById(String id) {
+        return titleRepository.getTitleByTitleId(id);
     }
 
-    public void saveTitle(Title title) {
+    public void save(Title title) {
         titleRepository.save(title);
     }
 }

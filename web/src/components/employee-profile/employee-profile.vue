@@ -23,10 +23,10 @@
 </template>
 
 <script>
-  import navbar from "../navbar/navbar.vue"
-  import employeeCard from "./employee-card.vue"
-  import employeeSummary from "./employee-summary.vue"
-  import calendar from "./calendar.vue"
+  import navbar from '../navbar/navbar.vue'
+  import employeeCard from './employee-card.vue'
+  import employeeSummary from './employee-summary.vue'
+  import calendar from './calendar.vue'
 
   import employees from '../../employees.json'
 
@@ -35,14 +35,14 @@
     data() {
       return {
         EMPLOYEE_PHOTO_DIR: '/static/images/employee-profile/',
-        name: "employeeProfile",
+        name: 'employeeProfile',
         employees: employees
       }
     },
     methods: {
       getEmployeePhotoPath: function(id) {
-        let employeePhotoName = id || "default"
-        return this.EMPLOYEE_PHOTO_DIR + employeePhotoName + ".jpg"
+        let employeePhotoName = id || 'default'
+        return this.EMPLOYEE_PHOTO_DIR + employeePhotoName + '.jpg'
       }
     }
   }

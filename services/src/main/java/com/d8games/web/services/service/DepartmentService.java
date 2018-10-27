@@ -13,15 +13,15 @@ public class DepartmentService {
     @Autowired
     DepartmentRepository departmentRepository;
 
-    public List<Department> getAllDepartments() {
+    public List<Department> getAll() {
         return departmentRepository.findAll();
     }
 
-    public Department getDepartmentByDepartmentId(String departmentId) {
-        return departmentRepository.getDepartmentByDepartmentId(departmentId);
+    public Department getById(String id) {
+        return departmentRepository.getDepartmentByDepartmentId(id);
     }
 
-    public void saveDepartment(Department department) {
+    public void save(Department department) {
         departmentRepository.save(department);
     }
 }

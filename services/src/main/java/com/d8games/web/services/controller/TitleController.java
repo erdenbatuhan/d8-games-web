@@ -24,20 +24,25 @@ public class TitleController {
     DepartmentService departmentService;
 
     @GetMapping(value = "/getAll")
-    public List<Title> getAllTitles() {
-        return titleService.getAllTitles();
+    public List<Title> getAll() {
+        return titleService.getAll();
+    }
+
+    @GetMapping(value = "/getById")
+    public Title getById(@RequestParam String id) {
+        return titleService.getById(id);
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus saveTitle(@RequestParam String titleName, @RequestParam String workInfoId,
-                                @RequestParam String titleDepartmentId) {
+    public HttpStatus save(@RequestParam String titleName, @RequestParam String workInfoId,
+                           @RequestParam String titleDepartmentId) {
         Title title = new Title();
 
         title.setTitleName(titleName);
-        title.setTitleWorkInfo(workInfoService.getWorkInfoByWorkInfoId(workInfoId));
-        title.setTitleDepartment(departmentService.getDepartmentByDepartmentId(titleDepartmentId));
+        title.setTitleWorkInfo(workInfoService.getById(workInfoId));
+        title.setTitleDepartment(departmentService.getById(titleDepartmentId));
 
-        titleService.saveTitle(title);
+        titleService.save(title);
         return HttpStatus.OK;
     }
 }

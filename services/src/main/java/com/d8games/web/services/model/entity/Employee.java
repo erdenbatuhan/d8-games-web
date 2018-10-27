@@ -27,10 +27,6 @@ public class Employee implements Serializable {
     @Column(name = "EMPLOYEE_SURNAME", updatable = false, nullable = false)
     private String employeeSurname;
 
-    @Column(name = "EMPLOYEE_PHOTO", nullable = false)
-    private String employeePhoto;
-
-    @CreatedDate
     @Temporal(TemporalType.DATE)
     @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
     private Date employeeJoinDate;
@@ -61,14 +57,6 @@ public class Employee implements Serializable {
 
     public void setEmployeeSurname(String employeeSurname) {
         this.employeeSurname = employeeSurname;
-    }
-
-    public String getEmployeePhoto() {
-        return employeePhoto;
-    }
-
-    public void setEmployeePhoto(String employeePhoto) {
-        this.employeePhoto = employeePhoto;
     }
 
     public Date getEmployeeJoinDate() {

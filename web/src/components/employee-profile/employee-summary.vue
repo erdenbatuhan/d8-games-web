@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import employeeSummaryInfo from "./employee-summary-info.vue";
+  import employeeSummaryInfo from './employee-summary-info.vue'
 
   export default {
     components: {

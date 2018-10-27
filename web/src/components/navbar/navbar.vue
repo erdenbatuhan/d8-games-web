@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="light" variant="dark">
+    <b-navbar toggleable="md" type="light" variant="light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
       <!-- Left aligned nav items -->
@@ -53,10 +53,6 @@
 </script>
 
 <style scoped>
-  b-navbar {
-    background-color: #24292e;
-  }
-
   .navbar-img {
     height: auto;
     width: auto;
@@ -71,7 +67,7 @@
   }
 
   .login-link {
-    color: white;
+    color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
   }
 </style>

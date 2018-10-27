@@ -20,18 +20,23 @@ public class DepartmentController {
     EmployeeService employeeService;
 
     @GetMapping(value = "/getAll")
-    public List<Department> getAllDepartments() {
-        return departmentService.getAllDepartments();
+    public List<Department> getAll() {
+        return departmentService.getAll();
+    }
+
+    @GetMapping(value = "/getById")
+    public Department getById(@RequestParam String id) {
+        return departmentService.getById(id);
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus saveDepartment(@RequestParam String departmentName, @RequestParam String departmentManagerId) {
+    public HttpStatus save(@RequestParam String departmentName, @RequestParam String departmentManagerId) {
         Department department = new Department();
 
         department.setDepartmentName(departmentName);
-        department.setDepartmentManager(employeeService.getEmployeeByEmployeeId(departmentManagerId));
+        department.setDepartmentManager(employeeService.getById(departmentManagerId));
 
-        departmentService.saveDepartment(department);
+        departmentService.save(department);
         return HttpStatus.OK;
     }
 }

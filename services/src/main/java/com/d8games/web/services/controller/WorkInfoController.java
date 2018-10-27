@@ -20,6 +20,11 @@ public class WorkInfoController {
         return workInfoService.getAllWorkInfo();
     }
 
+    @GetMapping(value = "/getById")
+    public WorkInfo getById(@RequestParam String id) {
+        return workInfoService.getById(id);
+    }
+
     @PutMapping(value = "/save")
     public HttpStatus saveWorkInfo(@RequestParam String workInfoName, @RequestParam double officeHoursNeededPerMonth,
                                    @RequestParam double homeHoursNeededPerMonth,

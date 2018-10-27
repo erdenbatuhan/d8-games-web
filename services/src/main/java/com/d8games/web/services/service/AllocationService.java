@@ -13,15 +13,15 @@ public class AllocationService {
     @Autowired
     AllocationRepository allocationRepository;
 
-    public List<Allocation> getAllAllocations() {
+    public List<Allocation> getAll() {
         return allocationRepository.findAll();
     }
 
-    public Allocation getAllocationByAllocationId(String allocationId) {
-        return allocationRepository.getAllocationByAllocationId(allocationId);
+    public Allocation getById(String id) {
+        return allocationRepository.getAllocationByAllocationId(id);
     }
 
-    public void saveAllocation(Allocation allocation) {
+    public void save(Allocation allocation) {
         allocationRepository.save(allocation);
     }
 }

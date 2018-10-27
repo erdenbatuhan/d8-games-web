@@ -21,27 +21,26 @@ public class EmployeeController {
     private TitleService titleService;
 
     @GetMapping(value = "/getAll")
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public List<Employee> getAll() {
+        return employeeService.getAll();
     }
 
     @GetMapping(value = "/getById")
-    public Employee getEmployeeById(@RequestParam String employeeId) {
-        return employeeService.getEmployeeByEmployeeId(employeeId);
+    public Employee getById(@RequestParam String id) {
+        return employeeService.getById(id);
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus saveEmployee(@RequestParam String employeeName, @RequestParam String employeeSurname,
-                                   @RequestParam String employeePhoto, @RequestParam String employeeTitleId) {
+    public HttpStatus save(@RequestParam String employeeName, @RequestParam String employeeSurname,
+                           @RequestParam String employeeTitleId) {
         Employee employee = new Employee();
 
         employee.setEmployeeName(employeeName);
         employee.setEmployeeSurname(employeeSurname);
-        employee.setEmployeePhoto(employeePhoto);
         employee.setEmployeeJoinDate(new Date()); // Get the current date
-        employee.setEmployeeTitle(titleService.getTitleByTitleId(employeeTitleId));
+        employee.setEmployeeTitle(titleService.getById(employeeTitleId));
 
-        employeeService.saveEmployee(employee);
+        employeeService.save(employee);
         return HttpStatus.OK;
     }
 }

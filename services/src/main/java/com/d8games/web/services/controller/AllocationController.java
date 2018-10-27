@@ -21,20 +21,25 @@ public class AllocationController {
     EmployeeService employeeService;
 
     @GetMapping(value = "/getAll")
-    public List<Allocation> getAllAllocations() {
-        return allocationService.getAllAllocations();
+    public List<Allocation> getAll() {
+        return allocationService.getAll();
+    }
+
+    @GetMapping(value = "/getById")
+    public Allocation getById(@RequestParam String id) {
+        return allocationService.getById(id);
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus saveAllocation(@RequestParam Date allocationDate, @RequestParam String allocationType,
+    public HttpStatus save(@RequestParam Date allocationDate, @RequestParam String allocationType,
                                      @RequestParam String allocationEmployeeId) {
         Allocation allocation = new Allocation();
 
         allocation.setAllocationDate(allocationDate);
         allocation.setAllocationType(allocationType);
-        allocation.setAllocationEmployee(employeeService.getEmployeeByEmployeeId(allocationEmployeeId));
+        allocation.setAllocationEmployee(employeeService.getById(allocationEmployeeId));
 
-        allocationService.saveAllocation(allocation);
+        allocationService.save(allocation);
         return HttpStatus.OK;
     }
 }

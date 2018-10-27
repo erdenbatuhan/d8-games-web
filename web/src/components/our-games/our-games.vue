@@ -14,41 +14,31 @@
 </template>
 
 <script>
-  import navbar from "../navbar/navbar.vue"
-  import gameInfoCard from "./game-info-card.vue"
+  import ServicesMixin from '../../mixins/services-mixin'
+
+  import navbar from '../navbar/navbar.vue'
+  import gameInfoCard from './game-info-card.vue'
 
   export default {
+    mixins: [ServicesMixin],
     components: {
       navbar,
       gameInfoCard
     },
     data() {
       return {
-        name: "our-games",
-        games: [
-          {
-            title: 'Dark Souls',
-            logo: 'darkSouls.jpg',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit ' +
-              'laudantium minima, officiis ! Consequuntur debitis, dolorem doloremque et facilis fugiat id ' +
-              'ipsam maxime molestiae tempore unde velit, voluptatem'
-          },
-          {
-            title: 'Bioshock',
-            logo: 'bioshock.jpg',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit ' +
-              'laudantium minima, officiis ! Consequuntur debitis, dolorem doloremque et facilis fugiat id ' +
-              'ipsam maxime molestiae tempore unde velit, voluptatem'
-          },
-          {
-            title: 'Yugioh',
-            logo: 'yugioh.jpg',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor earum impedit ' +
-              'laudantium minima, officiis ! Consequuntur debitis, dolorem doloremque et facilis fugiat id ' +
-              'ipsam maxime molestiae tempore unde velit, voluptatem'
-          }
-        ]
+        name: 'our-games',
+        spinner: true,
+        games: []
       }
+    },
+    mounted() {
+      this.getAllGames().then(response => {
+        this.games = response.data
+        this.spinner = false
+      }).catch(error => {
+        console.error(error)
+      })
     }
   }
 </script>
