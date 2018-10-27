@@ -28,7 +28,7 @@
   import employeeSummary from './employee-summary.vue'
   import calendar from './calendar.vue'
 
-  import employees from '../../employees.json'
+  import employees from '../../assets/employees.json'
 
   export default {
     components: {navbar, employeeCard, employeeSummary, calendar},
