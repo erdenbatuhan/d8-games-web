@@ -16,6 +16,7 @@
             <b-dropdown-item><router-link to="/"> Home Page </router-link></b-dropdown-item>
             <b-dropdown-item><router-link to="ourGames"> Our Games </router-link></b-dropdown-item>
             <b-dropdown-item><router-link to="/"> Contact Us </router-link></b-dropdown-item>
+            <b-dropdown-item><router-link to="/dashboard"> Dashboard </router-link></b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
 

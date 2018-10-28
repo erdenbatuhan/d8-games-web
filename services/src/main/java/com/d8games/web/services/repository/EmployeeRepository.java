@@ -1,5 +1,6 @@
 package com.d8games.web.services.repository;
 
+import com.d8games.web.services.model.dto.DashboardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,10 +8,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     Employee getEmployeeByEmployeeId(String employeeId);
+
+    @Query(
+            "SELECT new com.d8games.web.services.model.dto.DashboardDto(" +
+                    "e.employeeId, e.employeeName, e.employeeSurname, t.titleName) " +
+                    "FROM Employee e " +
+                    "INNER JOIN Title t ON e.employeeTitle = t")
+    List<DashboardDto> getDashboardDtoList();
 
     @Query(
     "SELECT new com.d8games.web.services.model.dto.EmployeeCardDto(" +

@@ -1,5 +1,6 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.model.dto.DashboardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
@@ -43,6 +44,11 @@ public class EmployeeController {
 
         employeeService.save(employee);
         return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/dashboard")
+    public List<DashboardDto> getDashboardDtoList() {
+        return employeeService.getDashboardDtoList();
     }
 
     @GetMapping(value = "/employeeCard")

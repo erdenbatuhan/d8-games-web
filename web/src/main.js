@@ -9,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import App from './App'
 
+import dashboard from './components/dashboard/dashboard'
 import home from "./components/home/home.vue"
 import employeeProfile from "./components/employee-profile/employee-profile.vue"
 import ourGames from "./components/our-games/our-games.vue"
@@ -38,6 +39,10 @@ const router = new VueRouter({
     {
       path: '/login',
       component: employeeLogin
+    },
+    {
+      path: '/dashboard',
+      component: dashboard
     },
     {
       path: '*',
