@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface GameRepository extends JpaRepository<Game, String> {
 
-    @Query("SELECT game FROM Game game ORDER BY game.gameReleaseDate")
+    @Query(
+    "SELECT g " +
+    "FROM Game g " +
+    "ORDER BY g.gameReleaseDate")
     List<Game> getAllGames();
 
     Game getGameByGameId(String gameId);
