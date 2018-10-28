@@ -45,14 +45,20 @@ const router = new VueRouter({
       component: dashboard
     },
     {
-      path: '*',
-      beforeEnter: (to, from, next) => {
-        next({ path: '' });
-      }
+      path: '*'
     }
   ],
   mode: 'history'
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched[0].path === '*') {
+    next({path: ''})
+  } else {
+    window.scrollTo(0, 0)
+    next()
+  }
+})
 
 new Vue({
   el: '#app',

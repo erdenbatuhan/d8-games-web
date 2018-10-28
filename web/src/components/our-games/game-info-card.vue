@@ -1,17 +1,21 @@
 <template>
-  <div v-if="game">
-    <br>
-    <b-card class="mb-2"
-            :title="game.gameName"
-            :img-src="getImageSource(IMAGE_DIR, game.gameId)"
-            img-alt="Image"
-            img-top
-            tag="article">
-      <p class="card-text"> {{ game.gameSummary }} </p>
-      <h6> Release Date: {{ getGameReleaseDate() }} </h6>
+  <div>
+    <div v-if="game">
       <br>
-      <b-button href="#" variant="primary"> More information </b-button>
-    </b-card>
+      <b-card class="mb-2"
+              :title="game.gameName"
+              :img-src="getImageSource(IMAGE_DIR, game.gameId)"
+              img-alt="Image"
+              img-top
+              tag="article">
+        <p class="card-text"> {{ game.gameSummary }} </p>
+        <h6> Release Date: {{ getGameReleaseDate() }} </h6>
+        <br>
+        <b-button href="#" variant="primary"> More information </b-button>
+      </b-card>
+
+      <br>
+    </div>
   </div>
 </template>
 
@@ -42,7 +46,5 @@
 </script>
 
 <style scoped>
-  .mb-2 {
-    max-width: 20rem;
-  }
+
 </style>

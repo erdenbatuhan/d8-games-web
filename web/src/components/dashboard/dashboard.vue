@@ -1,217 +1,86 @@
 <template>
-  <div class="container mt-40">
-    <h1>Board of Directors</h1>
-    <br>
-    <div class="row mt-30">
-        <div class="col-sm-6 col-md-3">
-          <router-link to="\employeeProfile\ad1232453">
-            <div class="box15">
-              <img src="../../assets/fotis.png" alt="" >
-              <div class="box-content">
-                <p class="title"><b>Erinç</b> <br>{{employees[0].title}}</p>
-              </div>
-            </div>
-          </router-link>
-        </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="box15">
-          <router-link to="\employeeProfile\ad1232454">
-            <img src="../../assets/cemal.jpg" alt="">
-            <div class="box-content">
-              <h3 class="title"><b>Cemal</b> <br>{{employees[2].title}}</h3>
-            </div>
-          </router-link>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="box15">
-          <router-link to="\employeeProfile\ad1232455">
-            <img src="http://bestjquery.com/tutorial/hover-effect/demo119/images/img-2.jpg" alt="">
-            <div class="box-content">
-              <h3 class="title">Kristiana</h3>
-            </div>
-          </router-link>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="box15">
-          <router-link to="\employeeProfile\ad1232456">
-            <img src="http://bestjquery.com/tutorial/hover-effect/demo119/images/img-4.jpg" alt="">
-            <div class="box-content">
-              <h3 class="title">Ahmet</h3>
-            </div>
-          </router-link>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row mt-30">
-      <div class="col-sm-6 col-md-3">
-        <router-link to="\employeeProfile\ad1232453">
-          <div class="box15">
-            <img src="http://bestjquery.com/tutorial/hover-effect/demo119/images/img-1.jpg" alt="">
-            <div class="box-content">
-              <h3 class="title">Williamson</h3>
-            </div>
+  <div>
+    <navbar></navbar>
+
+    <div class="container mt-40">
+      <div v-for="departmentName in departmentNames">
+        <h3> {{ departmentName }} </h3>
+        <hr>
+
+        <div class="row mt-30">
+          <div class="col-sm-6 col-md-3" v-for="dashboardCardDto in getDashboardCardDtoListByDepartment(departmentName)">
+            <dashboard-card :dashboard-card-dto="dashboardCardDto"></dashboard-card>
           </div>
-        </router-link>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="box15">
-          <router-link to="\employeeProfile\ad1232454">
-            <img src="http://bestjquery.com/tutorial/hover-effect/demo119/images/img-3.jpg" alt="">
-            <div class="box-content">
-              <h3 class="title">Kristiana</h3>
-            </div>
-          </router-link>
         </div>
+
+        <br>
       </div>
-
-
     </div>
-
   </div>
 </template>
 
 <script>
-  import employees from '../../assets/employees.json'
+  import CommonMixin from '../../mixins/common-mixin'
+  import ServicesMixin from '../../mixins/services-mixin'
 
-    export default {
-      data() {
-        return {
-          name: 'dashboard',
-          employees: employees
-        }
+  import navbar from '../navbar/navbar.vue'
+  import dashboardCard from "./dashboard-card.vue";
+
+  export default {
+    mixins: [CommonMixin, ServicesMixin],
+    components: {navbar, dashboardCard},
+    data() {
+      return {
+        API_ENDPOINT_GET_ALL_DEPARTMENT_NAMES: '/department/departmentName/getAll',
+        API_ENDPOINT_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard/getAll',
+        name: 'dashboard',
+        spinner: true,
+        departmentNames: null,
+        dashboardCardDtoList: null
+      }
+    },
+    mounted() {
+      let getAllDepartmentNamesPromise = new Promise ((resolve, reject) => {
+        this.getApiResponse(this.API_ENDPOINT_GET_ALL_DEPARTMENT_NAMES).then(response => {
+          this.departmentNames = response.data
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+
+      let getDashboardDtoListPromise = new Promise ((resolve, reject) => {
+        this.getApiResponse(this.API_ENDPOINT_GET_DASHBOARD_CARD_DTO_LIST).then(response => {
+          this.dashboardCardDtoList = response.data
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+
+      Promise.all([getAllDepartmentNamesPromise, getDashboardDtoListPromise]).then(() => {
+        this.spinner = false
+      }).catch(error => {
+        console.error(error)
+        this.$router.push('/')
+      })
+    },
+    methods: {
+      getDashboardCardDtoListByDepartment: function (departmentName) {
+        let dashboardCardDtoList = []
+
+        this.dashboardCardDtoList.forEach(dashboardCardDto => {
+          if (dashboardCardDto.departmentName === departmentName) {
+            dashboardCardDtoList.push(dashboardCardDto)
+          }
+        })
+
+        return dashboardCardDtoList
       }
     }
+  }
 </script>
 
 <style scoped>
-  .card-image-overlay {
-    width: 100%;
-    height: 100%;
-  }
-
-  .box15 {
-    position:relative;
-  }
-  .box15 img {
-    width:100%;
-  }
-  .box15 .subtitle {
-    font-size:22px;
-    color:#000;
-    margin:0;
-    position:relative;
-    top:0;
-    opacity:0;
-    transition:all 1s ease 10ms
-  }
-
-  .box15 .box-content {
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    transition:all .5s ease 0s
-  }
-  .box15:hover .box-content {
-    background-color:rgba(255,242,242,.8)
-  }
-  .box15 .box-content:after,.box15 .box-content:before {
-    content:"";
-    width:50px;
-    height:50px;
-    position:absolute;
-    opacity:0;
-    transform:scale(1.5);
-    transition:all .6s ease .3s
-  }
-  .box15 .box-content:before {
-    border-left:1px solid #040404;
-    border-top:1px solid #040404;
-    top:19px;
-    left:19px
-  }
-  .box15 .box-content:after {
-    border-bottom:1px solid #040404;
-    border-right:1px solid #040404;
-    bottom:19px;
-    right:19px
-  }
-  .box15:hover .box-content:after,.box15:hover .box-content:before {
-    opacity:1;
-    transform:scale(1)
-  }
-  .box15 .title {
-    font-size:22px;
-    color:#000;
-    margin:0;
-    position:relative;
-    top:0;
-    opacity:0;
-    transition:all 1s ease 10ms
-  }
-
-  .box15:hover .title {
-    top:39%;
-    opacity:1;
-    transition:all .5s cubic-bezier(1,-.53,.405,1.425) 10ms
-  }
-
-  .box15 .title:after {
-    content:"";
-    width:0;
-    height:1px;
-    background:#040404;
-    position:absolute;
-    bottom:-8px;
-    left:0;
-    right:0;
-    margin:0 auto;
-    transition:all 1s ease 0s
-  }
-  .box15:hover .title:after {
-    width:80%;
-    transition:all 1s ease .8s
-  }
-  .box15 .icon {
-    width:100%;
-    margin:0 auto;
-    position:absolute;
-    bottom:0;opacity:0;
-    transition-duration:.6s;
-    transition-timing-function:cubic-bezier(1,-.53,.405,1.425);
-    transition-delay:.1s
-  }
-  .box15:hover .icon {
-    bottom:39%;
-    opacity:1
-  }
-  .box15 .icon li {
-    display:inline-block
-  }
-  .box15 .icon li a {
-    display:block;
-    width:40px;
-    height:40px;
-    line-height:40px;
-    border-radius:50%;
-    font-size:18px;
-    color:#000;
-    border:1px solid #000;
-    margin-right:5px;
-    transition:all .3s ease-in-out 0s
-  }
-  .box15 .icon li a:hover {
-    background:#000;
-    color:#fff
-  }
-  @media only screen and (max-width:990px) {
-    .box15 {
-      margin-bottom:30px
-    }
-  }
 
 </style>

@@ -1,6 +1,6 @@
 package com.d8games.web.services.service;
 
-import com.d8games.web.services.model.dto.DashboardDto;
+import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.EmployeeRepository;
@@ -27,8 +27,8 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public List<DashboardDto> getDashboardDtoList() {
-        return employeeRepository.getDashboardDtoList();
+    public List<DashboardCardDto> getDashboardCardDtoList() {
+        return employeeRepository.getDashboardCardDtoList();
     }
 
     public EmployeeCardDto getEmployeeCardDto(String employeeId) {

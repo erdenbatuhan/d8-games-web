@@ -6,15 +6,13 @@
       <div class="row">
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
         <div class="col-md-12 col-xl-2">
-          <employee-card :employee-card="employeeCard" :employee-image="getImageSource(IMAGE_DIR, employeeId)"></employee-card>
-          <br>
-          <!-- <employee-summary :employee-summary="employeeSummaryDto"></employee-summary> -->
-          <br>
+          <employee-card :employee-card-dto="employeeCardDto" :employee-image="getImageSource(IMAGE_DIR, employeeId)"></employee-card>
+          <!-- <employee-summary :employee-summary-dto="employeeSummaryDto"></employee-summary> -->
         </div>
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
         <div class="col-md-12 col-xl-7">
           <div id="work-info">
-              <calendar></calendar>
+            <calendar></calendar>
           </div>
         </div>
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
@@ -41,26 +39,22 @@
     data() {
       return {
         IMAGE_DIR: 'employee-profile/',
-        API_ENDPOINT_GET_BY_ID: '/employee/employeeCard?employeeId=',
+        API_ENDPOINT_GET_EMPLOYEE_CARD_DTO_BY_ID: '/employee/employeeCard?employeeId=',
         name: 'employeeProfile',
         spinner: true,
-        employeeCard: null,
-        employeeSummary: null
+        employeeCardDto: null,
+        employeeSummaryDto: null
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_GET_BY_ID + this.employeeId).then(response => {
-        this.employeeCard = response.data
+      this.getApiResponse(this.API_ENDPOINT_GET_EMPLOYEE_CARD_DTO_BY_ID + this.employeeId).then(response => {
+        this.employeeCardDto = response.data
         this.spinner = false
       }).catch(error => {
         console.error(error)
         this.$router.push('/')
       })
-    },
-    methods: {
 
-    },
-    created() {
 
     }
   }

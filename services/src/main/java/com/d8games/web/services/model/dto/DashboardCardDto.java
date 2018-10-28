@@ -1,30 +1,31 @@
 package com.d8games.web.services.model.dto;
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+@SuppressWarnings("unused")
+public class DashboardCardDto {
 
-public class EmployeeCardDto {
-
+    private String employeeId;
     private String employeeFullName;
     private String titleName;
     private String departmentName;
-    private Long timeSinceJoin;
 
-    public EmployeeCardDto(String employeeName, String employeeSurname, String titleName,
-                           String departmentName, Date employeeJoinDate) {
+    public DashboardCardDto(String employeeId, String employeeName, String employeeSurname,
+                            String titleName, String departmentName) {
+        this.employeeId = employeeId;
         this.employeeFullName = getEmployeeFullName(employeeName, employeeSurname);
         this.titleName = titleName;
         this.departmentName = departmentName;
-        this.timeSinceJoin = getEmployeeTimeSinceJoin(employeeJoinDate);
     }
 
     private String getEmployeeFullName(String employeeName, String employeeSurname) {
         return employeeName + " " + employeeSurname;
     }
 
-    private Long getEmployeeTimeSinceJoin(Date employeeJoinDate) {
-        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
-        return TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getEmployeeFullName() {
@@ -49,13 +50,5 @@ public class EmployeeCardDto {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
-    }
-
-    public Long getTimeSinceJoin() {
-        return timeSinceJoin;
-    }
-
-    public void setTimeSinceJoin(Long timeSinceJoin) {
-        this.timeSinceJoin = timeSinceJoin;
     }
 }

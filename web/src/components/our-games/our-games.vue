@@ -1,15 +1,19 @@
 <template>
   <div>
     <navbar></navbar>
-    <h1 id="header"> Our Games </h1>
+
     <div class="container">
+      <h1 id="header"> Our Games </h1>
+      <hr>
+
       <div class="row">
-        <br>
-        <b-col class="col-sm-4" v-for="game in games">
+        <b-col class="col-sm-4" v-for="game in games" :key="game.gameId">
           <game-info-card :game="game"></game-info-card>
         </b-col>
       </div>
     </div>
+
+    <br>
   </div>
 </template>
 
@@ -27,14 +31,14 @@
     },
     data() {
       return {
-        API_ENDPOINT_GET_ALL: '/game/getAll',
+        API_ENDPOINT_GET_ALL_GAMES: '/game/getAll',
         name: 'our-games',
         spinner: true,
         games: []
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_GET_ALL).then(response => {
+      this.getApiResponse(this.API_ENDPOINT_GET_ALL_GAMES).then(response => {
         this.games = response.data
         this.spinner = false
       }).catch(error => {

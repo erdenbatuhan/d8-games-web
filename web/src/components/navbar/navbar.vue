@@ -1,23 +1,18 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="light" variant="light">
+    <b-navbar class="navbar" toggleable="md" type="light" variant="light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <!-- Left aligned nav items -->
-      <b-navbar-brand href="#">
-        <a href="#"> <!-- Forward the homepage while pressed the img-->
-        <img src="/static/images/navbar/logo.png" height="50" width="52" alt="Logo"/>
-        </a>
+      <b-navbar-brand>
+        <router-link to="/"><img src="/static/images/navbar/logo.png" height="50" width="52" alt="Logo"/></router-link>
       </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="navbar-nav-left">
-          <b-nav-item-dropdown text="Pages">
-            <b-dropdown-item><router-link to="/"> Home Page </router-link></b-dropdown-item>
-            <b-dropdown-item><router-link to="ourGames"> Our Games </router-link></b-dropdown-item>
-            <b-dropdown-item><router-link to="/"> Contact Us </router-link></b-dropdown-item>
-            <b-dropdown-item><router-link to="/dashboard"> Dashboard </router-link></b-dropdown-item>
-          </b-nav-item-dropdown>
+
+            <b-nav-item><router-link class="login-link" to="/dashboard"> Dashboard </router-link></b-nav-item>
+            <b-nav-item><router-link class="login-link" to="/ourGames"> Our Games </router-link></b-nav-item>
+            <b-nav-item><router-link class="login-link" to="/"> Contact Us </router-link></b-nav-item>
         </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -54,6 +49,10 @@
 </script>
 
 <style scoped>
+  .navbar {
+    min-height: 86px;
+  }
+
   .navbar-img {
     height: auto;
     width: auto;

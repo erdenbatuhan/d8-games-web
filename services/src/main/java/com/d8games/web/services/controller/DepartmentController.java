@@ -41,4 +41,9 @@ public class DepartmentController {
         departmentService.save(department);
         return HttpStatus.OK;
     }
+
+    @GetMapping(value="/departmentName/getAll")
+    public List<String> getAllDepartmentNames() {
+        return departmentService.getAllDepartmentNames();
+    }
 }

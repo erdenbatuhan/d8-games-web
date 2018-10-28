@@ -5,11 +5,10 @@
       <template slot="header">
         D8 Games
       </template>
-      <template slot="lead">
-        We are a small Start-Up company made up from 6 Game Developers!
-      </template>
       <hr class="my-4">
     </b-jumbotron>
+
+    <br>
   </div>
 </template>
 

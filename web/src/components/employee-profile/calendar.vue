@@ -1,20 +1,26 @@
 <template>
-  <div class="table-responsive-md">
-    <table class="table table-bordered table-striped ">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col" v-for="item in days"> {{ item.day }} </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for= "item in hours">
-        <th> {{ item.hour }} </th>
-        <td v-for="index in 7"> {{ dummyData }} </td>
-        </tr>
-      </tbody>
-    </table>
-    <b-pagination align="center" size="md" :total-rows="480" :per-page="10"></b-pagination>
+  <div>
+    <div v-if="true">
+      <div class="table-responsive-md">
+        <table class="table table-bordered table-striped ">
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" v-for="item in days"> {{ item.day }} </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for= "item in hours">
+            <th> {{ item.hour }} </th>
+            <td v-for="index in 7"> {{ dummyData }} </td>
+          </tr>
+          </tbody>
+        </table>
+        <b-pagination align="center" size="md" :total-rows="480" :per-page="10"></b-pagination>
+      </div>
+
+      <br>
+    </div>
   </div>
 </template>
 

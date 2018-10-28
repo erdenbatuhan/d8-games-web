@@ -1,6 +1,7 @@
 package com.d8games.web.services.controller;
 
-import com.d8games.web.services.model.dto.DashboardDto;
+import com.d8games.web.services.exception.EmployeeNotFound;
+import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
@@ -46,13 +47,18 @@ public class EmployeeController {
         return HttpStatus.OK;
     }
 
-    @GetMapping(value = "/dashboard")
-    public List<DashboardDto> getDashboardDtoList() {
-        return employeeService.getDashboardDtoList();
+    @GetMapping(value = "/dashboardCard/getAll")
+    public List<DashboardCardDto> getDashboardCardDtoList() {
+        return employeeService.getDashboardCardDtoList();
     }
 
     @GetMapping(value = "/employeeCard")
-    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) {
+    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
+        EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
+
+        if (employeeCardDto == null)
+            throw new EmployeeNotFound(employeeId);
+
         return employeeService.getEmployeeCardDto(employeeId);
     }
 }
