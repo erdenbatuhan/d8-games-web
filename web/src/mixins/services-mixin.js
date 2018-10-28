@@ -11,9 +11,9 @@ export default {
     }
   },
   methods: {
-    getAllGames: function () {
-      return new Promise((resolve, reject) => {
-        Vue.axios.get(this.SERVICES_ENDPOINT + '/game/getAll').then(response => {
+    getApiResponse: function (apiEndpoint) {
+      return new Promise ((resolve, reject) => {
+        Vue.axios.get(this.SERVICES_ENDPOINT + apiEndpoint).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)

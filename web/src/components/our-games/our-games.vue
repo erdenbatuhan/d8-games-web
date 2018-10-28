@@ -1,5 +1,5 @@
 <template>
-  <div id = "GamesPage">
+  <div>
     <navbar></navbar>
     <h1 id="header"> Our Games </h1>
     <div class="container">
@@ -27,17 +27,19 @@
     },
     data() {
       return {
+        API_ENDPOINT_GET_ALL: '/game/getAll',
         name: 'our-games',
         spinner: true,
         games: []
       }
     },
     mounted() {
-      this.getAllGames().then(response => {
+      this.getApiResponse(this.API_ENDPOINT_GET_ALL).then(response => {
         this.games = response.data
         this.spinner = false
       }).catch(error => {
         console.error(error)
+        this.$router.push('/')
       })
     }
   }

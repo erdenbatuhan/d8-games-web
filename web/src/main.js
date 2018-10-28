@@ -27,16 +27,23 @@ const router = new VueRouter({
       component: home
     },
     {
-      path: '/employeeProfile',
-      component: employeeProfile
+      path: '/employeeProfile/:employeeId',
+      component: employeeProfile,
+      props: true
     },
     {
       path: '/ourGames',
       component: ourGames
     },
     {
-      path: '/employeeLogin',
+      path: '/login',
       component: employeeLogin
+    },
+    {
+      path: '*',
+      beforeEnter: (to, from, next) => {
+        next({ path: '' });
+      }
     }
   ],
   mode: 'history'

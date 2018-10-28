@@ -22,6 +22,9 @@ public class Department implements Serializable {
     @Column(name = "DEPARTMENT_NAME", unique = true, nullable = false)
     private String departmentName;
 
+    @Column(name = "DEPARTMENT_RANK", nullable = false)
+    private Integer departmentRank;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     private Employee departmentManager;
@@ -40,6 +43,14 @@ public class Department implements Serializable {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Integer getDepartmentRank() {
+        return departmentRank;
+    }
+
+    public void setDepartmentRank(Integer departmentRank) {
+        this.departmentRank = departmentRank;
     }
 
     public Employee getDepartmentManager() {

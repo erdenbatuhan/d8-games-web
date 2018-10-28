@@ -30,11 +30,13 @@ public class DepartmentController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam String departmentName, @RequestParam String departmentManagerId) {
+    public HttpStatus save(@RequestParam String departmentName, @RequestParam String departmentManagerId,
+                           @RequestParam Integer departmentRank) {
         Department department = new Department();
 
         department.setDepartmentName(departmentName);
         department.setDepartmentManager(employeeService.getById(departmentManagerId));
+        department.setDepartmentRank(departmentRank);
 
         departmentService.save(department);
         return HttpStatus.OK;

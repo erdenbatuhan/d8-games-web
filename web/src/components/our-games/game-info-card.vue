@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-if="game">
     <br>
     <b-card class="mb-2"
             :title="game.gameName"
-            :img-src="getLogoPath(game.gameId)"
+            :img-src="getImageSource(IMAGE_DIR, game.gameId)"
             img-alt="Image"
             img-top
             tag="article">
@@ -16,18 +16,18 @@
 </template>
 
 <script>
+  import CommonMixin from '../../mixins/common-mixin'
+
   export default {
+    mixins: [CommonMixin],
     props: ['game'],
     data() {
       return {
-        LOGO_DIR: '/static/images/our-games/',
+        IMAGE_DIR: 'our-games/',
         name: 'gameInfoCard'
       }
     },
     methods: {
-      getLogoPath: function(logo) {
-        return this.LOGO_DIR + logo + '.jpg'
-      },
       getGameReleaseDate: function () {
         let gameReleaseDate = new Date(this.game.gameReleaseDate)
 

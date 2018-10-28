@@ -1,5 +1,6 @@
 package com.d8games.web.services.service;
 
+import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,9 @@ public class EmployeeService {
 
     public void save(Employee employee) {
         employeeRepository.save(employee);
+    }
+
+    public EmployeeCardDto getEmployeeCardDto(String employeeId) {
+        return employeeRepository.getEmployeeCardDto(employeeId);
     }
 }

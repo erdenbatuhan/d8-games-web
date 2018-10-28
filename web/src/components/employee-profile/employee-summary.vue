@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="width: 18rem;">
+  <div class="card">
     <b-card no-body>
       <div class="card-header">Summary</div>
       <b-tabs card>
