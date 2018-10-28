@@ -37,7 +37,7 @@ const router = new VueRouter({
       component: ourGames
     },
     {
-      path: '/login',
+      path: '/employeeLogin',
       component: employeeLogin
     },
     {
