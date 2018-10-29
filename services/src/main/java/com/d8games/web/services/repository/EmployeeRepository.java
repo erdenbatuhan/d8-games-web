@@ -20,8 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
             "e.employeeId, e.employeeName, e.employeeSurname, t.titleName, d.departmentName) " +
     "FROM Employee e " +
     "INNER JOIN Title t ON e.employeeTitle = t " +
-    "INNER JOIN Department d ON t.titleDepartment = d " +
-    "ORDER BY d.departmentRank")
+    "INNER JOIN Department d ON t.titleDepartment = d")
     List<DashboardCardDto> getDashboardCardDtoList();
 
     @Query(

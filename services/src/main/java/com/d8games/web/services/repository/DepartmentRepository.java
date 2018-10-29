@@ -14,6 +14,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
 
     @Query(
     "SELECT d.departmentName " +
-    "FROM Department d")
+    "FROM Department d " +
+    "ORDER BY d.departmentRank")
     List<String> getAllDepartmentNames();
 }

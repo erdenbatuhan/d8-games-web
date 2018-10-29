@@ -17,7 +17,7 @@
 
         <b-button type="submit" variant="primary" :disabled="!form.checked"> Submit </b-button>
       </b-form>
-      
+
       <br>
     </div>
   </div>
