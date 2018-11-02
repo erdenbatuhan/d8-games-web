@@ -3,7 +3,10 @@
     <b-container>
       <b-row class="row">
         <b-col class="col" sm="12">
-          <h1>404 Not Found!</h1>
+          <h1>Error 404: Not Found</h1>
+          <hr>
+          <h3>WE CAN'T FIND THIS PAGE</h3>
+          <br><br>
           <p>But you've found us!</p>
         </b-col>
       </b-row>
@@ -33,13 +36,54 @@
           <br>
           -J.R. Tolkien
           <br>
+          <br>
         </i>
         <br>
-        <router-link to="/">Go to Homepage</router-link>
       </b-col>
       <b-col class="col" sm="4"></b-col>
       </b-row>
     </b-container>
+    <navbar></navbar>
   </div>
 </template>
 
+<script>
+  import navbar from "../Navbar";
+
+  export default {
+    components: {
+      navbar
+    }
+  }
+</script>
+
+<style scoped>
+  @font-face {
+    font-family: "notFoundFont";
+    src: url("../../assets/fonts/AlegreyaSansSC-Light.ttf");
+  }
+
+  @font-face {
+    font-family: "subTextFont";
+    src: url("../../assets/fonts/AlegreyaSansSC-Regular.ttf")
+  }
+
+  @font-face {
+    font-family: "foundUsText";
+    src: url("../../assets/fonts/AlegreyaSansSC-ExtraBold.ttf")
+  }
+
+  h1 {
+    font-family: "notFoundFont";
+    font-size: 80px;
+  }
+
+  h3 {
+    font-family: "subTextFont"
+  }
+
+  p {
+    font-family: "foundUsText";
+    font-size: 20px;
+  }
+</style>
