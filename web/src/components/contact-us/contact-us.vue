@@ -44,7 +44,7 @@
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST).then(response => {
+      this.get(this.API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST).then(response => {
         this.contactCardDtoList = response.data
         this.spinner = false
       }).catch(error => {
