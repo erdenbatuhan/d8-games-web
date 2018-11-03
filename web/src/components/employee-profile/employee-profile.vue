@@ -39,7 +39,7 @@
     data() {
       return {
         IMAGE_DIR: 'employee-profile/',
-        API_ENDPOINT_GET_EMPLOYEE_CARD_DTO_BY_ID: '/employee/employeeCard?employeeId=',
+        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO_BY_ID: '/employee/employeeCard?employeeId=',
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
@@ -47,15 +47,13 @@
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_GET_EMPLOYEE_CARD_DTO_BY_ID + this.employeeId).then(response => {
+      this.get(this.API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO_BY_ID + this.employeeId).then(response => {
         this.employeeCardDto = response.data
         this.spinner = false
       }).catch(error => {
         console.error(error)
         this.$router.push('/')
       })
-
-
     }
   }
 </script>

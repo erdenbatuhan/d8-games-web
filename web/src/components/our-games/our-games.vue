@@ -31,14 +31,14 @@
     },
     data() {
       return {
-        API_ENDPOINT_GET_ALL_GAMES: '/game/getAll',
+        API_ENDPOINT_TO_GET_ALL_GAMES: '/game/getAll',
         name: 'our-games',
         spinner: true,
         games: []
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_GET_ALL_GAMES).then(response => {
+      this.get(this.API_ENDPOINT_TO_GET_ALL_GAMES).then(response => {
         this.games = response.data
         this.spinner = false
       }).catch(error => {

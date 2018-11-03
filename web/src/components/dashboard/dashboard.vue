@@ -31,8 +31,8 @@
     components: {navbar, dashboardCard},
     data() {
       return {
-        API_ENDPOINT_GET_ALL_DEPARTMENT_NAMES: '/department/departmentName/getAll',
-        API_ENDPOINT_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard/getAll',
+        API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES: '/department/departmentName/getAll',
+        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard/getAll',
         name: 'dashboard',
         spinner: true,
         departmentNames: null,
@@ -41,7 +41,7 @@
     },
     mounted() {
       let getAllDepartmentNamesPromise = new Promise ((resolve, reject) => {
-        this.getApiResponse(this.API_ENDPOINT_GET_ALL_DEPARTMENT_NAMES).then(response => {
+        this.get(this.API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES).then(response => {
           this.departmentNames = response.data
           resolve()
         }).catch(error => {
@@ -50,7 +50,7 @@
       })
 
       let getDashboardDtoListPromise = new Promise ((resolve, reject) => {
-        this.getApiResponse(this.API_ENDPOINT_GET_DASHBOARD_CARD_DTO_LIST).then(response => {
+        this.get(this.API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST).then(response => {
           this.dashboardCardDtoList = response.data
           resolve()
         }).catch(error => {

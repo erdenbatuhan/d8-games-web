@@ -16,7 +16,7 @@ public class WorkInfo {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "WORK_INFO_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "WORK_INFO_ID", unique = true, nullable = false)
     private String workInfoId;
 
     @Column(name = "WORK_INFO_NAME", unique = true, nullable = false)

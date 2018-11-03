@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/allocation")
+@SuppressWarnings("unused")
 public class AllocationController {
 
     @Autowired
@@ -31,8 +32,8 @@ public class AllocationController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam Date allocationDate, @RequestParam String allocationType,
-                                     @RequestParam String allocationEmployeeId) {
+    public String save(@RequestParam Date allocationDate, @RequestParam String allocationType,
+                       @RequestParam String allocationEmployeeId) {
         Allocation allocation = new Allocation();
 
         allocation.setAllocationDate(allocationDate);
@@ -40,6 +41,6 @@ public class AllocationController {
         allocation.setAllocationEmployee(employeeService.getById(allocationEmployeeId));
 
         allocationService.save(allocation);
-        return HttpStatus.OK;
+        return allocation.getAllocationId();
     }
 }

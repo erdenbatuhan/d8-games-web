@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/game")
+@SuppressWarnings("unused")
 public class GameController {
 
     @Autowired
@@ -26,8 +27,8 @@ public class GameController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam String gameName, @RequestParam String gameSummary,
-                           @RequestParam String gameDescription) {
+    public String save(@RequestParam String gameName, @RequestParam String gameSummary,
+                       @RequestParam String gameDescription) {
         Game game = new Game();
 
         game.setGameName(gameName);
@@ -35,6 +36,6 @@ public class GameController {
         game.setGameDescription(gameDescription);
 
         gameService.save(game);
-        return HttpStatus.OK;
+        return game.getGameId();
     }
 }

@@ -18,7 +18,7 @@ public class Game implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "GAME_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "GAME_ID", unique = true, nullable = false)
     private String gameId;
 
     @Column(name = "GAME_NAME", nullable = false)

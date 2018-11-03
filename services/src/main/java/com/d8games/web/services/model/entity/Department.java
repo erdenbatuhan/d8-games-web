@@ -16,7 +16,7 @@ public class Department implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "DEPARTMENT_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "DEPARTMENT_ID", unique = true, nullable = false)
     private String departmentId;
 
     @Column(name = "DEPARTMENT_NAME", unique = true, nullable = false)

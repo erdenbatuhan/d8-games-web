@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/title")
+@SuppressWarnings("unused")
 public class TitleController {
 
     @Autowired
@@ -34,8 +35,8 @@ public class TitleController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam String titleName, @RequestParam String workInfoId,
-                           @RequestParam String titleDepartmentId) {
+    public String save(@RequestParam String titleName, @RequestParam String workInfoId,
+                       @RequestParam String titleDepartmentId) {
         Title title = new Title();
 
         title.setTitleName(titleName);
@@ -43,6 +44,6 @@ public class TitleController {
         title.setTitleDepartment(departmentService.getById(titleDepartmentId));
 
         titleService.save(title);
-        return HttpStatus.OK;
+        return title.getTitleId();
     }
 }

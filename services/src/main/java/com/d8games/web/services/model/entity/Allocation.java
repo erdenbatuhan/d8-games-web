@@ -19,18 +19,18 @@ public class Allocation implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ALLOCATION_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "ALLOCATION_ID", unique = true, nullable = false)
     private String allocationId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ALLOCATION_DATE", updatable = false, nullable = false)
+    @Column(name = "ALLOCATION_DATE", nullable = false)
     private Date allocationDate;
 
-    @Column(name = "ALLOCATION_TYPE", updatable = false, nullable = false)
+    @Column(name = "ALLOCATION_TYPE", nullable = false)
     private String allocationType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ALLOCATION_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", updatable = false, nullable = false)
+    @JoinColumn(name = "ALLOCATION_EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", nullable = false)
     private Employee allocationEmployee;
 
     public String getAllocationId() {

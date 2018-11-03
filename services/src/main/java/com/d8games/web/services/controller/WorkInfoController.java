@@ -3,21 +3,21 @@ package com.d8games.web.services.controller;
 import com.d8games.web.services.model.entity.WorkInfo;
 import com.d8games.web.services.service.WorkInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/workInfo")
+@SuppressWarnings("unused")
 public class WorkInfoController {
 
     @Autowired
     WorkInfoService workInfoService;
 
     @GetMapping(value = "/getAll")
-    public List<WorkInfo> getAllWorkInfo() {
-        return workInfoService.getAllWorkInfo();
+    public List<WorkInfo> getAll() {
+        return workInfoService.getAll();
     }
 
     @GetMapping(value = "/getById")
@@ -26,10 +26,10 @@ public class WorkInfoController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus saveWorkInfo(@RequestParam String workInfoName, @RequestParam double officeHoursNeededPerMonth,
-                                   @RequestParam double homeHoursNeededPerMonth,
-                                   @RequestParam double unpaidHoursNeededPerMonth,
-                                   @RequestParam double salaryPerHour, @RequestParam double overtimeSalaryPerHour) {
+    public String save(@RequestParam String workInfoName, @RequestParam double officeHoursNeededPerMonth,
+                               @RequestParam double homeHoursNeededPerMonth,
+                               @RequestParam double unpaidHoursNeededPerMonth,
+                               @RequestParam double salaryPerHour, @RequestParam double overtimeSalaryPerHour) {
         WorkInfo workInfo = new WorkInfo();
 
         workInfo.setWorkInfoName(workInfoName);
@@ -39,7 +39,7 @@ public class WorkInfoController {
         workInfo.setSalaryPerHour(salaryPerHour);
         workInfo.setOvertimeSalaryPerHour(overtimeSalaryPerHour);
 
-        workInfoService.saveWorkInfo(workInfo);
-        return HttpStatus.OK;
+        workInfoService.save(workInfo);
+        return workInfo.getWorkInfoId();
     }
 }

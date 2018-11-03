@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/department")
+@SuppressWarnings("unused")
 public class DepartmentController {
 
     @Autowired
@@ -30,8 +31,8 @@ public class DepartmentController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam String departmentName, @RequestParam String departmentManagerId,
-                           @RequestParam Integer departmentRank) {
+    public String save(@RequestParam String departmentName, @RequestParam String departmentManagerId,
+                       @RequestParam Integer departmentRank) {
         Department department = new Department();
 
         department.setDepartmentName(departmentName);
@@ -39,7 +40,7 @@ public class DepartmentController {
         department.setDepartmentRank(departmentRank);
 
         departmentService.save(department);
-        return HttpStatus.OK;
+        return department.getDepartmentId();
     }
 
     @GetMapping(value="/departmentName/getAll")

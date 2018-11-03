@@ -16,7 +16,7 @@ public class Title implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "TITLE_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "TITLE_ID", unique = true, nullable = false)
     private String titleId;
 
     @Column(name = "TITLE_NAME", unique = true, nullable = false)

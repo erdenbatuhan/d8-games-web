@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/employee")
+@SuppressWarnings("unused")
 public class EmployeeController {
 
     @Autowired
@@ -37,12 +38,13 @@ public class EmployeeController {
     }
 
     @PutMapping(value = "/save")
-    public HttpStatus save(@RequestParam String employeeName, @RequestParam String employeeSurname,
-                           @RequestParam String employeeEmail, @RequestParam String employeePhoneNumber,
-                           @RequestParam String employeeJoinDateAsString, @RequestParam String employeeTitleId)
-            throws ParseException {
+    public String save(@RequestParam String employeeMobilePhoneId, @RequestParam String employeeName,
+                       @RequestParam String employeeSurname, @RequestParam String employeeEmail,
+                       @RequestParam String employeePhoneNumber, @RequestParam String employeeJoinDateAsString,
+                       @RequestParam String employeeTitleId) throws ParseException {
         Employee employee = new Employee();
 
+        employee.setEmployeeMobilePhoneId(employeeMobilePhoneId);
         employee.setEmployeeName(employeeName);
         employee.setEmployeeSurname(employeeSurname);
         employee.setEmployeeEmail(employeeEmail);
@@ -57,7 +59,7 @@ public class EmployeeController {
         employee.setEmployeeTitle(titleService.getById(employeeTitleId));
 
         employeeService.save(employee);
-        return HttpStatus.OK;
+        return employee.getEmployeeId();
     }
 
     @GetMapping(value = "/dashboardCard/getAll")

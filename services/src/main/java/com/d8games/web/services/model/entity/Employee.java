@@ -17,13 +17,16 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "EMPLOYEE_ID", unique = true, updatable = false, nullable = false)
+    @Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
     private String employeeId;
 
-    @Column(name = "EMPLOYEE_NAME", updatable = false, nullable = false)
+    @Column(name = "EMPLOYEE_MOBILE_PHONE_ID", unique = true)
+    private String employeeMobilePhoneId;
+
+    @Column(name = "EMPLOYEE_NAME", nullable = false)
     private String employeeName;
 
-    @Column(name = "EMPLOYEE_SURNAME", updatable = false, nullable = false)
+    @Column(name = "EMPLOYEE_SURNAME", nullable = false)
     private String employeeSurname;
 
     @Column(name = "EMPLOYEE_EMAIL", nullable = false)
@@ -33,7 +36,7 @@ public class Employee implements Serializable {
     private String employeePhoneNumber;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
+    @Column(name = "EMPLOYEE_JOIN_DATE", nullable = false)
     private Date employeeJoinDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,6 +49,14 @@ public class Employee implements Serializable {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getEmployeeMobilePhoneId() {
+        return employeeMobilePhoneId;
+    }
+
+    public void setEmployeeMobilePhoneId(String employeeMobilePhoneId) {
+        this.employeeMobilePhoneId = employeeMobilePhoneId;
     }
 
     public String getEmployeeName() {

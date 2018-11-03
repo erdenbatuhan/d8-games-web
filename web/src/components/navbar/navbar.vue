@@ -20,15 +20,15 @@
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="employeeImage">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <b-button variant="outline-success" class="btn-md vouch-buttons" id="left-button"> Vouch IN </b-button>
+                  <b-button variant="outline-success" class="btn-md vouch-buttons"> Vouch IN </b-button>
                 </li>
                 <li class="nav-item">
-                  <b-button variant="outline-danger" class="btn-md vouch-buttons" id="right-button"> Vouch OUT </b-button>
+                  <b-button variant="outline-danger" class="btn-md vouch-buttons"> Vouch OUT </b-button>
                 </li>
                 <li><img :src="employeeImage" class="navbar-img" alt=""></li>
               </ul>
             </div>
-            <b-nav-item v-else right><router-link class="login-link" to="/employeeLogin"> Login </router-link></b-nav-item>
+            <b-nav-item v-else right><login-modal></login-modal></b-nav-item>
           </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -38,7 +38,10 @@
 </template>
 
 <script>
+  import LoginModal from "./login-modal";
+
   export default {
+    components: {LoginModal},
     props: ['employeeImage'],
     data() {
       return {

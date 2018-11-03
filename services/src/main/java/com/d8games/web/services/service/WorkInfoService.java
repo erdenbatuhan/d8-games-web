@@ -13,7 +13,7 @@ public class WorkInfoService {
     @Autowired
     WorkInfoRepository workInfoRepository;
 
-    public List<WorkInfo> getAllWorkInfo() {
+    public List<WorkInfo> getAll() {
         return workInfoRepository.findAll();
     }
 
@@ -21,7 +21,7 @@ public class WorkInfoService {
         return workInfoRepository.getWorkInfoByWorkInfoId(id);
     }
 
-    public void saveWorkInfo(WorkInfo workInfo) {
+    public void save(WorkInfo workInfo) {
         workInfoRepository.save(workInfo);
     }
 }
