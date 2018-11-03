@@ -1,5 +1,6 @@
 package com.d8games.web.services.repository;
 
+import com.d8games.web.services.model.dto.ContactCardDto;
 import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
@@ -24,9 +25,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<DashboardCardDto> getDashboardCardDtoList();
 
     @Query(
+    "SELECT new com.d8games.web.services.model.dto.ContactCardDto(" +
+        "e.employeeName, e.employeeSurname, e.employeeEmail, e.employeePhoneNumber, t.titleName) " +
+    "FROM Employee e " +
+    "INNER JOIN Title t ON e.employeeTitle = t " +
+    "INNER JOIN Department d ON t.titleDepartment = d " +
+    "WHERE d.departmentName = :contactDepartmentName")
+    List<ContactCardDto> getContactCardDtoList(@Param("contactDepartmentName") String contactDepartmentName);
+
+    @Query(
     "SELECT new com.d8games.web.services.model.dto.EmployeeCardDto(" +
             "e.employeeName, e.employeeSurname, e.employeeEmail, e.employeePhoneNumber, " +
-            "t.titleName, d.departmentName, e.employeeJoinDate) " +
+            "e.employeeJoinDate, t.titleName, d.departmentName) " +
     "FROM Employee e " +
     "INNER JOIN Title t ON e.employeeTitle = t " +
     "INNER JOIN Department d ON t.titleDepartment = d " +

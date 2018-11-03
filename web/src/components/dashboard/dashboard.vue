@@ -8,7 +8,7 @@
         <hr>
 
         <div class="row mt-30">
-          <div class="col-sm-6 col-md-3" v-for="dashboardCardDto in getDashboardCardDtoListByDepartment(departmentName)">
+          <div class="col-sm-6 col-md-3" v-for="dashboardCardDto in getDashboardCardDtoListByDepartmentName(departmentName)">
             <dashboard-card :dashboard-card-dto="dashboardCardDto"></dashboard-card>
           </div>
         </div>
@@ -24,7 +24,7 @@
   import ServicesMixin from '../../mixins/services-mixin'
 
   import navbar from '../navbar/navbar.vue'
-  import dashboardCard from "./dashboard-card.vue";
+  import dashboardCard from "./dashboard-card.vue"
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
@@ -66,7 +66,7 @@
       })
     },
     methods: {
-      getDashboardCardDtoListByDepartment: function (departmentName) {
+      getDashboardCardDtoListByDepartmentName: function (departmentName) {
         let dashboardCardDtoList = []
 
         this.dashboardCardDtoList.forEach(dashboardCardDto => {

@@ -3,7 +3,7 @@
     <navbar></navbar>
 
     <div class="container">
-      <h1 id="header"> Our Games </h1>
+      <h3 id="header"> Our Games </h3>
       <hr>
 
       <div class="row">

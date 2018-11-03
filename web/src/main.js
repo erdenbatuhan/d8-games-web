@@ -13,6 +13,7 @@ import home from './components/home/home.vue'
 import dashboard from './components/dashboard/dashboard'
 import employeeProfile from './components/employee-profile/employee-profile.vue'
 import ourGames from './components/our-games/our-games.vue'
+import contactUs from "./components/contact-us/contact-us"
 import employeeLogin from "./components/employee-login/employee-login.vue"
 import notFound from './components/not-found/not-found.vue'
 
@@ -40,6 +41,10 @@ const router = new VueRouter({
     {
       path: '/ourGames',
       component: ourGames
+    },
+    {
+      path: '/contactUs',
+      component: contactUs
     },
     {
       path: '/employeeLogin',

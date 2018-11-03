@@ -12,7 +12,7 @@
 
             <b-nav-item><router-link class="login-link" to="/dashboard"> Dashboard </router-link></b-nav-item>
             <b-nav-item><router-link class="login-link" to="/ourGames"> Our Games </router-link></b-nav-item>
-            <b-nav-item><router-link class="login-link" to="/"> Contact Us </router-link></b-nav-item>
+            <b-nav-item><router-link class="login-link" to="/contactUs"> Contact Us </router-link></b-nav-item>
         </b-navbar-nav>
 
           <!-- Right aligned nav items -->
