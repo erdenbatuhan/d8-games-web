@@ -1,10 +1,11 @@
 package com.d8games.web.services.repository;
 
-import com.d8games.web.services.model.Allocation;
+import com.d8games.web.services.model.entity.Allocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AllocationRepository extends JpaRepository<Allocation, Long> {
+public interface AllocationRepository extends JpaRepository<Allocation, String> {
 
+    Allocation getAllocationByAllocationId(String allocationId);
 }
