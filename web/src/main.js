@@ -1,39 +1,77 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+import VueRouter from 'vue-router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import BootstrapVue from 'bootstrap-vue'
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueRouter from 'vue-router'
-import HomePage from "./components/HomePage/HomePage"
-import AdminPage from "./components/AdminPage/AdminPage"
-import GamesPage from "./components/GamesPage/GamesPage"
-import LoginPage from "./components/LoginPage/LoginPage"
-import ContactUsPage from "./components/ContactUsPage/ContactUsPage"
 
-Vue.use(BootstrapVue);
-Vue.use(VueRouter);
-Vue.config.productionTip = false;
+import App from './App'
+
+import home from './components/home/home.vue'
+import dashboard from './components/dashboard/dashboard'
+import employeeProfile from './components/employee-profile/employee-profile.vue'
+import ourGames from './components/our-games/our-games.vue'
+import contactUs from "./components/contact-us/contact-us"
+import employeeLogin from "./components/employee-login/employee-login.vue"
+import notFound from './components/not-found/not-found.vue'
+
+Vue.use(VueRouter)
+Vue.use(VueAxios, axios)
+Vue.use(BootstrapVue)
+
+Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes: [
-    {path: '/', component: HomePage},
-    {path: '/admin', component: AdminPage},
-    {path: '/games', component: GamesPage},
-    {path: '/adminlogin', component: LoginPage},
-    {path: '/contactUs', component: ContactUsPage}
+    {
+      path: '/',
+      component: home
+    },
+    {
+      path: '/dashboard',
+      component: dashboard
+    },
+    {
+      path: '/employeeProfile/:employeeId',
+      component: employeeProfile,
+      props: true
+    },
+    {
+      path: '/ourGames',
+      component: ourGames
+    },
+    {
+      path: '/contactUs',
+      component: contactUs
+    },
+    {
+      path: '/employeeLogin',
+      component: employeeLogin
+    },
+    {
+      path: '/404',
+      component: notFound
+    },
+    {
+      path: '*',
+      redirect: '/404'
+    }
   ],
   mode: 'history'
 });
 
-/* eslint-disable no-new */
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0)
+  next()
+})
+
 new Vue({
   el: '#app',
   router,
-  components: {App},
-  template: '<App/>',
+  components: {
+    App
+  },
+  template: '<App/>'
 })
-
-
-
