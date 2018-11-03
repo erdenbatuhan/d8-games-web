@@ -25,7 +25,12 @@
 
   export default {
     mixins: [CommonMixin],
-    props: ['employeeCardDto', 'employeeImage']
+    props: ['employeeCardDto', 'employeeImage'],
+    data () {
+      return {
+        name: 'employeeCard'
+      }
+    }
   }
 </script>
 
