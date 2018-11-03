@@ -1,10 +1,20 @@
 package com.d8games.web.services.repository;
 
-import com.d8games.web.services.model.Department;
+import com.d8games.web.services.model.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+import java.util.List;
 
+@Repository
+public interface DepartmentRepository extends JpaRepository<Department, String> {
+
+    Department getDepartmentByDepartmentId(String departmentId);
+
+    @Query(
+    "SELECT d.departmentName " +
+    "FROM Department d " +
+    "ORDER BY d.departmentRank")
+    List<String> getAllDepartmentNames();
 }
