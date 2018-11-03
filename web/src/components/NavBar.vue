@@ -14,7 +14,7 @@
         <b-nav-item-dropdown text="Pages"> <!-- TODO: make sure the pages are navigatable (maybe html for each page and components inside?)-->
           <b-dropdown-item href="#"><router-link to="/">Home Page</router-link></b-dropdown-item>
           <b-dropdown-item href="#"><router-link to="games">Games Page</router-link></b-dropdown-item>
-          <b-dropdown-item href="#"><router-link to="/">Contact Us</router-link></b-dropdown-item>
+          <b-dropdown-item href="#"><router-link to="/contactUs">Contact Us</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 

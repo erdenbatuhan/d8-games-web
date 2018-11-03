@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage/HomePage"
 import AdminPage from "./components/AdminPage/AdminPage"
 import GamesPage from "./components/GamesPage/GamesPage"
 import LoginPage from "./components/LoginPage/LoginPage"
+import ContactUsPage from "./components/ContactUsPage/ContactUsPage"
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
@@ -20,7 +21,8 @@ const router = new VueRouter({
     {path: '/', component: HomePage},
     {path: '/admin', component: AdminPage},
     {path: '/games', component: GamesPage},
-    {path: '/adminlogin', component: LoginPage}
+    {path: '/adminlogin', component: LoginPage},
+    {path: '/contactUs', component: ContactUsPage}
   ],
   mode: 'history'
 });
