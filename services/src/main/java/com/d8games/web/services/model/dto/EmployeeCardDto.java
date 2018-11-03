@@ -3,28 +3,26 @@ package com.d8games.web.services.model.dto;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("unused")
 public class EmployeeCardDto {
 
     private String employeeFullName;
+    private String employeeEmail;
+    private String employeePhoneNumber;
     private String titleName;
     private String departmentName;
     private Long timeSinceJoin;
 
-    public EmployeeCardDto(String employeeName, String employeeSurname, String titleName,
-                           String departmentName, Date employeeJoinDate) {
-        this.employeeFullName = getEmployeeFullName(employeeName, employeeSurname);
+    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail, String employeePhoneNumber,
+                           String titleName, String departmentName, Date employeeJoinDate) {
+        setEmployeeFullName(employeeName, employeeSurname);
+
+        this.employeeEmail = employeeEmail;
+        this.employeePhoneNumber = employeePhoneNumber;
         this.titleName = titleName;
         this.departmentName = departmentName;
-        this.timeSinceJoin = getEmployeeTimeSinceJoin(employeeJoinDate);
-    }
 
-    private String getEmployeeFullName(String employeeName, String employeeSurname) {
-        return employeeName + " " + employeeSurname;
-    }
-
-    private Long getEmployeeTimeSinceJoin(Date employeeJoinDate) {
-        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
-        return TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
+        setTimeSinceJoin(employeeJoinDate);
     }
 
     public String getEmployeeFullName() {
@@ -33,6 +31,26 @@ public class EmployeeCardDto {
 
     public void setEmployeeFullName(String employeeFullName) {
         this.employeeFullName = employeeFullName;
+    }
+
+    public void setEmployeeFullName(String employeeName, String employeeSurname) {
+        this.employeeFullName = employeeName + " " + employeeSurname;
+    }
+
+    public String getEmployeeEmail() {
+        return employeeEmail;
+    }
+
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
+    }
+
+    public String getEmployeePhoneNumber() {
+        return employeePhoneNumber;
+    }
+
+    public void setEmployeePhoneNumber(String employeePhoneNumber) {
+        this.employeePhoneNumber = employeePhoneNumber;
     }
 
     public String getTitleName() {
@@ -57,5 +75,12 @@ public class EmployeeCardDto {
 
     public void setTimeSinceJoin(Long timeSinceJoin) {
         this.timeSinceJoin = timeSinceJoin;
+    }
+
+    public void setTimeSinceJoin(Date employeeJoinDate) {
+        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
+        long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
+
+        this.timeSinceJoin = timeInDays;
     }
 }

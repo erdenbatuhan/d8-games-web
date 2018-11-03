@@ -11,13 +11,11 @@ public class DashboardCardDto {
     public DashboardCardDto(String employeeId, String employeeName, String employeeSurname,
                             String titleName, String departmentName) {
         this.employeeId = employeeId;
-        this.employeeFullName = getEmployeeFullName(employeeName, employeeSurname);
+
+        setEmployeeFullName(employeeName, employeeSurname);
+
         this.titleName = titleName;
         this.departmentName = departmentName;
-    }
-
-    private String getEmployeeFullName(String employeeName, String employeeSurname) {
-        return employeeName + " " + employeeSurname;
     }
 
     public String getEmployeeId() {
@@ -34,6 +32,10 @@ public class DashboardCardDto {
 
     public void setEmployeeFullName(String employeeFullName) {
         this.employeeFullName = employeeFullName;
+    }
+
+    public void setEmployeeFullName(String employeeName, String employeeSurname) {
+        this.employeeFullName = employeeName + " " + employeeSurname;
     }
 
     public String getTitleName() {

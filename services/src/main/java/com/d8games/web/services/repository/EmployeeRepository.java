@@ -25,7 +25,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query(
     "SELECT new com.d8games.web.services.model.dto.EmployeeCardDto(" +
-            "e.employeeName, e.employeeSurname, t.titleName, d.departmentName, e.employeeJoinDate) " +
+            "e.employeeName, e.employeeSurname, e.employeeEmail, e.employeePhoneNumber, " +
+            "t.titleName, d.departmentName, e.employeeJoinDate) " +
     "FROM Employee e " +
     "INNER JOIN Title t ON e.employeeTitle = t " +
     "INNER JOIN Department d ON t.titleDepartment = d " +

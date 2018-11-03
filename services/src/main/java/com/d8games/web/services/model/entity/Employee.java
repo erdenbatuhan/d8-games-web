@@ -2,7 +2,6 @@ package com.d8games.web.services.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +25,12 @@ public class Employee implements Serializable {
 
     @Column(name = "EMPLOYEE_SURNAME", updatable = false, nullable = false)
     private String employeeSurname;
+
+    @Column(name = "EMPLOYEE_EMAIL", nullable = false)
+    private String employeeEmail;
+
+    @Column(name = "EMPLOYEE_PHONE_NUMBER", nullable = false)
+    private String employeePhoneNumber;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
@@ -57,6 +62,22 @@ public class Employee implements Serializable {
 
     public void setEmployeeSurname(String employeeSurname) {
         this.employeeSurname = employeeSurname;
+    }
+
+    public String getEmployeeEmail() {
+        return employeeEmail;
+    }
+
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
+    }
+
+    public String getEmployeePhoneNumber() {
+        return employeePhoneNumber;
+    }
+
+    public void setEmployeePhoneNumber(String employeePhoneNumber) {
+        this.employeePhoneNumber = employeePhoneNumber;
     }
 
     public Date getEmployeeJoinDate() {

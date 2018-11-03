@@ -6,10 +6,13 @@ import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
+import com.d8games.web.services.util.ProjectConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +38,22 @@ public class EmployeeController {
 
     @PutMapping(value = "/save")
     public HttpStatus save(@RequestParam String employeeName, @RequestParam String employeeSurname,
-                           @RequestParam String employeeTitleId) {
+                           @RequestParam String employeeEmail, @RequestParam String employeePhoneNumber,
+                           @RequestParam String employeeJoinDateAsString, @RequestParam String employeeTitleId)
+            throws ParseException {
         Employee employee = new Employee();
 
         employee.setEmployeeName(employeeName);
         employee.setEmployeeSurname(employeeSurname);
-        employee.setEmployeeJoinDate(new Date()); // Get the current date
+        employee.setEmployeeEmail(employeeEmail);
+        employee.setEmployeePhoneNumber(employeePhoneNumber);
+
+        Date employeeJoinDate = new Date(); // Get the current date
+
+        if (employeeJoinDateAsString != null)
+            employeeJoinDate =  new SimpleDateFormat(ProjectConstants.DATE_FORMAT).parse(employeeJoinDateAsString);
+
+        employee.setEmployeeJoinDate(employeeJoinDate);
         employee.setEmployeeTitle(titleService.getById(employeeTitleId));
 
         employeeService.save(employee);
@@ -59,6 +72,6 @@ public class EmployeeController {
         if (employeeCardDto == null)
             throw new EmployeeNotFound(employeeId);
 
-        return employeeService.getEmployeeCardDto(employeeId);
+        return employeeCardDto;
     }
 }
