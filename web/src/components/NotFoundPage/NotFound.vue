@@ -1,12 +1,15 @@
 <template>
   <div>
+    <navbar></navbar>
+
     <b-container>
       <b-row class="row">
         <b-col class="col" sm="12">
           <h1>Error 404: Not Found</h1>
           <hr>
           <h3>WE CAN'T FIND THIS PAGE</h3>
-          <br><br>
+
+          <br>
           <p>But you've found us!</p>
         </b-col>
       </b-row>
@@ -20,9 +23,10 @@
       <b-row>
       <b-col class="col" sm="4"></b-col>
       <b-col class="col" sm="4" align="middle">
-        <br>
+        <br><br>
         <b>Are you lost?</b>
-        <br>
+        <br><br>
+
         <i class="tolkien">
           “All that is gold does not glitter,
           Not all those who wander are lost;
@@ -33,17 +37,16 @@
           A light from the shadows shall spring;
           Renewed shall be blade that was broken,
           The crownless again shall be king.”
-          <br>
-          -J.R. Tolkien
-          <br>
-          <br>
         </i>
-        <br>
+
+        <br><br>
+        <i>- J.R. Tolkien</i>
       </b-col>
       <b-col class="col" sm="4"></b-col>
       </b-row>
     </b-container>
-    <navbar></navbar>
+
+    <br><br>
   </div>
 </template>
 

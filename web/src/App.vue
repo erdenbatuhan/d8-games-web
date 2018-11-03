@@ -1,6 +1,6 @@
 <template>
   <div id="app" class = "overlay">
-  <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
