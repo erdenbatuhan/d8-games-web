@@ -7,11 +7,11 @@
               img-top>
         <div class="card-body">
           <hr class="card-separator">
-          <p class="card-text text-left"><b>Title<br></b> {{ employeeCardDto.titleName }} </p>
-          <p class="card-text text-left"><b>Department<br></b> {{ employeeCardDto.departmentName }} </p>
-          <p class="card-text text-left"><b>Email<br></b> {{ employeeCardDto.employeeEmail }} </p>
-          <p class="card-text text-left"><b>Phone Number<br></b> {{ employeeCardDto.employeePhoneNumber }} </p>
-          <p class="card-text text-left"><b>Time Since Join (Days)<br></b> {{ employeeCardDto.timeSinceJoin }} </p>
+          <p class="card-text text-left"><b> Title <br></b> {{ employeeCardDto.titleName }} </p>
+          <p class="card-text text-left"><b> Department <br></b> {{ employeeCardDto.departmentName }} </p>
+          <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.employeeEmail }} </p>
+          <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.employeePhoneNumber }} </p>
+          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
         </div>
       </b-card>
 

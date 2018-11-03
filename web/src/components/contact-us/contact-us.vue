@@ -35,14 +35,22 @@
   export default {
     mixins: [ServicesMixin],
     components: {navbar, contactCard},
-    data () {
+    data() {
       return {
+        API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST: '/employee/contactCard/getAll',
         name: 'contactUs',
+        spinner: true,
         contactCardDtoList: null
       }
     },
-    methods: {
-
+    mounted() {
+      this.getApiResponse(this.API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST).then(response => {
+        this.contactCardDtoList = response.data
+        this.spinner = false
+      }).catch(error => {
+        console.error(error)
+        this.$router.push('/')
+      })
     }
   }
 </script>

@@ -9,20 +9,22 @@ public class EmployeeCardDto {
     private String employeeFullName;
     private String employeeEmail;
     private String employeePhoneNumber;
+    private Long timeSinceJoin;
     private String titleName;
     private String departmentName;
-    private Long timeSinceJoin;
 
-    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail, String employeePhoneNumber,
-                           String titleName, String departmentName, Date employeeJoinDate) {
+    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail,
+                           String employeePhoneNumber, Date employeeJoinDate,
+                           String titleName, String departmentName) {
         setEmployeeFullName(employeeName, employeeSurname);
 
         this.employeeEmail = employeeEmail;
         this.employeePhoneNumber = employeePhoneNumber;
-        this.titleName = titleName;
-        this.departmentName = departmentName;
 
         setTimeSinceJoin(employeeJoinDate);
+
+        this.titleName = titleName;
+        this.departmentName = departmentName;
     }
 
     public String getEmployeeFullName() {
@@ -53,6 +55,21 @@ public class EmployeeCardDto {
         this.employeePhoneNumber = employeePhoneNumber;
     }
 
+    public Long getTimeSinceJoin() {
+        return timeSinceJoin;
+    }
+
+    public void setTimeSinceJoin(Long timeSinceJoin) {
+        this.timeSinceJoin = timeSinceJoin;
+    }
+
+    public void setTimeSinceJoin(Date employeeJoinDate) {
+        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
+        long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
+
+        this.timeSinceJoin = timeInDays;
+    }
+
     public String getTitleName() {
         return titleName;
     }
@@ -67,20 +84,5 @@ public class EmployeeCardDto {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
-    }
-
-    public Long getTimeSinceJoin() {
-        return timeSinceJoin;
-    }
-
-    public void setTimeSinceJoin(Long timeSinceJoin) {
-        this.timeSinceJoin = timeSinceJoin;
-    }
-
-    public void setTimeSinceJoin(Date employeeJoinDate) {
-        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
-        long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
-
-        this.timeSinceJoin = timeInDays;
     }
 }
