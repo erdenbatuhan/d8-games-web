@@ -15,22 +15,24 @@
             <b-nav-item><router-link class="login-link" to="/"> Contact Us </router-link></b-nav-item>
         </b-navbar-nav>
 
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="employeeImage">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <b-button variant="outline-success" class="btn-md vouch-buttons"> Vouch IN </b-button>
-                </li>
-                <li class="nav-item">
-                  <b-button variant="outline-danger" class="btn-md vouch-buttons"> Vouch OUT </b-button>
-                </li>
-                <li><img :src="employeeImage" class="navbar-img" alt=""></li>
-              </ul>
-            </div>
-            <b-nav-item v-else right><login-modal></login-modal></b-nav-item>
-          </b-navbar-nav>
-        </b-collapse>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="employeeImage">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <b-button variant="outline-success" class="btn-md vouch-buttons"> Vouch IN </b-button>
+              </li>
+              <li class="nav-item">
+                <b-button variant="outline-danger" class="btn-md vouch-buttons"> Vouch OUT </b-button>
+              </li>
+              <li>
+                <img :src="employeeImage" class="navbar-img" alt="">
+              </li>
+            </ul>
+          </div>
+          <b-nav-item v-else right><login-modal></login-modal></b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
     </b-navbar>
 
     <br><br>

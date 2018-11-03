@@ -10,16 +10,16 @@
         <p v-if="state === 1" class="modal-info float-left">
           Waiting the response from your Mobile Authenticator...
         </p>
-        <p v-if="state === 1 && !authenticationId" class="modal-info modal-error float-left">
+        <p v-if="state === -1" class="modal-info modal-error float-left">
           There was an error while generating a QR Code for you...
         </p>
         <router-link :to="'/employeeProfile/' + loggedEmployeeId">
-          <b-btn v-if="state === 2 && loggedEmployeeId" size="sm" class="float-right"
+          <b-btn v-if="state === 2" size="sm" class="float-right"
                  variant="outline-primary" @click="show=false">
             Proceed to Employee Profile
           </b-btn>
         </router-link>
-        <p v-if="state === 2 && !loggedEmployeeId" class="modal-info modal-error float-left">
+        <p v-if="state === -2" class="modal-info modal-error float-left">
           There was an error while authenticating you...
         </p>
       </div>
@@ -49,7 +49,6 @@
     mounted () {
       this.$refs.modal.$on('hidden', () => {
         this.resetModal()
-        console.log(this.state)
       })
     },
     methods: {
@@ -67,7 +66,7 @@
         this.getAuthenticationIp().then(() => {
           this.saveNewAuthentication()
         }).catch(() => {
-          this.setStateTo(1)
+          this.setStateTo(-1)
         })
       },
       getAuthenticationIp: function () {
@@ -85,7 +84,7 @@
           this.authenticationId = response.data
           this.setStateTo(1)
         }).catch(() => {
-          this.setStateTo(1)
+          this.setStateTo(-1)
         })
       },
       setStateTo(state) {
