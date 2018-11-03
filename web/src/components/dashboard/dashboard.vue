@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
 
-    <div class="container mt-40">
+    <div v-if="dashboardCardDtoList" class="container mt-40">
       <div v-for="departmentName in departmentNames">
         <h3> {{ departmentName }} </h3>
         <hr>
