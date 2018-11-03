@@ -42,7 +42,8 @@
     props: ['employeeImage'],
     data() {
       return {
-        LOGO_PATH: '/static/images/navbar/logo.png'
+        LOGO_PATH: '/static/images/navbar/logo.png',
+        name: 'navbar'
       }
     },
   }

@@ -51,11 +51,14 @@
 </template>
 
 <script>
-  import navbar from "../Navbar";
+  import navbar from "../navbar/navbar.vue";
 
   export default {
-    components: {
-      navbar
+    components: {navbar},
+    data () {
+      return {
+        name: 'notFound'
+      }
     }
   }
 </script>

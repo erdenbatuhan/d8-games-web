@@ -9,23 +9,28 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import App from './App'
 
+import home from './components/home/home.vue'
 import dashboard from './components/dashboard/dashboard'
-import home from "./components/home/home.vue"
-import employeeProfile from "./components/employee-profile/employee-profile.vue"
-import ourGames from "./components/our-games/our-games.vue"
+import employeeProfile from './components/employee-profile/employee-profile.vue'
+import ourGames from './components/our-games/our-games.vue'
 import employeeLogin from "./components/employee-login/employee-login.vue"
+import notFound from './components/not-found/not-found.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes: [
     {
       path: '/',
       component: home
+    },
+    {
+      path: '/dashboard',
+      component: dashboard
     },
     {
       path: '/employeeProfile/:employeeId',
@@ -41,11 +46,9 @@ const router = new VueRouter({
       component: employeeLogin
     },
     {
-      path: '/dashboard',
-      component: dashboard
-    },
       path: '/404',
-      component: NotFound
+      component: notFound
+    },
     {
       path: '*',
       redirect: '/404'
