@@ -1,6 +1,7 @@
 package com.d8games.web.services.controller;
 
 import com.d8games.web.services.exception.EmployeeNotFound;
+import com.d8games.web.services.model.dto.ContactCardDto;
 import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
@@ -65,6 +66,11 @@ public class EmployeeController {
     @GetMapping(value = "/dashboardCard/getAll")
     public List<DashboardCardDto> getDashboardCardDtoList() {
         return employeeService.getDashboardCardDtoList();
+    }
+
+    @GetMapping(value = "/contactCard/getAll")
+    public List<ContactCardDto> getContactCardDtoList() {
+        return employeeService.getContactCardDtoList();
     }
 
     @GetMapping(value = "/employeeCard")

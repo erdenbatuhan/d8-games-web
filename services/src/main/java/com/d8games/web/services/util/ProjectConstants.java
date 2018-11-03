@@ -6,4 +6,6 @@ public class ProjectConstants {
 
     public static final String ALLOCATION_TYPE_IN = "IN";
     public static final String ALLOCATION_TYPE_OUT = "OUT";
+
+    public static final String CONTACT_DEPARTMENT_NAME = "Board of Directors";
 }
