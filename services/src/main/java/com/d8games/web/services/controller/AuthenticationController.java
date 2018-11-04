@@ -3,6 +3,7 @@ package com.d8games.web.services.controller;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.service.AuthenticationService;
 import com.d8games.web.services.service.EmployeeService;
+import com.d8games.web.services.util.ProjectConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +64,7 @@ public class AuthenticationController {
                     getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(authenticationId);
 
             long timeElapsed = System.currentTimeMillis() - start;
-            if (timeElapsed > 20000)
+            if (timeElapsed >= ProjectConstants.AUTHENTICATION_TIMEOUT)
                 return null;
         }
 
