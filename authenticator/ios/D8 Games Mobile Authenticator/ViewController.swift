@@ -17,39 +17,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet weak var square: UIImageView!
     @IBOutlet weak var uuidLabel: UILabel!
     
-    func getAuthenticationIp(url: String) -> String {
-        var errorOccured = false
-        var authenticationIp = ""
-        
-        let urlConfig = URLSessionConfiguration.default
-        let urlSession = URLSession(configuration: urlConfig)
-        let url = URL(string: url)!
-        
-        let task = urlSession.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-                errorOccured = true
-            } else {
-                do {
-                    if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
-                        authenticationIp = jsonResult["ip"]! as! String
-                    }
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                    errorOccured = true
-                }
-            }
-        }
-        
-        task.resume()
-        
-        while !errorOccured && authenticationIp == "" {
-            /* Wait for the data to be read */
-        }
-        
-        return authenticationIp
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +53,39 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         self.view.bringSubview(toFront: uuidLabel)
         
         session.startRunning()
+    }
+    
+    func getAuthenticationIp(url: String) -> String {
+        var errorOccured = false
+        var authenticationIp = ""
+        
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let url = URL(string: url)!
+        
+        let task = urlSession.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                errorOccured = true
+            } else {
+                do {
+                    if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
+                        authenticationIp = jsonResult["ip"]! as! String
+                    }
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                    errorOccured = true
+                }
+            }
+        }
+        
+        task.resume()
+        
+        while !errorOccured && authenticationIp == "" {
+            /* Wait for the data to be read */
+        }
+        
+        return authenticationIp
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

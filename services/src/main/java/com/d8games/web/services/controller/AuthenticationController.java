@@ -32,10 +32,8 @@ public class AuthenticationController {
     }
 
     @PutMapping(value = "/save")
-    public String save(@RequestParam String authenticationIp) {
+    public String save() {
         Authentication authentication = new Authentication();
-
-        authentication.setAuthenticationIp(authenticationIp);
         authentication.setAuthenticationCreatedDate(new Date());
 
         authenticationService.save(authentication);
@@ -43,9 +41,12 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/update")
-    public HttpStatus update(@RequestParam String authenticationId, @RequestParam String authenticationEmployeeId) {
+    public HttpStatus update(@RequestParam String authenticationId, @RequestParam String authenticationIp,
+                             @RequestParam String authenticationEmployeeMobilePhoneId) {
         Authentication authentication = authenticationService.getById(authenticationId);
-        authentication.setAuthenticationEmployee(employeeService.getById(authenticationEmployeeId));
+
+        authentication.setAuthenticationIp(authenticationIp);
+        authentication.setAuthenticationEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
 
         authenticationService.save(authentication);
         return HttpStatus.OK;
