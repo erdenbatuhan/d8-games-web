@@ -13,7 +13,7 @@
         <p v-if="state === -1" class="modal-info modal-error float-left">
           There was an error while generating a QR Code for you...
         </p>
-        <router-link :to="'/employeeProfile/' + loggedEmployeeId">
+        <router-link :to="'/employeeProfile/' + authenticatedEmployeeId">
           <b-btn v-if="state === 2" size="sm" class="float-right"
                  variant="outline-primary" @click="show=false">
             Proceed to Employee Profile
@@ -36,36 +36,46 @@
     components: {VueQr},
     data () {
       return {
-        API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION: '/authentication/save?authenticationIp=',
+        API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION: '/authentication/save',
+        API_ENDPOINT_TO_GET_AUTHENTICATED: '/authentication/getAuthenticated?authenticationId=',
         name: 'loginModal',
         spinner: true,
         modalShow: false,
         state: 0,
         authenticationIp: null,
         authenticationId: null,
-        loggedEmployeeId: null
+        authenticatedEmployeeId: null
       }
     },
     mounted () {
       this.$refs.modal.$on('hidden', () => {
-        this.resetModal()
+        location.reload();
       })
     },
     methods: {
-      resetModal: function () {
-        this.spinner = true
-        this.modalShow = false
-        this.state = 0
-        this.authenticationIp = null
-        this.authenticationId = null
-        this.loggedEmployeeId = null
-      },
       showModal: function () {
         this.modalShow = !this.modalShow
 
         this.getAuthenticationIp().then(() => {
-          this.saveNewAuthentication()
-        }).catch(() => {
+          this.saveNewAuthentication().then(() => {
+            this.setStateTo(1)
+
+            this.getAuthenticated().then(() => {
+              if (this.authenticatedEmployeeId) {
+                this.setStateTo(2)
+              } else {
+                this.setStateTo(-2)
+              }
+            }).catch((error) => {
+              console.error(error)
+              this.setStateTo(-2)
+            })
+          }).catch((error) => {
+            console.error(error)
+            this.setStateTo(-1)
+          })
+        }).catch((error) => {
+          console.error(error)
           this.setStateTo(-1)
         })
       },
@@ -74,17 +84,29 @@
           this.getIp().then(response => {
             this.authenticationIp = response.data.ip
             resolve()
-          }).catch(() => {
-            reject()
+          }).catch((error) => {
+            reject(error)
           })
         })
       },
       saveNewAuthentication: function () {
-        this.put(this.API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION + this.authenticationIp).then(response => {
-          this.authenticationId = response.data
-          this.setStateTo(1)
-        }).catch(() => {
-          this.setStateTo(-1)
+        return new Promise((resolve, reject) => {
+          this.put(this.API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION).then(response => {
+            this.authenticationId = response.data
+            resolve()
+          }).catch((error) => {
+            reject(error)
+          })
+        })
+      },
+      getAuthenticated: function () {
+        return new Promise((resolve, reject) => {
+          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATED + this.authenticationId).then(response => {
+            this.authenticatedEmployeeId = response.data
+            resolve()
+          }).catch((error) => {
+            reject(error)
+          })
         })
       },
       setStateTo(state) {

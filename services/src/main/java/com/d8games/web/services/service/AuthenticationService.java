@@ -24,4 +24,8 @@ public class AuthenticationService {
     public void save(Authentication authentication) {
         authenticationRepository.save(authentication);
     }
+
+    public String getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(String authenticationId) {
+        return authenticationRepository.getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(authenticationId);
+    }
 }

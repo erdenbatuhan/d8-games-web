@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -41,14 +42,31 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/update")
-    public HttpStatus update(@RequestParam String authenticationId, @RequestParam String authenticationIp,
-                             @RequestParam String authenticationEmployeeMobilePhoneId) {
+    public String update(@RequestParam String authenticationId, @RequestParam String authenticationIp,
+                         @RequestParam String authenticationEmployeeMobilePhoneId) {
         Authentication authentication = authenticationService.getById(authenticationId);
 
         authentication.setAuthenticationIp(authenticationIp);
         authentication.setAuthenticationEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
 
         authenticationService.save(authentication);
-        return HttpStatus.OK;
+        return authenticationId;
+    }
+
+    @GetMapping(value = "/getAuthenticated")
+    public String getAuthenticated(@RequestParam String authenticationId) {
+        long start = System.currentTimeMillis();
+        String authenticationEmployeeMobilePhoneId = null;
+
+        while (authenticationEmployeeMobilePhoneId == null) {
+            authenticationEmployeeMobilePhoneId = authenticationService.
+                    getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(authenticationId);
+
+            long timeElapsed = System.currentTimeMillis() - start;
+            if (timeElapsed > 20000)
+                return null;
+        }
+
+        return employeeService.getEmployeeIdByEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
     }
 }

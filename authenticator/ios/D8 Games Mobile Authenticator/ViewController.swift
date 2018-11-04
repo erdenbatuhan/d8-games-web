@@ -12,6 +12,8 @@ import AVFoundation
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     var authenticationId = ""
+    var authenticationIp = ""
+    var authenticationEmployeeMobilePhoneId = ""
     var video = AVCaptureVideoPreviewLayer()
     
     @IBOutlet weak var square: UIImageView!
@@ -20,12 +22,12 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let authenticationIp = getAuthenticationIp(url: "https://api.ipify.org/?format=json")
-        print(authenticationIp)
+        let authenticationIpApiResponse = getApiResponse(url: "https://api.ipify.org/?format=json")
+        self.authenticationIp = authenticationIpApiResponse["ip"]! as! String
         
         if let uuid = UIDevice.current.identifierForVendor?.uuidString {
-            authenticationId = uuid
-            uuidLabel.text = authenticationId
+            self.authenticationEmployeeMobilePhoneId = uuid
+            uuidLabel.text = self.authenticationEmployeeMobilePhoneId
         }
         
         let session = AVCaptureSession()
@@ -50,59 +52,91 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         view.layer.addSublayer(video)
         
         self.view.bringSubview(toFront: square)
-        self.view.bringSubview(toFront: uuidLabel)
+        //self.view.bringSubview(toFront: uuidLabel)
         
         session.startRunning()
     }
     
-    func getAuthenticationIp(url: String) -> String {
-        var errorOccured = false
-        var authenticationIp = ""
-        
-        let urlConfig = URLSessionConfiguration.default
-        let urlSession = URLSession(configuration: urlConfig)
-        let url = URL(string: url)!
-        
-        let task = urlSession.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-                errorOccured = true
-            } else {
-                do {
-                    if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
-                        authenticationIp = jsonResult["ip"]! as! String
-                    }
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                    errorOccured = true
-                }
-            }
-        }
-        
-        task.resume()
-        
-        while !errorOccured && authenticationIp == "" {
-            /* Wait for the data to be read */
-        }
-        
-        return authenticationIp
-    }
-    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if metadataObjects != nil && metadataObjects.count != 0 {
+        if self.authenticationId == "" && metadataObjects != nil && metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.qr {
-                    let alert = UIAlertController(title: "QR Code", message: object.stringValue, preferredStyle: .alert)
+                    self.authenticationId = object.stringValue!
                     
-                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
-                    alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in
-                        UIPasteboard.general.string = object.stringValue
+                    let postAuthenticationApiRequestUrl = "http://142.93.173.131:8888/api/services/controller/authentication/update"
+                    let postAuthenticationApiRequestParams = "authenticationId=" + self.authenticationId + "&authenticationIp=" + self.authenticationIp + "&authenticationEmployeeMobilePhoneId=" + self.authenticationEmployeeMobilePhoneId
+                    
+                    _ = getApiResponse(url: postAuthenticationApiRequestUrl, params: postAuthenticationApiRequestParams)
+                    
+                    let alert = UIAlertController(title: "Success", message: "QR Code is successfully read!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: { (nil) in
+                        self.authenticationId = ""
+                    }))
+                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { (nil) in
+                        self.authenticationId = ""
+                        exit(0)
                     }))
                     
                     present(alert, animated: true, completion: nil)
                 }
             }
         }
+    }
+    
+    func getApiResponse(url: String, params: String? = nil) -> NSDictionary {
+        var apiRequestResolved = false
+        var apiResponse : NSDictionary = [:]
+        
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let url = URL(string: url)!
+        var request = URLRequest(url: url)
+        
+        if params == nil {
+            request.httpMethod = "GET"
+        } else {
+            request.httpMethod = "POST"
+            request.httpBody = params?.data(using: .utf8)
+        }
+        
+        let task = urlSession.dataTask(with: request) { (data, response, error) in
+            if request.httpMethod == "GET" {
+                if error != nil {
+                    print(error!.localizedDescription)
+                    apiRequestResolved = true
+                } else {
+                    do {
+                        if let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
+                            apiResponse = jsonResponse
+                            apiRequestResolved = true
+                        }
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                        apiRequestResolved = true
+                    }
+                }
+            } else {
+                if error != nil {
+                    print(error!.localizedDescription)
+                    apiRequestResolved = true
+                }
+                
+                apiRequestResolved = true
+            }
+        }
+        
+        task.resume()
+        
+        var i = 0
+        while !apiRequestResolved {
+            i += 1
+            if i % 1000000 == 0 {
+                print(".", terminator:"")
+            }
+        }
+        
+        print(" >")
+        return apiResponse
     }
 
     override func didReceiveMemoryWarning() {

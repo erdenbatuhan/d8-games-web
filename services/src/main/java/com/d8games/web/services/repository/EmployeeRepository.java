@@ -17,6 +17,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     Employee getEmployeeByEmployeeId(String employeeId);
 
     @Query(
+    "SELECT e.employeeId " +
+    "FROM Employee e " +
+    "WHERE e.employeeMobilePhoneId = :employeeMobilePhoneId")
+    String getEmployeeIdByEmployeeMobilePhoneId(@Param("employeeMobilePhoneId") String employeeMobilePhoneId);
+
+    @Query(
     "SELECT new com.d8games.web.services.model.dto.DashboardCardDto(" +
             "e.employeeId, e.employeeName, e.employeeSurname, t.titleName, d.departmentName) " +
     "FROM Employee e " +

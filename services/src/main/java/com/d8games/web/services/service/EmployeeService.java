@@ -29,6 +29,10 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
+    public String getEmployeeIdByEmployeeMobilePhoneId(String employeeMobilePhoneId) {
+        return employeeRepository.getEmployeeIdByEmployeeMobilePhoneId(employeeMobilePhoneId);
+    }
+
     public List<DashboardCardDto> getDashboardCardDtoList() {
         return employeeRepository.getDashboardCardDtoList();
     }
