@@ -25,11 +25,13 @@
 </template>
 
 <script>
+  import CommonMixin from '../../mixins/common-mixin'
   import ServicesMixin from '../../mixins/services-mixin'
+
   import VueQr from 'vue-qr'
 
   export default {
-    mixins: [ServicesMixin],
+    mixins: [CommonMixin, ServicesMixin],
     components: {VueQr},
     data () {
       return {
@@ -150,15 +152,6 @@
         if (this.state === this.LAST_STATE) {
           this.redirectToEmployeeProfile()
         }
-      },
-      redirectToEmployeeProfile: function () {
-        let nextLocation = '/'
-
-        if (this.$cookies.isKey('currentEmployeeId')) {
-          nextLocation = '/employeeProfile/' + this.$cookies.get('currentEmployeeId')
-        }
-
-        location.replace(nextLocation)
       }
     }
   }

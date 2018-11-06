@@ -4,15 +4,15 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
       <b-navbar-brand>
-        <router-link to="/"><img src="/static/images/logo.png" height="50" width="52" alt="Logo"/></router-link>
+        <a class="nav-item" v-on:click="redirectTo('/')"><img src="/static/images/logo.png" height="50" width="52" alt="Logo"/></a>
       </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="navbar-nav-left">
 
-            <b-nav-item><router-link class="login-link" to="/dashboard"> Dashboard </router-link></b-nav-item>
-            <b-nav-item><router-link class="login-link" to="/ourGames"> Our Games </router-link></b-nav-item>
-            <b-nav-item><router-link class="login-link" to="/contactUs"> Contact Us </router-link></b-nav-item>
+            <b-nav-item><a v-on:click="redirectTo('/dashboard')"> Dashboard </a></b-nav-item>
+            <b-nav-item><a v-on:click="redirectTo('/ourGames')"> Our Games </a></b-nav-item>
+            <b-nav-item><a v-on:click="redirectTo('/contactUs')"> Contact Us </a></b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -34,9 +34,9 @@
                 </b-button>
               </li>
               <li>
-                <router-link :to="'/employeeProfile/' + currentEmployeeId">
+                <a class="nav-item" v-on:click="redirectToEmployeeProfile()">
                   <img :src="getImageSource(EMPLOYEE_IMAGE_DIR + currentEmployeeId)" class="navbar-img" alt="">
-                </router-link>
+                </a>
               </li>
             </ul>
           </div>
@@ -104,6 +104,10 @@
     max-height: 70px;
     max-width: 250px;
     border-radius: 50%;
+  }
+  
+  .nav-item {
+    cursor: pointer;
   }
 
   .vouch-buttons {

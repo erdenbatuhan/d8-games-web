@@ -1,14 +1,14 @@
 <template>
   <div>
     <div v-if="dashboardCardDto">
-      <router-link :to="'/employeeProfile/' + dashboardCardDto.employeeId">
+      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.employeeId)">
         <div class="box">
           <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.employeeId)" alt="">
           <div class="box-content">
             <p class="title"><b> {{ dashboardCardDto.employeeFullName }} </b><br> {{ dashboardCardDto.titleName }} </p>
           </div>
         </div>
-      </router-link>
+      </a>
 
       <br>
     </div>
@@ -31,6 +31,10 @@
 </script>
 
 <style scoped>
+  a {
+    cursor: pointer;
+  }
+  
   .box {
     position: relative;
   }
