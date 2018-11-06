@@ -32,6 +32,9 @@ public class Employee implements Serializable {
     @Column(name = "EMPLOYEE_PHONE_NUMBER", nullable = false)
     private String employeePhoneNumber;
 
+    @Column(name = "EMPLOYEE_COMPLETED_WORK_IN_HOURS", nullable = false, precision = 1)
+    private Double employeeWorkCompletedWorkInHours;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
     private Date employeeJoinDate;
@@ -78,6 +81,14 @@ public class Employee implements Serializable {
 
     public void setEmployeePhoneNumber(String employeePhoneNumber) {
         this.employeePhoneNumber = employeePhoneNumber;
+    }
+
+    public Double getEmployeeWorkCompletedWorkInHours() {
+        return employeeWorkCompletedWorkInHours;
+    }
+
+    public void setEmployeeWorkCompletedWorkInHours(Double employeeWorkCompletedWorkInHours) {
+        this.employeeWorkCompletedWorkInHours = employeeWorkCompletedWorkInHours;
     }
 
     public Date getEmployeeJoinDate() {

@@ -48,6 +48,8 @@ public class EmployeeController {
         employee.setEmployeeEmail(employeeEmail);
         employee.setEmployeePhoneNumber(employeePhoneNumber);
 
+        employee.setEmployeeWorkCompletedWorkInHours(0.0);
+
         Date employeeJoinDate = new Date(); // Get the current date
 
         if (employeeJoinDateAsString != null)

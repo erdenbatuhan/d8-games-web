@@ -11,16 +11,19 @@ public class EmployeeCardDto {
     private String employeePhoneNumber;
     private String titleName;
     private String departmentName;
+    private Double employeeCompletedWorkInHours;
     private Long timeSinceJoin;
 
-    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail, String employeePhoneNumber,
-                           String titleName, String departmentName, Date employeeJoinDate) {
+    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail,
+                           String employeePhoneNumber, String titleName,
+                           String departmentName, Double employeeCompletedWorkInHours, Date employeeJoinDate) {
         setEmployeeFullName(employeeName, employeeSurname);
 
         this.employeeEmail = employeeEmail;
         this.employeePhoneNumber = employeePhoneNumber;
         this.titleName = titleName;
         this.departmentName = departmentName;
+        this.employeeCompletedWorkInHours = employeeCompletedWorkInHours;
 
         setTimeSinceJoin(employeeJoinDate);
     }
@@ -67,6 +70,14 @@ public class EmployeeCardDto {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Double getEmployeeCompletedWorkInHours() {
+        return employeeCompletedWorkInHours;
+    }
+
+    public void setEmployeeCompletedWorkInHours(Double employeeCompletedWorkInHours) {
+        this.employeeCompletedWorkInHours = employeeCompletedWorkInHours;
     }
 
     public Long getTimeSinceJoin() {
