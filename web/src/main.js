@@ -18,6 +18,7 @@ import employeeProfile from './components/employee-profile/employee-profile.vue'
 import ourGames from './components/our-games/our-games.vue'
 import contactUs from "./components/contact-us/contact-us.vue"
 import notFound from './components/not-found/not-found.vue'
+import signOut from './components/employee-profile/sign-out.vue'
 
 Vue.use(VueRouter)
 Vue.use(VueCookies)
@@ -48,6 +49,10 @@ const router = new VueRouter({
     {
       path: '/contactUs',
       component: contactUs
+    },
+    {
+      path: '/signOut',
+      component: signOut
     },
     {
       path: '/404',

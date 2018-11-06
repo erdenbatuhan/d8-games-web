@@ -39,7 +39,7 @@
         }
         let gameReleaseDate = new Date(this.game.gameReleaseDate)
 
-        let day = gameReleaseDate.getDate()
+        let day = gameReleaseDate.getDate() - 1
         let month = gameReleaseDate.getMonth() + 1
         let year = gameReleaseDate.getFullYear()
 

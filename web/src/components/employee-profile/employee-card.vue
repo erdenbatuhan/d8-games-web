@@ -49,8 +49,7 @@
         return this.employeeId === this.currentEmployeeId
       },
       signOut: function () {
-        this.$cookies.remove('currentEmployeeId');
-        location.replace('/')
+        location.replace('/signOut')
       }
     }
   }
