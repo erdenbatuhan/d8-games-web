@@ -1,7 +1,7 @@
 package com.d8games.web.services.model.entity;
 
 import com.d8games.web.services.exception.AllocationTypeMismatch;
-import com.d8games.web.services.util.ProjectConstants;
+import com.d8games.web.services.config.ConfigManager;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -54,7 +54,7 @@ public class Allocation implements Serializable {
     }
 
     public void setAllocationType(String allocationType) throws AllocationTypeMismatch {
-        if (allocationType.equals(ProjectConstants.ALLOCATION_TYPE_IN) || allocationType.equals(ProjectConstants.ALLOCATION_TYPE_OUT))
+        if (allocationType.equals(ConfigManager.getAllocationTypeIn()) || allocationType.equals(ConfigManager.getAllocationTypeOut()))
             this.allocationType = allocationType;
         else
             throw new AllocationTypeMismatch(allocationType);

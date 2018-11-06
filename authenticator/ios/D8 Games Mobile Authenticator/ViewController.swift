@@ -22,13 +22,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let authenticationIpApiResponse = getApiResponse(url: "https://api.ipify.org/?format=json")
-        self.authenticationIp = authenticationIpApiResponse["ip"]! as! String
-        
-        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
-            self.authenticationEmployeeMobilePhoneId = uuid
-            uuidLabel.text = self.authenticationEmployeeMobilePhoneId
-        }
+        self.setAuthenticationEmployeeMobilePhoneId()
         
         let session = AVCaptureSession()
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
@@ -57,30 +51,39 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
     }
     
+    func setAuthenticationEmployeeMobilePhoneId() -> Void {
+        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            self.authenticationEmployeeMobilePhoneId = uuid
+            uuidLabel.text = self.authenticationEmployeeMobilePhoneId
+        }
+    }
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if self.authenticationId == "" && metadataObjects != nil && metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.qr {
                     self.authenticationId = object.stringValue!
+                    self.authenticationIp = self.getIp()
                     
                     let postAuthenticationApiRequestUrl = "http://142.93.173.131:8888/api/services/controller/authentication/update"
                     let postAuthenticationApiRequestParams = "authenticationId=" + self.authenticationId + "&authenticationIp=" + self.authenticationIp + "&authenticationEmployeeMobilePhoneId=" + self.authenticationEmployeeMobilePhoneId
                     
-                    _ = getApiResponse(url: postAuthenticationApiRequestUrl, params: postAuthenticationApiRequestParams)
+                    _ = self.getApiResponse(url: postAuthenticationApiRequestUrl, params: postAuthenticationApiRequestParams)
                     
                     let alert = UIAlertController(title: "Success", message: "QR Code is successfully read!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: { (nil) in
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (nil) in
                         self.authenticationId = ""
-                    }))
-                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { (nil) in
-                        self.authenticationId = ""
-                        exit(0)
                     }))
                     
                     present(alert, animated: true, completion: nil)
                 }
             }
         }
+    }
+    
+    func getIp() -> String {
+        let authenticationIpApiResponse = self.getApiResponse(url: "https://api.ipify.org/?format=json")
+        return authenticationIpApiResponse["ip"]! as! String
     }
     
     func getApiResponse(url: String, params: String? = nil) -> NSDictionary {
@@ -141,9 +144,5 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
-

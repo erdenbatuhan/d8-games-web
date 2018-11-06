@@ -14,7 +14,7 @@
             <br><br>
 
             <b-row class="row">
-              <b-col class="col" sm="6" v-for="contactCardDto in contactCardDtoList">
+              <b-col class="col" sm="6" v-for="contactCardDto in contactCardDtoList" :key="contactCardDto.id">
                 <contact-card :contact-card-dto="contactCardDto"></contact-card>
               </b-col>
             </b-row>

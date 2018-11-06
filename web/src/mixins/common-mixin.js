@@ -6,8 +6,8 @@ export default {
     }
   },
   methods: {
-    getImageSource: function (imagesDir, imageId) {
-      return this.STATIC_IMAGES_DIR + imagesDir + imageId + this.IMAGE_TYPE
+    getImageSource: function (image) {
+      return this.STATIC_IMAGES_DIR + image + this.IMAGE_TYPE
     }
   }
 }

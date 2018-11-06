@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueCookies from 'vue-cookies'
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
 import BootstrapVue from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -17,6 +20,7 @@ import contactUs from "./components/contact-us/contact-us.vue"
 import notFound from './components/not-found/not-found.vue'
 
 Vue.use(VueRouter)
+Vue.use(VueCookies)
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 
@@ -68,5 +72,8 @@ new Vue({
   components: {
     App
   },
-  template: '<App/>'
+  template: '<App/>',
+  mounted () {
+    this.$cookies.config('7d')
+  }
 })

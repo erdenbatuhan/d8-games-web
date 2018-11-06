@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="employeeCardDto">
       <b-card :title="employeeCardDto.employeeFullName"
               :img-src="employeeImage"
@@ -12,6 +12,14 @@
           <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.employeeEmail }} </p>
           <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.employeePhoneNumber }} </p>
           <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
+          <div v-if="isCurrentEmployeeProfile()">
+            <hr>
+            <b-button variant="outline-danger"
+                      class="btn-sm"
+                      @click="signOut">
+              Sign out
+            </b-button>
+          </div>
         </div>
       </b-card>
 
@@ -25,10 +33,24 @@
 
   export default {
     mixins: [CommonMixin],
-    props: ['employeeCardDto', 'employeeImage'],
+    props: ['employeeId', 'employeeCardDto', 'employeeImage'],
     data () {
       return {
         name: 'employeeCard'
+      }
+    },
+    computed: {
+      currentEmployeeId () {
+        return (this.$cookies.isKey('currentEmployeeId')) ? this.$cookies.get('currentEmployeeId') : null
+      }
+    },
+    methods: {
+      isCurrentEmployeeProfile: function () {
+        return this.employeeId === this.currentEmployeeId
+      },
+      signOut: function () {
+        this.$cookies.remove('currentEmployeeId');
+        location.replace('/')
       }
     }
   }

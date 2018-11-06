@@ -16,7 +16,7 @@
 
       <b-row>
         <b-col class="col" sm="2"></b-col>
-        <b-col class="col" sm="6"><img src="/static/images/not-found/not-found.jpg" alt=""></b-col>
+        <b-col class="col" sm="6"><img src="/static/images/not-found.jpg" alt=""></b-col>
         <b-col class="col" sm="4"></b-col>
       </b-row>
 

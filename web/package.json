@@ -16,6 +16,7 @@
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
     "vue-component-router": "^0.1.12",
+    "vue-cookies": "^1.5.7",
     "vue-qr": "^1.5.2",
     "vue-router": "^3.0.1"
   },

@@ -33,7 +33,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background: url("/static/images/home/backgroundImage.jpg") no-repeat center;
+    background: url("/static/images/backgroundImage.jpg") no-repeat center;
     position: fixed;
     width: 100%;
     height: 100%;

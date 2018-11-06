@@ -1,5 +1,6 @@
 package com.d8games.web.services.service;
 
+import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.repository.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class AuthenticationService {
         authenticationRepository.save(authentication);
     }
 
-    public String getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(String authenticationId) {
-        return authenticationRepository.getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(authenticationId);
+    public AuthenticationDto getAuthenticationDto(String authenticationId) {
+        return authenticationRepository.getAuthenticationDto(authenticationId);
     }
 }

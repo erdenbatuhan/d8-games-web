@@ -1,14 +1,14 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.model.dto.AuthenticatedDto;
+import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.service.AuthenticationService;
 import com.d8games.web.services.service.EmployeeService;
-import com.d8games.web.services.util.ProjectConstants;
+import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +25,7 @@ public class AuthenticationController {
 
     @GetMapping(value = "/getAll")
     public List<Authentication> getAll() {
+        System.out.println(ConfigManager.getOfficeIp());
         return authenticationService.getAll();
     }
 
@@ -55,19 +56,27 @@ public class AuthenticationController {
     }
 
     @GetMapping(value = "/getAuthenticated")
-    public String getAuthenticated(@RequestParam String authenticationId) {
+    public AuthenticatedDto getAuthenticated(@RequestParam String authenticationId) {
         long start = System.currentTimeMillis();
+
+        AuthenticatedDto authenticatedDto = new AuthenticatedDto();
+        AuthenticationDto authenticationDto = null;
+
         String authenticationEmployeeMobilePhoneId = null;
 
         while (authenticationEmployeeMobilePhoneId == null) {
-            authenticationEmployeeMobilePhoneId = authenticationService.
-                    getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(authenticationId);
+            authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
+            authenticationEmployeeMobilePhoneId = authenticationDto.getAuthenticationEmployeeMobilePhoneId();
 
             long timeElapsed = System.currentTimeMillis() - start;
-            if (timeElapsed >= ProjectConstants.AUTHENTICATION_TIMEOUT)
-                return null;
+            if (timeElapsed >= ConfigManager.getAuthenticationTimeout())
+                return authenticatedDto;
         }
 
-        return employeeService.getEmployeeIdByEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
+        String authenticatedEmployeeId = employeeService.
+                getEmployeeIdByEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
+        String authenticatedEmployeeIp = authenticationDto.getAuthenticationIp();
+
+        return new AuthenticatedDto(authenticatedEmployeeId, authenticatedEmployeeIp);
     }
 }

@@ -4,7 +4,7 @@
       <br>
       <b-card class="mb-2"
               :title="game.gameName"
-              :img-src="getImageSource(IMAGE_DIR, game.gameId)"
+              :img-src="getImageSource(IMAGE_DIR + game.gameId)"
               img-alt="Image"
               img-top
               tag="article">
@@ -27,19 +27,23 @@
     props: ['game'],
     data() {
       return {
-        IMAGE_DIR: 'our-games/',
+        IMAGE_DIR: 'game/',
         name: 'gameInfoCard'
       }
     },
     methods: {
       getGameReleaseDate: function () {
+        let getDateWithZero = date => {
+          let dateAsString = String(date)
+          return (dateAsString.length < 2) ? '0' + dateAsString : dateAsString
+        }
         let gameReleaseDate = new Date(this.game.gameReleaseDate)
 
         let day = gameReleaseDate.getDate()
         let month = gameReleaseDate.getMonth() + 1
         let year = gameReleaseDate.getFullYear()
 
-        return day + "/" + month + "/" + year
+        return getDateWithZero(day) + "/" + getDateWithZero(month) + "/" + year
       }
     }
   }

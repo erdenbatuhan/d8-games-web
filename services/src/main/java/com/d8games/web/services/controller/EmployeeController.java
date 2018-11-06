@@ -7,9 +7,8 @@ import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
-import com.d8games.web.services.util.ProjectConstants;
+import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -54,7 +53,7 @@ public class EmployeeController {
         Date employeeJoinDate = new Date(); // Get the current date
 
         if (employeeJoinDateAsString != null)
-            employeeJoinDate =  new SimpleDateFormat(ProjectConstants.DATE_FORMAT).parse(employeeJoinDateAsString);
+            employeeJoinDate =  new SimpleDateFormat(ConfigManager.getDateFormat()).parse(employeeJoinDateAsString);
 
         employee.setEmployeeJoinDate(employeeJoinDate);
         employee.setEmployeeTitle(titleService.getById(employeeTitleId));

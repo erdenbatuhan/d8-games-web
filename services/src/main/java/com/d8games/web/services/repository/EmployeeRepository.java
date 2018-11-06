@@ -36,7 +36,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     "FROM Employee e " +
     "INNER JOIN Title t ON e.employeeTitle = t " +
     "INNER JOIN Department d ON t.titleDepartment = d " +
-    "WHERE d.departmentName = :contactDepartmentName")
+    "WHERE d.departmentName = :contactDepartmentName " +
+    "ORDER BY t.titleName")
     List<ContactCardDto> getContactCardDtoList(@Param("contactDepartmentName") String contactDepartmentName);
 
     @Query(

@@ -1,5 +1,6 @@
 package com.d8games.web.services.repository;
 
+import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,9 @@ public interface AuthenticationRepository extends JpaRepository<Authentication, 
     Authentication getAuthenticationByAuthenticationId(String authenticationId);
 
     @Query(
-    "SELECT a.authenticationEmployeeMobilePhoneId " +
+    "SELECT new com.d8games.web.services.model.dto.AuthenticationDto(" +
+            "a.authenticationEmployeeMobilePhoneId, a.authenticationIp) " +
     "FROM Authentication a " +
     "WHERE a.authenticationId = :authenticationId")
-    String getAuthenticationEmployeeMobilePhoneIdByAuthenticationId(@Param("authenticationId") String authenticationId);
+    AuthenticationDto getAuthenticationDto(@Param("authenticationId") String authenticationId);
 }
