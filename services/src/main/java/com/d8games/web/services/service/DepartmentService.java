@@ -22,11 +22,11 @@ public class DepartmentService {
         return departmentRepository.getDepartmentById(id);
     }
 
-    public void save(Department department) {
-        departmentRepository.save(department);
-    }
-
     public List<String> getAllDepartmentNames() {
         return departmentRepository.getAllDepartmentNames();
+    }
+
+    public void save(Department department) {
+        departmentRepository.save(department);
     }
 }

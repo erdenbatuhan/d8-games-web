@@ -1,29 +1,28 @@
 package com.d8games.web.services.model.dto;
 
-@SuppressWarnings("unused")
 public class AuthenticationDto {
 
-    private String employeeId;
-    private String authenticationIp;
+    private String mobilePhoneId;
+    private String ip;
 
-    public AuthenticationDto(String employeeId, String authenticationIp) {
-        this.employeeId = employeeId;
-        this.authenticationIp = authenticationIp;
+    public AuthenticationDto(String mobilePhoneId, String ip) {
+        this.mobilePhoneId = mobilePhoneId;
+        this.ip = ip;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getMobilePhoneId() {
+        return mobilePhoneId;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setMobilePhoneId(String mobilePhoneId) {
+        this.mobilePhoneId = mobilePhoneId;
     }
 
-    public String getAuthenticationIp() {
-        return authenticationIp;
+    public String getIp() {
+        return ip;
     }
 
-    public void setAuthenticationIp(String authenticationIp) {
-        this.authenticationIp = authenticationIp;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

@@ -23,11 +23,11 @@ public class AuthenticationService {
         return authenticationRepository.getAuthenticationById(id);
     }
 
-    public void save(Authentication authentication) {
-        authenticationRepository.save(authentication);
-    }
-
     public AuthenticationDto getAuthenticationDto(String authenticationId) {
         return authenticationRepository.getAuthenticationDto(authenticationId);
+    }
+
+    public void save(Authentication authentication) {
+        authenticationRepository.save(authentication);
     }
 }

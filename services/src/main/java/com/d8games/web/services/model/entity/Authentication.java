@@ -22,6 +22,9 @@ public class Authentication implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private String id;
 
+    @Column(name = "MOBILE_PHONE_ID")
+    private String mobilePhoneId;
+
     @Column(name = "IP")
     private String ip;
 
@@ -30,16 +33,20 @@ public class Authentication implements Serializable {
     @Column(name = "CREATED_DATE", nullable = false)
     private Date createdDate;
 
-    @ManyToOne
-    @JoinColumn(name = "MOBILE_PHONE_ID", referencedColumnName = "MOBILE_PHONE_ID")
-    private Employee employee;
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMobilePhoneId() {
+        return mobilePhoneId;
+    }
+
+    public void setMobilePhoneId(String mobilePhoneId) {
+        this.mobilePhoneId = mobilePhoneId;
     }
 
     public String getIp() {
@@ -56,13 +63,5 @@ public class Authentication implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 }

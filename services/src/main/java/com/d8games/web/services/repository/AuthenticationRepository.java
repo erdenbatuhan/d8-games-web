@@ -13,10 +13,8 @@ public interface AuthenticationRepository extends JpaRepository<Authentication, 
     Authentication getAuthenticationById(String id);
 
     @Query(
-    "SELECT new com.d8games.web.services.model.dto.AuthenticationDto(e.id, a.ip) " +
+    "SELECT new com.d8games.web.services.model.dto.AuthenticationDto(a.mobilePhoneId, a.ip) " +
     "FROM Authentication a " +
-    "INNER JOIN Employee e " +
-    "ON a.employee = e " +
-    "WHERE a.id = :authenticationId")
+    "WHERE id = :authenticationId")
     AuthenticationDto getAuthenticationDto(@Param("authenticationId") String authenticationId);
 }

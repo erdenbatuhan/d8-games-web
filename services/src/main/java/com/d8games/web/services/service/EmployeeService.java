@@ -30,12 +30,8 @@ public class EmployeeService {
         return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
     }
 
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
-    }
-
-    public String getEmployeeIdByEmployeeMobilePhoneId(String employeeMobilePhoneId) {
-        return employeeRepository.getEmployeeIdByEmployeeMobilePhoneId(employeeMobilePhoneId);
+    public String getEmployeeIdByMobilePhoneId(String mobilePhoneId) {
+        return employeeRepository.getEmployeeIdByMobilePhoneId(mobilePhoneId);
     }
 
     public List<DashboardCardDto> getDashboardCardDtoList() {
@@ -48,5 +44,9 @@ public class EmployeeService {
 
     public EmployeeCardDto getEmployeeCardDto(String employeeId) {
         return employeeRepository.getEmployeeCardDto(employeeId);
+    }
+
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
     }
 }

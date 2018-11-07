@@ -36,7 +36,7 @@
     data () {
       return {
         API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION: '/authentication/save',
-        API_ENDPOINT_TO_GET_AUTHENTICATION_DTO: '/authentication/getDto?authenticationId=',
+        API_ENDPOINT_TO_GET_AUTHENTICATED_EMPLOYEE: '/authentication/authenticatedEmployee?authenticationId=',
         LAST_STATE: 2,
         name: 'qrAuth',
         title: 'Sign in',
@@ -66,8 +66,8 @@
             this.authenticationId = authenticationId
             this.setStateTo(1)
 
-            this.getAuthenticationDto(authenticationId).then(authenticationDto => {
-              this.handleAuthentication(currentIp, authenticationDto, vouchType, 2)
+            this.getAuthenticationDto(authenticationId).then(authenticatedEmployee => {
+              this.handleAuthentication(currentIp, authenticatedEmployee, vouchType, 2)
             }).catch((error) => {
               this.handleError(error, -2)
             })
@@ -98,7 +98,7 @@
       },
       getAuthenticationDto: function (authenticationId) {
         return new Promise((resolve, reject) => {
-          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATION_DTO + authenticationId).then(response => {
+          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATED_EMPLOYEE + authenticationId).then(response => {
             resolve(response.data)
           }).catch((error) => {
             reject(error)
@@ -109,19 +109,15 @@
         console.error(error)
         this.setStateTo(nextErrorState)
       },
-      handleAuthentication: function (currentIp, authenticationDto, vouchType, nextState) {
+      handleAuthentication: function (currentIp, authenticatedEmployee, vouchType, nextState) {
         let nextErrorState = (-1) * nextState
-
-        let authenticatedEmployeeId = authenticationDto.employeeId
-        let authenticatedEmployeeIp = authenticationDto.authenticationIp
-
-        let canAuthenticate = authenticatedEmployeeId && (currentIp === authenticatedEmployeeIp)
+        let canAuthenticate = authenticatedEmployee.id && (currentIp === authenticatedEmployee.ip)
 
         if (canAuthenticate) {
           if (!this.$cookies.isKey('currentEmployeeId')) {
-            this.handleSignIn(authenticatedEmployeeId, nextState)
-          } else if (this.$cookies.get('currentEmployeeId') === authenticatedEmployeeId) {
-            this.handleVouching(authenticatedEmployeeIp, vouchType, nextState)
+            this.handleSignIn(authenticatedEmployee.id, nextState)
+          } else if (this.$cookies.get('currentEmployeeId') === authenticatedEmployee.id) {
+            this.handleVouching(authenticatedEmployee.ip, vouchType, nextState)
           } else {
             this.setStateTo(nextErrorState)
           }

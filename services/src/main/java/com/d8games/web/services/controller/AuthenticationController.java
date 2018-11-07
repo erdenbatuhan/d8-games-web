@@ -1,5 +1,6 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.model.dto.AuthenticatedEmployeeDto;
 import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.service.AuthenticationService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/api/services/controller/authentication")
@@ -46,22 +48,34 @@ public class AuthenticationController {
         Authentication authentication = authenticationService.getById(id);
 
         authentication.setIp(ip);
-        authentication.setEmployee(employeeService.getByMobilePhoneId(mobilePhoneId));
+        authentication.setMobilePhoneId(mobilePhoneId);
 
         authenticationService.save(authentication);
         return id;
     }
 
-    @GetMapping(value = "/getDto")
-    public AuthenticationDto getAuthenticationDto(@RequestParam String authenticationId) {
+    @GetMapping(value = "/authenticatedEmployee")
+    public AuthenticatedEmployeeDto getAuthenticationDto(@RequestParam String authenticationId) throws TimeoutException {
+        int authenticationTimeout = ConfigManager.getAuthenticationTimeout();
         long start = System.currentTimeMillis();
 
-        while (true) {
-            AuthenticationDto authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
+        String mobilePhoneId = null;
+        AuthenticationDto authenticationDto = null;
 
+        while (mobilePhoneId == null) {
             long timeElapsed = System.currentTimeMillis() - start;
-            if (authenticationDto != null || timeElapsed >= ConfigManager.getAuthenticationTimeout())
-                return authenticationDto;
+
+            authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
+            mobilePhoneId = authenticationDto.getMobilePhoneId();
+
+            if (timeElapsed >= authenticationTimeout)
+                throw new TimeoutException();
         }
+
+        String employeeId = employeeService.getEmployeeIdByMobilePhoneId(mobilePhoneId);
+        String ip = authenticationDto.getIp();
+
+
+        return new AuthenticatedEmployeeDto(employeeId, ip);
     }
 }
