@@ -13,8 +13,8 @@ public interface GameRepository extends JpaRepository<Game, String> {
     @Query(
     "SELECT g " +
     "FROM Game g " +
-    "ORDER BY g.gameReleaseDate")
+    "ORDER BY g.releaseDate")
     List<Game> getAllGames();
 
-    Game getGameByGameId(String gameId);
+    Game getGameById(String id);
 }

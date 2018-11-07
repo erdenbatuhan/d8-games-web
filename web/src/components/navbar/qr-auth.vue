@@ -36,7 +36,7 @@
     data () {
       return {
         API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION: '/authentication/save',
-        API_ENDPOINT_TO_GET_AUTHENTICATED: '/authentication/getAuthenticated?authenticationId=',
+        API_ENDPOINT_TO_GET_AUTHENTICATION_DTO: '/authentication/getDto?authenticationId=',
         LAST_STATE: 2,
         name: 'qrAuth',
         title: 'Sign in',
@@ -66,8 +66,8 @@
             this.authenticationId = authenticationId
             this.setStateTo(1)
 
-            this.getAuthenticated(authenticationId).then(authenticated => {
-              this.handleAuthentication(currentIp, authenticated, vouchType, 2)
+            this.getAuthenticationDto(authenticationId).then(authenticationDto => {
+              this.handleAuthentication(currentIp, authenticationDto, vouchType, 2)
             }).catch((error) => {
               this.handleError(error, -2)
             })
@@ -96,9 +96,9 @@
           })
         })
       },
-      getAuthenticated: function (authenticationId) {
+      getAuthenticationDto: function (authenticationId) {
         return new Promise((resolve, reject) => {
-          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATED + authenticationId).then(response => {
+          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATION_DTO + authenticationId).then(response => {
             resolve(response.data)
           }).catch((error) => {
             reject(error)
@@ -109,11 +109,11 @@
         console.error(error)
         this.setStateTo(nextErrorState)
       },
-      handleAuthentication: function (currentIp, authenticated, vouchType, nextState) {
+      handleAuthentication: function (currentIp, authenticationDto, vouchType, nextState) {
         let nextErrorState = (-1) * nextState
 
-        let authenticatedEmployeeId = authenticated.authenticatedEmployeeId
-        let authenticatedEmployeeIp = authenticated.authenticatedEmployeeIp
+        let authenticatedEmployeeId = authenticationDto.employeeId
+        let authenticatedEmployeeIp = authenticationDto.authenticationIp
 
         let canAuthenticate = authenticatedEmployeeId && (currentIp === authenticatedEmployeeIp)
 

@@ -11,7 +11,7 @@
           <p class="card-text text-left"><b> Department <br></b> {{ employeeCardDto.departmentName }} </p>
           <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.employeeEmail }} </p>
           <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.employeePhoneNumber }} </p>
-          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
+          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.employeeTimeSinceJoin }} </p>
           <div v-if="isCurrentEmployeeProfile()">
             <hr>
             <b-button variant="outline-danger"

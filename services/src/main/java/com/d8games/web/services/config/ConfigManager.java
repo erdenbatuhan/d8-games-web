@@ -11,13 +11,12 @@ import java.util.Properties;
 
 @Component
 @PropertySource("classpath:application.properties")
+@SuppressWarnings("unused")
 public class ConfigManager {
 
     private static final String PROPERTIES_FILE_NAME = "config.properties";
     private static String officeIp;
     private static String dateFormat;
-    private static String allocationTypeIn;
-    private static String allocationTypeOut;
     private static String contactDepartmentName;
     private static int authenticationTimeout;
 
@@ -28,13 +27,11 @@ public class ConfigManager {
 
         ConfigManager.officeIp = properties.getProperty("officeIp");
         ConfigManager.dateFormat = properties.getProperty("dateFormat");
-        ConfigManager.allocationTypeIn = properties.getProperty("allocationTypeIn");
-        ConfigManager.allocationTypeOut = properties.getProperty("allocationTypeOut");
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
         ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
     }
 
-    public Properties getProperties() throws IOException {
+    private Properties getProperties() throws IOException {
         Properties properties = new Properties();
 
         try {
@@ -60,14 +57,6 @@ public class ConfigManager {
 
     public static String getDateFormat() {
         return dateFormat;
-    }
-
-    public static String getAllocationTypeIn() {
-        return allocationTypeIn;
-    }
-
-    public static String getAllocationTypeOut() {
-        return allocationTypeOut;
     }
 
     public static String getContactDepartmentName() {

@@ -7,7 +7,7 @@
       <hr>
 
       <div class="row">
-        <b-col class="col-sm-4" v-for="game in games" :key="game.gameId">
+        <b-col class="col-sm-4" v-for="game in games" :key="game.id">
           <game-info-card :game="game"></game-info-card>
         </b-col>
       </div>
@@ -31,7 +31,7 @@
     },
     data() {
       return {
-        API_ENDPOINT_TO_GET_ALL_GAMES: '/game/getAll',
+        API_ENDPOINT_TO_GET_ALL_GAMES: '/game',
         name: 'our-games',
         spinner: true,
         games: []

@@ -15,7 +15,6 @@
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
         <div class="col-md-12 col-xl-6">
           <div id="work-info">
-            <!-- <calendar></calendar> -->
             <b-table hover bordered
                      :current-page="currentPage"
                      :per-page="perPage"
@@ -48,7 +47,6 @@
   import navbar from '../navbar/navbar.vue'
   import employeeCard from './employee-card.vue'
   import employeeSummary from './employee-summary.vue'
-  import calendar from './calendar.vue'
 
   const allocations = [
     {
@@ -249,12 +247,12 @@
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
-    components: {navbar, employeeCard, employeeSummary, calendar},
+    components: {navbar, employeeCard, employeeSummary},
     props: ['employeeId'],
     data() {
       return {
         IMAGE_DIR: 'employee/',
-        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO_BY_ID: '/employee/employeeCard?employeeId=',
+        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO: '/employee/employeeCard?employeeId=',
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
@@ -266,7 +264,7 @@
       }
     },
     mounted () {
-      this.get(this.API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO_BY_ID + this.employeeId).then(response => {
+      this.get(this.API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO + this.employeeId).then(response => {
         this.employeeCardDto = response.data
         this.spinner = false
       }).catch(error => {

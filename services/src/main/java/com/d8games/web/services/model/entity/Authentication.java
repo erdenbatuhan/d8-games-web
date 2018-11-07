@@ -19,49 +19,50 @@ public class Authentication implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "AUTHENTICATION_ID", unique = true, nullable = false)
-    private String authenticationId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "AUTHENTICATION_IP")
-    private String authenticationIp;
+    @Column(name = "IP")
+    private String ip;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "AUTHENTICATION_CREATED_DATE", nullable = false)
-    private Date authenticationCreatedDate;
+    @Column(name = "CREATED_DATE", nullable = false)
+    private Date createdDate;
 
-    @Column(name = "AUTHENTICATION_EMPLOYEE_MOBILE_PHONE_ID")
-    private String authenticationEmployeeMobilePhoneId;
+    @ManyToOne
+    @JoinColumn(name = "MOBILE_PHONE_ID", referencedColumnName = "MOBILE_PHONE_ID")
+    private Employee employee;
 
-    public String getAuthenticationId() {
-        return authenticationId;
+    public String getId() {
+        return id;
     }
 
-    public void setAuthenticationId(String authenticationId) {
-        this.authenticationId = authenticationId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getAuthenticationIp() {
-        return authenticationIp;
+    public String getIp() {
+        return ip;
     }
 
-    public void setAuthenticationIp(String authenticationIp) {
-        this.authenticationIp = authenticationIp;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public Date getAuthenticationCreatedDate() {
-        return authenticationCreatedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setAuthenticationCreatedDate(Date authenticationCreatedDate) {
-        this.authenticationCreatedDate = authenticationCreatedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public String getAuthenticationEmployeeMobilePhoneId() {
-        return authenticationEmployeeMobilePhoneId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setAuthenticationEmployeeMobilePhoneId(String authenticationEmployeeMobilePhoneId) {
-        this.authenticationEmployeeMobilePhoneId = authenticationEmployeeMobilePhoneId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

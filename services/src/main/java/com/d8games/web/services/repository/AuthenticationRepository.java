@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthenticationRepository extends JpaRepository<Authentication, String> {
 
-    Authentication getAuthenticationByAuthenticationId(String authenticationId);
+    Authentication getAuthenticationById(String id);
 
     @Query(
-    "SELECT new com.d8games.web.services.model.dto.AuthenticationDto(" +
-            "a.authenticationEmployeeMobilePhoneId, a.authenticationIp) " +
+    "SELECT new com.d8games.web.services.model.dto.AuthenticationDto(e.id, a.ip) " +
     "FROM Authentication a " +
-    "WHERE a.authenticationId = :authenticationId")
+    "INNER JOIN Employee e " +
+    "ON a.employee = e " +
+    "WHERE a.id = :authenticationId")
     AuthenticationDto getAuthenticationDto(@Param("authenticationId") String authenticationId);
 }

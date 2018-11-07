@@ -7,24 +7,21 @@ import java.util.concurrent.TimeUnit;
 public class EmployeeCardDto {
 
     private String employeeFullName;
-    private String employeeEmail;
-    private String employeePhoneNumber;
-    private Long timeSinceJoin;
     private String titleName;
     private String departmentName;
+    private String employeeEmail;
+    private String employeePhoneNumber;
+    private Long employeeTimeSinceJoin;
 
-    public EmployeeCardDto(String employeeName, String employeeSurname, String employeeEmail,
-                           String employeePhoneNumber, Date employeeJoinDate,
-                           String titleName, String departmentName) {
-        setEmployeeFullName(employeeName, employeeSurname);
-
+    public EmployeeCardDto(String employeeFullName, String titleName, String departmentName,
+                           String employeeEmail, String employeePhoneNumber, Date employeeJoinDate) {
+        this.employeeFullName = employeeFullName;
+        this.titleName = titleName;
+        this.departmentName = departmentName;
         this.employeeEmail = employeeEmail;
         this.employeePhoneNumber = employeePhoneNumber;
 
         setTimeSinceJoin(employeeJoinDate);
-
-        this.titleName = titleName;
-        this.departmentName = departmentName;
     }
 
     public String getEmployeeFullName() {
@@ -35,8 +32,20 @@ public class EmployeeCardDto {
         this.employeeFullName = employeeFullName;
     }
 
-    public void setEmployeeFullName(String employeeName, String employeeSurname) {
-        this.employeeFullName = employeeName + " " + employeeSurname;
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getEmployeeEmail() {
@@ -55,34 +64,18 @@ public class EmployeeCardDto {
         this.employeePhoneNumber = employeePhoneNumber;
     }
 
-    public Long getTimeSinceJoin() {
-        return timeSinceJoin;
+    public Long getEmployeeTimeSinceJoin() {
+        return employeeTimeSinceJoin;
     }
 
-    public void setTimeSinceJoin(Long timeSinceJoin) {
-        this.timeSinceJoin = timeSinceJoin;
+    public void setEmployeeTimeSinceJoin(Long employeeTimeSinceJoin) {
+        this.employeeTimeSinceJoin = employeeTimeSinceJoin;
     }
 
     public void setTimeSinceJoin(Date employeeJoinDate) {
         long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
         long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
 
-        this.timeSinceJoin = timeInDays;
-    }
-
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+        this.employeeTimeSinceJoin = timeInDays;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("unused")
 public class EmployeeService {
 
     @Autowired
@@ -22,7 +23,11 @@ public class EmployeeService {
     }
 
     public Employee getById(String id) {
-        return employeeRepository.getEmployeeByEmployeeId(id);
+        return employeeRepository.getEmployeeById(id);
+    }
+
+    public Employee getByMobilePhoneId(String mobilePhoneId) {
+        return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
     }
 
     public void save(Employee employee) {

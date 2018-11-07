@@ -8,10 +8,9 @@ public class ContactCardDto {
     private String employeePhoneNumber;
     private String titleName;
 
-    public ContactCardDto(String employeeName, String employeeSurname, String employeeEmail,
+    public ContactCardDto(String employeeFullName, String employeeEmail,
                           String employeePhoneNumber, String titleName) {
-        setEmployeeFullName(employeeName, employeeSurname);
-
+        this.employeeFullName = employeeFullName;
         this.employeeEmail = employeeEmail;
         this.employeePhoneNumber = employeePhoneNumber;
         this.titleName = titleName;
@@ -23,10 +22,6 @@ public class ContactCardDto {
 
     public void setEmployeeFullName(String employeeFullName) {
         this.employeeFullName = employeeFullName;
-    }
-
-    public void setEmployeeFullName(String employeeName, String employeeSurname) {
-        this.employeeFullName = employeeName + " " + employeeSurname;
     }
 
     public String getEmployeeEmail() {

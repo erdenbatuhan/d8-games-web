@@ -7,20 +7,23 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "WORK_INFO")
+@Table(name = "JOB_INFO")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @SuppressWarnings("unused")
-public class WorkInfo {
+public class JobInfo {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "WORK_INFO_ID", unique = true, nullable = false)
-    private String workInfoId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "WORK_INFO_NAME", unique = true, nullable = false)
-    private String workInfoName;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
+
+    @Column(name = "UNPAID_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
+    private Double unpaidHoursNeededPerMonth;
 
     @Column(name = "OFFICE_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
     private Double officeHoursNeededPerMonth;
@@ -28,29 +31,34 @@ public class WorkInfo {
     @Column(name = "HOME_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
     private Double homeHoursNeededPerMonth;
 
-    @Column(name = "UNPAID_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
-    private Double unpaidHoursNeededPerMonth;
-
     @Column(name = "SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
     private Double salaryPerHour;
 
     @Column(name = "OVERTIME_SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
     private Double overtimeSalaryPerHour;
 
-    public String getWorkInfoId() {
-        return workInfoId;
+    public String getId() {
+        return id;
     }
 
-    public void setWorkInfoId(String workInfoId) {
-        this.workInfoId = workInfoId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getWorkInfoName() {
-        return workInfoName;
+    public String getName() {
+        return name;
     }
 
-    public void setWorkInfoName(String workInfoName) {
-        this.workInfoName = workInfoName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getUnpaidHoursNeededPerMonth() {
+        return unpaidHoursNeededPerMonth;
+    }
+
+    public void setUnpaidHoursNeededPerMonth(Double unpaidHoursNeededPerMonth) {
+        this.unpaidHoursNeededPerMonth = unpaidHoursNeededPerMonth;
     }
 
     public Double getOfficeHoursNeededPerMonth() {
@@ -67,14 +75,6 @@ public class WorkInfo {
 
     public void setHomeHoursNeededPerMonth(Double homeHoursNeededPerMonth) {
         this.homeHoursNeededPerMonth = homeHoursNeededPerMonth;
-    }
-
-    public Double getUnpaidHoursNeededPerMonth() {
-        return unpaidHoursNeededPerMonth;
-    }
-
-    public void setUnpaidHoursNeededPerMonth(Double unpaidHoursNeededPerMonth) {
-        this.unpaidHoursNeededPerMonth = unpaidHoursNeededPerMonth;
     }
 
     public Double getSalaryPerHour() {

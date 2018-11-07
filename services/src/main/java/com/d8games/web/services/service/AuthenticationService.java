@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("unused")
 public class AuthenticationService {
 
     @Autowired
-    AuthenticationRepository authenticationRepository;
+    private AuthenticationRepository authenticationRepository;
 
     public List<Authentication> getAll() {
         return authenticationRepository.findAll();
     }
 
     public Authentication getById(String id) {
-        return authenticationRepository.getAuthenticationByAuthenticationId(id);
+        return authenticationRepository.getAuthenticationById(id);
     }
 
     public void save(Authentication authentication) {

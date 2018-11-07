@@ -16,48 +16,48 @@ public class Department implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "DEPARTMENT_ID", unique = true, nullable = false)
-    private String departmentId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "DEPARTMENT_NAME", unique = true, nullable = false)
-    private String departmentName;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
-    @Column(name = "DEPARTMENT_RANK", nullable = false)
-    private Integer departmentRank;
+    @Column(name = "RANK", nullable = false)
+    private Integer rank;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEPARTMENT_MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
-    private Employee departmentManager;
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+    private Employee manager;
 
-    public String getDepartmentId() {
-        return departmentId;
+    public String getId() {
+        return id;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getDepartmentRank() {
-        return departmentRank;
+    public Integer getRank() {
+        return rank;
     }
 
-    public void setDepartmentRank(Integer departmentRank) {
-        this.departmentRank = departmentRank;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
-    public Employee getDepartmentManager() {
-        return departmentManager;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setDepartmentManager(Employee departmentManager) {
-        this.departmentManager = departmentManager;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 }

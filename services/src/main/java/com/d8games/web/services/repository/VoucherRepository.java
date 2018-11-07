@@ -1,11 +1,11 @@
 package com.d8games.web.services.repository;
 
-import com.d8games.web.services.model.entity.Title;
+import com.d8games.web.services.model.entity.Voucher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TitleRepository extends JpaRepository<Title, String> {
+public interface VoucherRepository extends JpaRepository<Voucher, String> {
 
-    Title getTitleById(String id);
+    Voucher getVoucherById(String id);
 }

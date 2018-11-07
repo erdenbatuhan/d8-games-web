@@ -31,8 +31,8 @@
     components: {navbar, dashboardCard},
     data() {
       return {
-        API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES: '/department/departmentName/getAll',
-        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard/getAll',
+        API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES: '/department/name',
+        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard',
         name: 'dashboard',
         spinner: true,
         departmentNames: null,

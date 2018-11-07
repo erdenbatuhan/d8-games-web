@@ -1,6 +1,5 @@
 package com.d8games.web.services.controller;
 
-import com.d8games.web.services.model.dto.AuthenticatedDto;
 import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.service.AuthenticationService;
@@ -18,18 +17,17 @@ import java.util.List;
 public class AuthenticationController {
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
-    @GetMapping(value = "/getAll")
+    @GetMapping
     public List<Authentication> getAll() {
-        System.out.println(ConfigManager.getOfficeIp());
         return authenticationService.getAll();
     }
 
-    @GetMapping(value = "/getById")
+    @GetMapping(value = "/get")
     public Authentication getById(@RequestParam String id) {
         return authenticationService.getById(id);
     }
@@ -37,46 +35,33 @@ public class AuthenticationController {
     @PutMapping(value = "/save")
     public String save() {
         Authentication authentication = new Authentication();
-        authentication.setAuthenticationCreatedDate(new Date());
+        authentication.setCreatedDate(new Date());
 
         authenticationService.save(authentication);
-        return authentication.getAuthenticationId();
+        return authentication.getId();
     }
 
     @PostMapping(value = "/update")
-    public String update(@RequestParam String authenticationId, @RequestParam String authenticationIp,
-                         @RequestParam String authenticationEmployeeMobilePhoneId) {
-        Authentication authentication = authenticationService.getById(authenticationId);
+    public String update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
+        Authentication authentication = authenticationService.getById(id);
 
-        authentication.setAuthenticationIp(authenticationIp);
-        authentication.setAuthenticationEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
+        authentication.setIp(ip);
+        authentication.setEmployee(employeeService.getByMobilePhoneId(mobilePhoneId));
 
         authenticationService.save(authentication);
-        return authenticationId;
+        return id;
     }
 
-    @GetMapping(value = "/getAuthenticated")
-    public AuthenticatedDto getAuthenticated(@RequestParam String authenticationId) {
+    @GetMapping(value = "/getDto")
+    public AuthenticationDto getAuthenticationDto(@RequestParam String authenticationId) {
         long start = System.currentTimeMillis();
 
-        AuthenticatedDto authenticatedDto = new AuthenticatedDto();
-        AuthenticationDto authenticationDto = null;
-
-        String authenticationEmployeeMobilePhoneId = null;
-
-        while (authenticationEmployeeMobilePhoneId == null) {
-            authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
-            authenticationEmployeeMobilePhoneId = authenticationDto.getAuthenticationEmployeeMobilePhoneId();
+        while (true) {
+            AuthenticationDto authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
 
             long timeElapsed = System.currentTimeMillis() - start;
-            if (timeElapsed >= ConfigManager.getAuthenticationTimeout())
-                return authenticatedDto;
+            if (authenticationDto != null || timeElapsed >= ConfigManager.getAuthenticationTimeout())
+                return authenticationDto;
         }
-
-        String authenticatedEmployeeId = employeeService.
-                getEmployeeIdByEmployeeMobilePhoneId(authenticationEmployeeMobilePhoneId);
-        String authenticatedEmployeeIp = authenticationDto.getAuthenticationIp();
-
-        return new AuthenticatedDto(authenticatedEmployeeId, authenticatedEmployeeIp);
     }
 }

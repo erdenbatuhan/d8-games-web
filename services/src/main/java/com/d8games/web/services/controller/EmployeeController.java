@@ -27,47 +27,46 @@ public class EmployeeController {
     @Autowired
     private TitleService titleService;
 
-    @GetMapping(value = "/getAll")
+    @GetMapping
     public List<Employee> getAll() {
         return employeeService.getAll();
     }
 
-    @GetMapping(value = "/getById")
+    @GetMapping(value = "/get")
     public Employee getById(@RequestParam String id) {
         return employeeService.getById(id);
     }
 
     @PutMapping(value = "/save")
-    public String save(@RequestParam String employeeMobilePhoneId, @RequestParam String employeeName,
-                       @RequestParam String employeeSurname, @RequestParam String employeeEmail,
-                       @RequestParam String employeePhoneNumber, @RequestParam String employeeJoinDateAsString,
-                       @RequestParam String employeeTitleId) throws ParseException {
+    public String save(@RequestParam String mobilePhoneId, @RequestParam String name, @RequestParam String surname,
+                       @RequestParam String email, @RequestParam String phoneNumber,
+                       @RequestParam String joinDateAsString, @RequestParam String titleId) throws ParseException {
         Employee employee = new Employee();
 
-        employee.setEmployeeMobilePhoneId(employeeMobilePhoneId);
-        employee.setEmployeeName(employeeName);
-        employee.setEmployeeSurname(employeeSurname);
-        employee.setEmployeeEmail(employeeEmail);
-        employee.setEmployeePhoneNumber(employeePhoneNumber);
+        employee.setMobilePhoneId(mobilePhoneId);
+        employee.setName(name);
+        employee.setSurname(surname);
+        employee.setEmail(email);
+        employee.setPhoneNumber(phoneNumber);
 
         Date employeeJoinDate = new Date(); // Get the current date
 
-        if (employeeJoinDateAsString != null)
-            employeeJoinDate =  new SimpleDateFormat(ConfigManager.getDateFormat()).parse(employeeJoinDateAsString);
+        if (joinDateAsString != null)
+            employeeJoinDate =  new SimpleDateFormat(ConfigManager.getDateFormat()).parse(joinDateAsString);
 
-        employee.setEmployeeJoinDate(employeeJoinDate);
-        employee.setEmployeeTitle(titleService.getById(employeeTitleId));
+        employee.setJoinDate(employeeJoinDate);
+        employee.setTitle(titleService.getById(titleId));
 
         employeeService.save(employee);
-        return employee.getEmployeeId();
+        return employee.getId();
     }
 
-    @GetMapping(value = "/dashboardCard/getAll")
+    @GetMapping(value = "/dashboardCard")
     public List<DashboardCardDto> getDashboardCardDtoList() {
         return employeeService.getDashboardCardDtoList();
     }
 
-    @GetMapping(value = "/contactCard/getAll")
+    @GetMapping(value = "/contactCard")
     public List<ContactCardDto> getContactCardDtoList() {
         return employeeService.getContactCardDtoList();
     }

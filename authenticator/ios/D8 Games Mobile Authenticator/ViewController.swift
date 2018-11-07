@@ -13,7 +13,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     var authenticationId = ""
     var authenticationIp = ""
-    var authenticationEmployeeMobilePhoneId = ""
+    var employeeMobilePhoneId = ""
     var video = AVCaptureVideoPreviewLayer()
     
     @IBOutlet weak var square: UIImageView!
@@ -22,7 +22,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setAuthenticationEmployeeMobilePhoneId()
+        self.setEmployeeMobilePhoneId()
         
         let session = AVCaptureSession()
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
@@ -51,13 +51,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         session.startRunning()
     }
     
-    func setAuthenticationEmployeeMobilePhoneId() -> Void {
-        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
-            self.authenticationEmployeeMobilePhoneId = uuid
-            uuidLabel.text = self.authenticationEmployeeMobilePhoneId
-        }
-    }
-    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if self.authenticationId == "" && metadataObjects != nil && metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
@@ -66,7 +59,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     self.authenticationIp = self.getIp()
                     
                     let postAuthenticationApiRequestUrl = "http://142.93.173.131:8888/api/services/controller/authentication/update"
-                    let postAuthenticationApiRequestParams = "authenticationId=" + self.authenticationId + "&authenticationIp=" + self.authenticationIp + "&authenticationEmployeeMobilePhoneId=" + self.authenticationEmployeeMobilePhoneId
+                    let postAuthenticationApiRequestParams = "id=" + self.authenticationId + "&ip=" + self.authenticationIp + "&mobilePhoneId=" + self.employeeMobilePhoneId
                     
                     _ = self.getApiResponse(url: postAuthenticationApiRequestUrl, params: postAuthenticationApiRequestParams)
                     
@@ -78,6 +71,13 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     present(alert, animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    func setEmployeeMobilePhoneId() -> Void {
+        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            self.employeeMobilePhoneId = uuid
+            uuidLabel.text = self.employeeMobilePhoneId
         }
     }
     

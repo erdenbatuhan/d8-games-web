@@ -17,93 +17,93 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
-    private String employeeId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "EMPLOYEE_MOBILE_PHONE_ID", unique = true)
-    private String employeeMobilePhoneId;
+    @Column(name = "MOBILE_PHONE_ID", unique = true)
+    private String mobilePhoneId;
 
-    @Column(name = "EMPLOYEE_NAME", nullable = false)
-    private String employeeName;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @Column(name = "EMPLOYEE_SURNAME", nullable = false)
-    private String employeeSurname;
+    @Column(name = "SURNAME", nullable = false)
+    private String surname;
 
-    @Column(name = "EMPLOYEE_EMAIL", nullable = false)
-    private String employeeEmail;
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
 
-    @Column(name = "EMPLOYEE_PHONE_NUMBER", nullable = false)
-    private String employeePhoneNumber;
+    @Column(name = "PHONE_NUMBER", nullable = false)
+    private String phoneNumber;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "EMPLOYEE_JOIN_DATE", nullable = false)
-    private Date employeeJoinDate;
+    @Column(name = "JOIN_DATE", nullable = false)
+    private Date joinDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EMPLOYEE_TITLE_ID", referencedColumnName = "TITLE_ID", nullable = false)
-    private Title employeeTitle;
+    @JoinColumn(name = "TITLE_ID", referencedColumnName = "ID", nullable = false)
+    private Title title;
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getId() {
+        return id;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getEmployeeMobilePhoneId() {
-        return employeeMobilePhoneId;
+    public String getMobilePhoneId() {
+        return mobilePhoneId;
     }
 
-    public void setEmployeeMobilePhoneId(String employeeMobilePhoneId) {
-        this.employeeMobilePhoneId = employeeMobilePhoneId;
+    public void setMobilePhoneId(String mobilePhoneId) {
+        this.mobilePhoneId = mobilePhoneId;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getName() {
+        return name;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEmployeeSurname() {
-        return employeeSurname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setEmployeeSurname(String employeeSurname) {
-        this.employeeSurname = employeeSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getEmployeeEmail() {
-        return employeeEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getEmployeePhoneNumber() {
-        return employeePhoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmployeePhoneNumber(String employeePhoneNumber) {
-        this.employeePhoneNumber = employeePhoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Date getEmployeeJoinDate() {
-        return employeeJoinDate;
+    public Date getJoinDate() {
+        return joinDate;
     }
 
-    public void setEmployeeJoinDate(Date employeeJoinDate) {
-        this.employeeJoinDate = employeeJoinDate;
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
     }
 
-    public Title getEmployeeTitle() {
-        return employeeTitle;
+    public Title getTitle() {
+        return title;
     }
 
-    public void setEmployeeTitle(Title employeeTitle) {
-        this.employeeTitle = employeeTitle;
+    public void setTitle(Title title) {
+        this.title = title;
     }
 }
