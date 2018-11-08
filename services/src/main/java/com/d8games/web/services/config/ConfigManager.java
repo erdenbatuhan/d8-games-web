@@ -16,6 +16,8 @@ public class ConfigManager {
 
     private static final String PROPERTIES_FILE_NAME = "config.properties";
     private static String officeIp;
+    private static String locationOffice;
+    private static String locationHome;
     private static String dateFormat;
     private static String contactDepartmentName;
     private static int authenticationTimeout;
@@ -26,6 +28,8 @@ public class ConfigManager {
         Properties properties = getProperties();
 
         ConfigManager.officeIp = properties.getProperty("officeIp");
+        ConfigManager.locationOffice = properties.getProperty("locationOffice");
+        ConfigManager.locationHome = properties.getProperty("locationHome");
         ConfigManager.dateFormat = properties.getProperty("dateFormat");
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
         ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
@@ -53,6 +57,14 @@ public class ConfigManager {
 
     public static String getOfficeIp() {
         return officeIp;
+    }
+
+    public static String getLocationOffice() {
+        return locationOffice;
+    }
+
+    public static String getLocationHome() {
+        return locationHome;
     }
 
     public static String getDateFormat() {

@@ -61,17 +61,17 @@ public class EmployeeController {
         return employee.getId();
     }
 
-    @GetMapping(value = "/dashboardCard")
+    @GetMapping(value = "/dashboardCardDtoList")
     public List<DashboardCardDto> getDashboardCardDtoList() {
         return employeeService.getDashboardCardDtoList();
     }
 
-    @GetMapping(value = "/contactCard")
+    @GetMapping(value = "/contactCardDtoList")
     public List<ContactCardDto> getContactCardDtoList() {
         return employeeService.getContactCardDtoList();
     }
 
-    @GetMapping(value = "/employeeCard")
+    @GetMapping(value = "/employeeCardDto")
     public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
         EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
 

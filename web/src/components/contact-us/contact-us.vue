@@ -37,7 +37,7 @@
     components: {navbar, contactCard},
     data() {
       return {
-        API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST: '/employee/contactCard',
+        API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST: '/employee/contactCardDtoList',
         name: 'contactUs',
         spinner: true,
         contactCardDtoList: null

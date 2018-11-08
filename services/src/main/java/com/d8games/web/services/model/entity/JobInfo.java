@@ -5,13 +5,14 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "JOB_INFO")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @SuppressWarnings("unused")
-public class JobInfo {
+public class JobInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

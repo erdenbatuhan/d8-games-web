@@ -23,17 +23,20 @@ public class Voucher implements Serializable {
     @Column(name = "TYPE", nullable = false)
     private String type;
 
+    @Column(name = "LOCATION", nullable = false)
+    private String location;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ACTUAL_DATE", nullable = false)
     private Date actualDate;
 
-    @Column(name = "DATE")
+    @Column(name = "DATE", nullable = false)
     private String date;
 
-    @Column(name = "DAY")
+    @Column(name = "DAY", nullable = false)
     private String day;
 
-    @Column(name = "HOUR")
+    @Column(name = "HOUR", nullable = false)
     private String hour;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,6 +57,14 @@ public class Voucher implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Date getActualDate() {

@@ -20,12 +20,8 @@ public class DateUtil {
     private String day;
     private String hour;
 
-    public static void main(String[] args) {
-        new DateUtil();
-    }
-
-    public DateUtil() {
-        this.actualDate = new Date();
+    public DateUtil(Date actualDate) {
+        this.actualDate = actualDate;
         parseDate();
     }
 
@@ -94,16 +90,6 @@ public class DateUtil {
         return stringTokenized;
     }
 
-    private void setDate(String hour, String minute) {
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
-        calendar.set(Calendar.SECOND, 0);
-
-        this.actualDate = calendar.getTime();
-    }
-
     public Date getActualDate() {
         return actualDate;
     }
@@ -118,6 +104,16 @@ public class DateUtil {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    private void setDate(String hour, String minute) {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
+        calendar.set(Calendar.SECOND, 0);
+
+        this.actualDate = calendar.getTime();
     }
 
     public String getDay() {

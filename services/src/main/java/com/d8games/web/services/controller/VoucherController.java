@@ -1,12 +1,11 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.model.dto.VoucherItemDto;
 import com.d8games.web.services.model.entity.Voucher;
 import com.d8games.web.services.service.VoucherService;
-import com.d8games.web.services.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,12 +16,9 @@ public class VoucherController {
     @Autowired
     private VoucherService voucherService;
 
-    @Autowired
-    private EmployeeService employeeService;
-
     @GetMapping
-    public List<Voucher> getAll() {
-        return voucherService.getAll();
+    public List<Voucher> getAllByEmployeeId(@RequestParam String employeeId) {
+        return voucherService.getAllByEmployeeId(employeeId);
     }
 
     @GetMapping(value = "/get")
@@ -30,15 +26,13 @@ public class VoucherController {
         return voucherService.getById(id);
     }
 
-    @PutMapping(value = "/save")
-    public String save(@RequestParam String type, @RequestParam String employeeId) {
-        Voucher voucher = new Voucher();
+    @PutMapping(value = "/add")
+    public String add(@RequestParam String type, @RequestParam String ip, @RequestParam String employeeId) {
+        return voucherService.add(type, ip, employeeId);
+    }
 
-        voucher.setType(type);
-        voucher.setActualDate(new Date());
-        voucher.setEmployee(employeeService.getById(employeeId));
-
-        voucherService.save(voucher);
-        return voucher.getId();
+    @GetMapping(value = "/voucherItemDtoList")
+    public List<VoucherItemDto> getVoucherItemDtoList(@RequestParam String employeeId) {
+        return voucherService.getVoucherItemDtoList(employeeId);
     }
 }

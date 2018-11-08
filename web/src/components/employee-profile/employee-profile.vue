@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar :employee-id="employeeId" :voucher-data-length="voucherDataLength"></navbar>
+    <navbar :employee-id="employeeId" :voucher-item-dto-list-length="voucherItemDtoListLength"></navbar>
 
     <div class="container-fluid">
       <div class="row">
@@ -23,7 +23,7 @@
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
 
         <div class="col-md-12 col-xl-6">
-          <voucher-table :voucher-data="voucherDataTemp"></voucher-table>
+          <voucher-table :voucher-item-dto-list="voucherItemDtoList"></voucher-table>
         </div>
 
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
@@ -41,478 +41,10 @@
   import navbar from '../navbar/navbar.vue'
   import employeeCard from './employee-card.vue'
   import employeeSummary from './employee-summary.vue'
-  import voucherTable from "./voucher-table";
+  import voucherTable from './voucher-table';
 
-  const voucherDataTemp = [
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Wed',
-      Hour: '19:30',
-      Type: 'OUT',
-      Location: 'Office',
-      _cellVariants: { '': 'danger' }
-    },
-    {
-      '': '',
-      Date: '04 Nov 18',
-      Day: 'Thu',
-      Hour: '09:00',
-      Type: 'IN',
-      Location: 'Office',
-      _cellVariants: { '': 'success' }
-    }
-  ]
+  import cellVariants from '../../assets/cellVariants.json'
+
   const summaryTemp = {
     'weekly': {
       'interval': '05 Nov 2018 - 12 Nov 2018',
@@ -535,18 +67,20 @@
     data() {
       return {
         IMAGE_DIR: 'employee/',
-        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO: '/employee/employeeCard?employeeId=',
+        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO: '/employee/employeeCardDto?employeeId=',
+        API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST: '/voucher/voucherItemDtoList?employeeId=',
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
         employeeSummaryDto: null,
-        voucherDataTemp: voucherDataTemp,
-        summaryTemp: summaryTemp
+        voucherItemDtoList: null,
+        cellVariants: cellVariants,
+        summaryTemp: summaryTemp // TODO: Remove this line
       }
     },
     computed: {
-      voucherDataLength () {
-        return (this.voucherDataTemp) ? voucherDataTemp.length : 0
+      voucherItemDtoListLength () {
+        return (this.voucherItemDtoList) ? this.voucherItemDtoList.length : 0
       }
     },
     mounted () {
@@ -557,6 +91,33 @@
         console.error(error)
         this.$router.push('/')
       })
+
+      this.get(this.API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST + this.employeeId).then(response => {
+        this.voucherItemDtoList = this.getVoucherItemDtoListPainted(response.data)
+        this.spinner = false
+      }).catch(error => {
+        console.error(error)
+        this.$router.push('/')
+      })
+    },
+    methods: {
+      getVoucherItemDtoListPainted: function (data) {
+        let voucherItemDtoList = data
+
+        voucherItemDtoList.forEach(voucherItemDto => {
+          this.cellVariants.some(cellVariant => {
+            let hasSameVouchType = cellVariant.vouchType === voucherItemDto.type
+            let hasSameVouchLocation = cellVariant.vouchLocation === voucherItemDto.location
+
+            if (hasSameVouchType && hasSameVouchLocation) {
+              voucherItemDto['_cellVariants'] = { '': cellVariant.value }
+              return undefined
+            }
+          })
+        })
+
+        return voucherItemDtoList
+      }
     }
   }
 </script>

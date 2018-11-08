@@ -63,7 +63,7 @@
   export default {
     mixins: [CommonMixin],
     components: {QrAuth},
-    props: ['employeeId', 'voucherDataLength'],
+    props: ['employeeId', 'voucherItemDtoListLength'],
     data() {
       return {
         EMPLOYEE_IMAGE_DIR: 'employee/',
@@ -81,11 +81,11 @@
         this.$refs.qrAuth.showModal(vouchType)
       },
       canView: function (vouchType) {
-        let isEmployeeProfile = !!this.voucherDataLength
+        let isEmployeeProfile = !!this.voucherItemDtoListLength
         let isCurrentEmployeeProfile = this.employeeId === this.currentEmployeeId
 
-        let isVouchTypeIn = (vouchType === 'IN') && this.voucherDataLength % 2 === 0
-        let isVouchTypeOut = (vouchType === 'OUT') && this.voucherDataLength % 2 !== 0
+        let isVouchTypeIn = (vouchType === 'IN') && this.voucherItemDtoListLength % 2 === 0
+        let isVouchTypeOut = (vouchType === 'OUT') && this.voucherItemDtoListLength % 2 !== 0
 
         return isEmployeeProfile && isCurrentEmployeeProfile && (isVouchTypeIn || isVouchTypeOut)
       }

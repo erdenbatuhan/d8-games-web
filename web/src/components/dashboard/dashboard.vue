@@ -32,7 +32,7 @@
     data() {
       return {
         API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES: '/department/name',
-        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCard',
+        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCardDtoList',
         name: 'dashboard',
         spinner: true,
         departmentNames: null,

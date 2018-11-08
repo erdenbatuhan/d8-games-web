@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div v-if="voucherItemDtoList" class="container">
     <b-table hover bordered
              :current-page="currentPage"
              :per-page="perPage"
-             :items="voucherData">
+             :items="voucherItemDtoList">
     </b-table>
     <b-row>
       <b-col md="6" class="my-1">
@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    props: ['voucherData'],
+    props: ['voucherItemDtoList'],
     data () {
       return {
         name: 'voucher-table',
@@ -30,7 +30,7 @@
     },
     computed: {
       totalRows () {
-        return (this.voucherData) ? this.voucherData.length : 0
+        return (this.voucherItemDtoList) ? this.voucherItemDtoList.length : 0
       }
     }
   }
