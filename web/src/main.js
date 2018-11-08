@@ -1,6 +1,8 @@
 import Vue from 'vue'
+
 import VueRouter from 'vue-router'
 import VueCookies from 'vue-cookies'
+import VueScrollTo from 'vue-scrollto'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -22,8 +24,23 @@ import signOut from './components/employee-profile/sign-out.vue'
 
 Vue.use(VueRouter)
 Vue.use(VueCookies)
+Vue.use(VueScrollTo)
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
+
+Vue.use(VueScrollTo, {
+  container: "body",
+  duration: 500,
+  easing: "ease",
+  offset: 0,
+  force: true,
+  cancelable: true,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
 
 Vue.config.productionTip = false
 
@@ -67,7 +84,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  window.scrollTo(0, 0)
   next()
 })
 

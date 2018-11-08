@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="dashboardCardDto">
-      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.employeeId)">
+      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.employeeId)" v-scroll-to="'#app'">
         <div class="box">
           <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.employeeId)" alt="">
           <div class="box-content">
