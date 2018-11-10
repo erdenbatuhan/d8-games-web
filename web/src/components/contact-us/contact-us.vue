@@ -1,7 +1,8 @@
 <template>
-    <div v-if="true">
-      <navbar></navbar>
+  <div>
+    <navbar></navbar>
 
+    <div v-if="contactCardDtoList">
       <h3>Contact Us</h3>
       <br>
 
@@ -15,15 +16,14 @@
 
             <b-row class="row">
               <b-col class="col" sm="6" v-for="contactCardDto in contactCardDtoList" :key="contactCardDto.id">
-                <contact-card :contact-card-dto="contactCardDto"></contact-card>
+                <contact-us-card :contact-card-dto="contactCardDto"></contact-us-card>
               </b-col>
             </b-row>
           </div>
         </b-card>
       </b-container>
-
-      <br>
     </div>
+  </div>
 </template>
 
 <script>
@@ -31,11 +31,11 @@
   import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
-  import contactCard from "./contact-card";
+  import contactUsCard from "./contact-us-card";
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
-    components: {navbar, contactCard},
+    components: {navbar, contactUsCard},
     data() {
       return {
         name: 'contactUs',

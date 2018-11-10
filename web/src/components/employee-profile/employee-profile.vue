@@ -29,8 +29,6 @@
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
       </div>
     </div>
-
-    <br><br>
   </div>
 </template>
 

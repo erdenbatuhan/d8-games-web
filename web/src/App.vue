@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="overlay">
     <router-view></router-view>
+    <br><br><br><br>
   </div>
 </template>
 

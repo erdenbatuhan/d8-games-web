@@ -2,8 +2,8 @@
   <div>
     <navbar></navbar>
 
-    <div class="container">
-      <h3 id="header"> Our Games </h3>
+    <div v-if="games" class="container">
+      <h3> Our Games </h3>
       <hr>
 
       <div class="row">
@@ -12,8 +12,6 @@
         </b-col>
       </div>
     </div>
-
-    <br>
   </div>
 </template>
 
@@ -34,7 +32,7 @@
         API_ENDPOINT_TO_GET_ALL_GAMES: '/game',
         name: 'our-games',
         spinner: true,
-        games: []
+        games: null
       }
     },
     mounted() {

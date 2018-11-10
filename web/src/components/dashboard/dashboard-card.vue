@@ -1,6 +1,8 @@
 <template>
   <div>
     <div v-if="dashboardCardDto">
+      <br>
+
       <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.id)" v-scroll-to="'#app'">
         <div class="box">
           <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.id)" alt="">
@@ -9,8 +11,6 @@
           </div>
         </div>
       </a>
-
-      <br>
     </div>
   </div>
 </template>

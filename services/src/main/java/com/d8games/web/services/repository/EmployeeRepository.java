@@ -35,7 +35,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
             "e.id, concat(e.name, ' ', e.surname), t.name, d.name) " +
     "FROM Employee e " +
     "INNER JOIN Title t ON e.title = t " +
-    "INNER JOIN Department d ON t.department = d")
+    "INNER JOIN Department d ON t.department = d " +
+    "ORDER BY d.rank")
     List<DashboardCardDto> getDashboardCardDtoList();
 
     @Query(

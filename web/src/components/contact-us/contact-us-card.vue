@@ -15,7 +15,7 @@
     props: ['contactCardDto'],
     data () {
       return {
-        name: 'contactCard'
+        name: 'contactUsCard'
       }
     }
   }
