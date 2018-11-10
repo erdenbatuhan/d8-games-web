@@ -38,18 +38,15 @@
     components: {navbar, contactCard},
     data() {
       return {
-        API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST: '/employee/contactCardDtoList',
         name: 'contactUs',
         spinner: true,
         contactCardDtoList: null
       }
     },
     mounted() {
-      this.get(this.API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST).then(response => {
-        this.contactCardDtoList = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
+      this.getContactCardDtoList().then(contactCardDtoList => {
+        this.contactCardDtoList = contactCardDtoList
+      }).catch(() => {
         this.redirectTo('/')
       })
     }

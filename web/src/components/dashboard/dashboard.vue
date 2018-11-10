@@ -31,8 +31,6 @@
     components: {navbar, dashboardCard},
     data() {
       return {
-        API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES: '/department/name',
-        API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST: '/employee/dashboardCardDtoList',
         name: 'dashboard',
         spinner: true,
         departmentNames: null,
@@ -40,29 +38,14 @@
       }
     },
     mounted() {
-      let getAllDepartmentNamesPromise = new Promise ((resolve, reject) => {
-        this.get(this.API_ENDPOINT_TO_GET_ALL_DEPARTMENT_NAMES).then(response => {
-          this.departmentNames = response.data
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+      this.getDepartmentNames().then(departmentNames => {
+        this.departmentNames = departmentNames
+      }).catch(() => {
       })
 
-      let getDashboardDtoListPromise = new Promise ((resolve, reject) => {
-        this.get(this.API_ENDPOINT_TO_GET_DASHBOARD_CARD_DTO_LIST).then(response => {
-          this.dashboardCardDtoList = response.data
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
-
-      Promise.all([getAllDepartmentNamesPromise, getDashboardDtoListPromise]).then(() => {
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
-        this.redirectTo('/')
+      this.getDashboardCardDtoList().then(dashboardCardDtoList => {
+        this.dashboardCardDtoList = dashboardCardDtoList
+      }).catch(() => {
       })
     },
     methods: {

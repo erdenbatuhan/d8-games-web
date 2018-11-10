@@ -35,8 +35,6 @@
     components: {VueQr},
     data () {
       return {
-        API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION: '/authentication/save',
-        API_ENDPOINT_TO_GET_AUTHENTICATED_EMPLOYEE: '/authentication/authenticatedEmployee?authenticationId=',
         LAST_STATE: 2,
         name: 'qrAuth',
         title: 'Sign in',
@@ -66,7 +64,7 @@
             this.authenticationId = authenticationId
             this.setStateTo(1)
 
-            this.getAuthenticationDto(authenticationId).then(authenticatedEmployee => {
+            this.getAuthenticatedEmployee(authenticationId).then(authenticatedEmployee => {
               this.handleAuthentication(currentIp, authenticatedEmployee, vouchType, 2)
             }).catch((error) => {
               this.handleError(error, -2)
@@ -77,37 +75,6 @@
         }).catch((error) => {
           this.handleError(error, -1)
         })
-      },
-      getCurrentIp: function () {
-        return new Promise((resolve, reject) => {
-          this.getIp().then(response => {
-            resolve(response.data.ip)
-          }).catch((error) => {
-            reject(error)
-          })
-        })
-      },
-      saveNewAuthentication: function () {
-        return new Promise((resolve, reject) => {
-          this.put(this.API_ENDPOINT_TO_SAVE_NEW_AUTHENTICATION).then(response => {
-            resolve(response.data)
-          }).catch((error) => {
-            reject(error)
-          })
-        })
-      },
-      getAuthenticationDto: function (authenticationId) {
-        return new Promise((resolve, reject) => {
-          this.get(this.API_ENDPOINT_TO_GET_AUTHENTICATED_EMPLOYEE + authenticationId).then(response => {
-            resolve(response.data)
-          }).catch((error) => {
-            reject(error)
-          })
-        })
-      },
-      handleError: function (error, nextErrorState) {
-        console.error(error)
-        this.setStateTo(nextErrorState)
       },
       handleAuthentication: function (currentIp, authenticatedEmployee, vouchType, nextState) {
         let nextErrorState = (-1) * nextState
@@ -136,6 +103,10 @@
 
         console.log('vouching')
         this.setStateTo(nextState)
+      },
+      handleError: function (error, nextErrorState) {
+        console.error(error)
+        this.setStateTo(nextErrorState)
       },
       setStateTo: function (state) {
         this.spinner = false

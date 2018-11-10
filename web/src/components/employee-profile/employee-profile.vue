@@ -67,8 +67,6 @@
     data() {
       return {
         IMAGE_DIR: 'employee/',
-        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO: '/employee/employeeCardDto?employeeId=',
-        API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST: '/voucher/voucherItemDtoList?employeeId=',
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
@@ -84,19 +82,15 @@
       }
     },
     mounted () {
-      this.get(this.API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO + this.employeeId).then(response => {
-        this.employeeCardDto = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
+      this.getEmployeeCardDto(this.employeeId).then(employeeCardDto => {
+        this.employeeCardDto = employeeCardDto
+      }).catch(() => {
         this.redirectTo('/')
       })
 
-      this.get(this.API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST + this.employeeId).then(response => {
-        this.voucherItemDtoList = this.getVoucherItemDtoListPainted(response.data)
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
+      this.getVoucherItemDtoList(this.employeeId).then(voucherItemDtoList => {
+        this.voucherItemDtoList = this.getVoucherItemDtoListPainted(voucherItemDtoList)
+      }).catch(() => {
         this.redirectTo('/')
       })
     },
@@ -110,7 +104,7 @@
             let hasSameVouchLocation = cellVariant.vouchLocation === voucherItemDto.location
 
             if (hasSameVouchType && hasSameVouchLocation) {
-              voucherItemDto['_cellVariants'] = { '': cellVariant.value }
+              voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
               return undefined
             }
           })

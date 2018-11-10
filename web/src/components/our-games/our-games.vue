@@ -38,11 +38,9 @@
       }
     },
     mounted() {
-      this.get(this.API_ENDPOINT_TO_GET_ALL_GAMES).then(response => {
-        this.games = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
+      this.getGames().then(games => {
+        this.games = games
+      }).catch(() => {
         this.redirectTo('/')
       })
     }

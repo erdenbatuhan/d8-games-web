@@ -4,9 +4,6 @@ import VueRouter from 'vue-router'
 import VueCookies from 'vue-cookies'
 import VueScrollTo from 'vue-scrollto'
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
 import BootstrapVue from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -25,7 +22,6 @@ import signOut from './components/employee-profile/sign-out.vue'
 Vue.use(VueRouter)
 Vue.use(VueCookies)
 Vue.use(VueScrollTo)
-Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 
 Vue.use(VueScrollTo, {

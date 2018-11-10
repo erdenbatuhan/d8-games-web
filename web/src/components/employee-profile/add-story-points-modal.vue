@@ -38,28 +38,21 @@
     props: ['employeeId'],
     data () {
       return {
-        /** @return {string} */
-        API_ENDPOINT_TO_ADD_STORY_POINTS: function (employeeId, storyPointsToAdd) {
-          return '/employee/addStoryPoints?employeeId=' + employeeId + "&storyPointsToAdd=" + storyPointsToAdd
-        },
         name: 'addStoryPointsModal',
         storyPointsToAdd: 0
       }
     },
     mounted () {
       this.$refs.addStoryPointsModal.$on('ok', () => {
-        if (this.storyPointsToAdd <= 0) {
-          return
+        if (this.storyPointsToAdd > 0) {
+          this.$refs.waitToAddStoryPointsModal.show()
+
+          this.postStoryPoints(this.employeeId, this.storyPointsToAdd).then(() => {
+            this.redirectToEmployeeProfile(this.employeeId)
+          }).catch(() => {
+            this.redirectTo('/')
+          })
         }
-
-        this.$refs.waitToAddStoryPointsModal.show()
-
-        this.post(this.API_ENDPOINT_TO_ADD_STORY_POINTS(this.employeeId, this.storyPointsToAdd)).then(() => {
-          this.redirectToEmployeeProfile(this.employeeId)
-        }).catch(error => {
-          console.error(error)
-          this.redirectTo('/')
-        })
       })
     }
   }

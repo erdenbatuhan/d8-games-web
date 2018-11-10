@@ -3,6 +3,7 @@
     <b-table hover bordered
              :current-page="currentPage"
              :per-page="perPage"
+             :fields="fields"
              :items="voucherItemDtoList">
     </b-table>
     <b-row>
@@ -24,6 +25,7 @@
     data () {
       return {
         name: 'voucher-table',
+        fields: [' ', 'date', 'day', 'hour', 'type', 'location'],
         currentPage: 1,
         perPage: 24,
       }
