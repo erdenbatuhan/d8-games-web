@@ -1,5 +1,10 @@
 package com.d8games.web.services.model.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AuthenticationDto {
 
     private String mobilePhoneId;
@@ -7,22 +12,6 @@ public class AuthenticationDto {
 
     public AuthenticationDto(String mobilePhoneId, String ip) {
         this.mobilePhoneId = mobilePhoneId;
-        this.ip = ip;
-    }
-
-    public String getMobilePhoneId() {
-        return mobilePhoneId;
-    }
-
-    public void setMobilePhoneId(String mobilePhoneId) {
-        this.mobilePhoneId = mobilePhoneId;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
         this.ip = ip;
     }
 }

@@ -35,13 +35,13 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import employeeCard from './employee-card.vue'
   import employeeSummary from './employee-summary.vue'
-  import voucherTable from './voucher-table';
+  import voucherTable from './voucher-table'
 
   import cellVariants from '../../assets/cellVariants.json'
 
@@ -89,7 +89,7 @@
         this.spinner = false
       }).catch(error => {
         console.error(error)
-        this.$router.push('/')
+        this.redirectTo('/')
       })
 
       this.get(this.API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST + this.employeeId).then(response => {
@@ -97,7 +97,7 @@
         this.spinner = false
       }).catch(error => {
         console.error(error)
-        this.$router.push('/')
+        this.redirectTo('/')
       })
     },
     methods: {

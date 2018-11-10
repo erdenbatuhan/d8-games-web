@@ -10,8 +10,8 @@
         }
       },
       created () {
-        if (this.$cookies.isKey('currentEmployeeId')) {
-          this.$cookies.remove('currentEmployeeId')
+        if (this.$cookies.isKey('signedInEmployeeId')) {
+          this.$cookies.remove('signedInEmployeeId')
         }
 
         location.replace('/')

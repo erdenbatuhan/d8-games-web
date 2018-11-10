@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/jobInfo")
-@SuppressWarnings("unused")
 public class JobInfoController {
 
     @Autowired

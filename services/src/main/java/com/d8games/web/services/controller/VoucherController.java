@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/voucher")
-@SuppressWarnings("unused")
 public class VoucherController {
 
     @Autowired

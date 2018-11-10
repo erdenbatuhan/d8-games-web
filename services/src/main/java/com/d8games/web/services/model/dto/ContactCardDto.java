@@ -1,50 +1,22 @@
 package com.d8games.web.services.model.dto;
 
-@SuppressWarnings("unused")
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ContactCardDto {
 
-    private String employeeFullName;
-    private String employeeEmail;
-    private String employeePhoneNumber;
+    private String fullName;
+    private String email;
+    private String phoneNumber;
     private String titleName;
 
-    public ContactCardDto(String employeeFullName, String employeeEmail,
-                          String employeePhoneNumber, String titleName) {
-        this.employeeFullName = employeeFullName;
-        this.employeeEmail = employeeEmail;
-        this.employeePhoneNumber = employeePhoneNumber;
-        this.titleName = titleName;
-    }
-
-    public String getEmployeeFullName() {
-        return employeeFullName;
-    }
-
-    public void setEmployeeFullName(String employeeFullName) {
-        this.employeeFullName = employeeFullName;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
-    public String getEmployeePhoneNumber() {
-        return employeePhoneNumber;
-    }
-
-    public void setEmployeePhoneNumber(String employeePhoneNumber) {
-        this.employeePhoneNumber = employeePhoneNumber;
-    }
-
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public void setTitleName(String titleName) {
+    public ContactCardDto(String fullName, String email,
+                          String phoneNumber, String titleName) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.titleName = titleName;
     }
 }

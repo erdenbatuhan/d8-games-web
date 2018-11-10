@@ -16,6 +16,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     Employee getEmployeeById(String id);
 
+    @Query(
+    "SELECT concat(e.name, ' ', e.surname) " +
+    "FROM Employee e " +
+    "WHERE e.id = :employeeId")
+    String getEmployeeFullNameById(@Param("employeeId") String employeeId);
+
     Employee getEmployeeByMobilePhoneId(String mobilePhoneId);
 
     @Query(
@@ -44,10 +50,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query(
     "SELECT new com.d8games.web.services.model.dto.EmployeeCardDto(" +
-            "concat(e.name, ' ', e.surname), t.name, d.name, e.email, e.phoneNumber, e.joinDate) " +
+            "concat(e.name, ' ', e.surname), t.name, d.name, d.manager.id, " +
+            "e.email, e.phoneNumber, e.completedStoryPoints, e.joinDate) " +
     "FROM Employee e " +
     "INNER JOIN Title t ON e.title = t " +
     "INNER JOIN Department d ON t.department = d " +
     "WHERE e.id = :employeeId")
     EmployeeCardDto getEmployeeCardDto(@Param("employeeId") String employeeId);
 }
+

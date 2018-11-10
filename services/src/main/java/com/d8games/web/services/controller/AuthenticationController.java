@@ -15,7 +15,6 @@ import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/api/services/controller/authentication")
-@SuppressWarnings("unused")
 public class AuthenticationController {
 
     @Autowired

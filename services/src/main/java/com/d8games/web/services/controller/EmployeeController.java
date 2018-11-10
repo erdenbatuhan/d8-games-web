@@ -7,18 +7,15 @@ import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
-import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/employee")
-@SuppressWarnings("unused")
 public class EmployeeController {
 
     @Autowired
@@ -39,8 +36,7 @@ public class EmployeeController {
 
     @PutMapping(value = "/save")
     public String save(@RequestParam String mobilePhoneId, @RequestParam String name, @RequestParam String surname,
-                       @RequestParam String email, @RequestParam String phoneNumber,
-                       @RequestParam String joinDateAsString, @RequestParam String titleId) throws ParseException {
+                       @RequestParam String email, @RequestParam String phoneNumber, @RequestParam String titleId) {
         Employee employee = new Employee();
 
         employee.setMobilePhoneId(mobilePhoneId);
@@ -48,13 +44,8 @@ public class EmployeeController {
         employee.setSurname(surname);
         employee.setEmail(email);
         employee.setPhoneNumber(phoneNumber);
-
-        Date employeeJoinDate = new Date(); // Get the current date
-
-        if (joinDateAsString != null)
-            employeeJoinDate =  new SimpleDateFormat(ConfigManager.getDateFormat()).parse(joinDateAsString);
-
-        employee.setJoinDate(employeeJoinDate);
+        employee.setCompletedStoryPoints(0.0);
+        employee.setJoinDate(new Date()); // Get the current date
         employee.setTitle(titleService.getById(titleId));
 
         employeeService.save(employee);
@@ -75,9 +66,26 @@ public class EmployeeController {
     public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
         EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
 
-        if (employeeCardDto == null)
+        if (employeeCardDto == null) {
             throw new EmployeeNotFound(employeeId);
+        } else {
+            String managerId = employeeCardDto.getManagerId();
+            String managerFullName = employeeService.getEmployeeFullNameById(managerId);
+
+            employeeCardDto.setManagerFullName(managerFullName);
+        }
 
         return employeeCardDto;
+    }
+
+    @PostMapping(value = "/addStoryPoints")
+    public HttpStatus addStoryPoints(@RequestParam String employeeId, @RequestParam double storyPointsToAdd) {
+        Employee employee = employeeService.getById(employeeId);
+
+        double completedStoryPoints = employee.getCompletedStoryPoints();
+        employee.setCompletedStoryPoints(completedStoryPoints + storyPointsToAdd);
+
+        employeeService.save(employee);
+        return HttpStatus.OK;
     }
 }
