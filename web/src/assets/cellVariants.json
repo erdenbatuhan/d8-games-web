@@ -1,0 +1,22 @@
+[
+  {
+    "vouchType": "IN",
+    "vouchLocation": "OFFICE",
+    "value": "success"
+  },
+  {
+    "vouchType": "OUT",
+    "vouchLocation": "OFFICE",
+    "value": "danger"
+  },
+  {
+    "vouchType": "IN",
+    "vouchLocation": "HOME",
+    "value": "info"
+  },
+  {
+    "vouchType": "OUT",
+    "vouchLocation": "HOME",
+    "value": "warning"
+  }
+]

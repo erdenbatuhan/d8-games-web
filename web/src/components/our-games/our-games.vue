@@ -3,11 +3,11 @@
     <navbar></navbar>
 
     <div class="container">
-      <h1 id="header"> Our Games </h1>
+      <h3 id="header"> Our Games </h3>
       <hr>
 
       <div class="row">
-        <b-col class="col-sm-4" v-for="game in games" :key="game.gameId">
+        <b-col class="col-sm-4" v-for="game in games" :key="game.id">
           <game-info-card :game="game"></game-info-card>
         </b-col>
       </div>
@@ -31,14 +31,14 @@
     },
     data() {
       return {
-        API_ENDPOINT_GET_ALL_GAMES: '/game/getAll',
+        API_ENDPOINT_TO_GET_ALL_GAMES: '/game',
         name: 'our-games',
         spinner: true,
         games: []
       }
     },
     mounted() {
-      this.getApiResponse(this.API_ENDPOINT_GET_ALL_GAMES).then(response => {
+      this.get(this.API_ENDPOINT_TO_GET_ALL_GAMES).then(response => {
         this.games = response.data
         this.spinner = false
       }).catch(error => {

@@ -3,12 +3,12 @@
     <div v-if="game">
       <br>
       <b-card class="mb-2"
-              :title="game.gameName"
-              :img-src="getImageSource(IMAGE_DIR, game.gameId)"
+              :title="game.name"
+              :img-src="getImageSource(IMAGE_DIR + game.id)"
               img-alt="Image"
               img-top
               tag="article">
-        <p class="card-text"> {{ game.gameSummary }} </p>
+        <p class="card-text"> {{ game.summary }} </p>
         <h6> Release Date: {{ getGameReleaseDate() }} </h6>
         <br>
         <b-button href="#" variant="primary"> More information </b-button>
@@ -27,19 +27,23 @@
     props: ['game'],
     data() {
       return {
-        IMAGE_DIR: 'our-games/',
+        IMAGE_DIR: 'game/',
         name: 'gameInfoCard'
       }
     },
     methods: {
       getGameReleaseDate: function () {
-        let gameReleaseDate = new Date(this.game.gameReleaseDate)
+        let getDateWithZero = date => {
+          let dateAsString = String(date)
+          return (dateAsString.length < 2) ? '0' + dateAsString : dateAsString
+        }
+        let gameReleaseDate = new Date(this.game.releaseDate)
 
-        let day = gameReleaseDate.getDate()
+        let day = gameReleaseDate.getDate() - 1
         let month = gameReleaseDate.getMonth() + 1
         let year = gameReleaseDate.getFullYear()
 
-        return day + "/" + month + "/" + year
+        return getDateWithZero(day) + "/" + getDateWithZero(month) + "/" + year
       }
     }
   }

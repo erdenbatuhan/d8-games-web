@@ -1,14 +1,14 @@
 <template>
   <div>
     <div v-if="dashboardCardDto">
-      <router-link :to="'/employeeProfile/' + dashboardCardDto.employeeId">
+      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.employeeId)" v-scroll-to="'#app'">
         <div class="box">
-          <img :src="getImageSource(IMAGE_DIR, dashboardCardDto.employeeId)" alt="">
+          <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.employeeId)" alt="">
           <div class="box-content">
             <p class="title"><b> {{ dashboardCardDto.employeeFullName }} </b><br> {{ dashboardCardDto.titleName }} </p>
           </div>
         </div>
-      </router-link>
+      </a>
 
       <br>
     </div>
@@ -23,7 +23,7 @@
     props: ['dashboardCardDto'],
     data() {
       return {
-        IMAGE_DIR: 'employee-profile/',
+        IMAGE_DIR: 'employee/',
         name: 'dashboardCard'
       }
     }
@@ -31,6 +31,10 @@
 </script>
 
 <style scoped>
+  a {
+    cursor: pointer;
+  }
+  
   .box {
     position: relative;
   }

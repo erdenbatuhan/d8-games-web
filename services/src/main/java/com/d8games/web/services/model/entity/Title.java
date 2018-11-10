@@ -16,49 +16,49 @@ public class Title implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "TITLE_ID", unique = true, updatable = false, nullable = false)
-    private String titleId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "TITLE_NAME", unique = true, nullable = false)
-    private String titleName;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TITLE_WORK_INFO_ID", referencedColumnName = "WORK_INFO_ID", nullable = false)
-    private WorkInfo titleWorkInfo;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TITLE_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID", nullable = false)
-    private Department titleDepartment;
+    @JoinColumn(name = "JOB_INFO_ID", referencedColumnName = "ID", nullable = false)
+    private JobInfo jobInfo;
 
-    public String getTitleId() {
-        return titleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
+    private Department department;
+
+    public String getId() {
+        return id;
     }
 
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTitleName() {
-        return titleName;
+    public String getName() {
+        return name;
     }
 
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public WorkInfo getTitleWorkInfo() {
-        return titleWorkInfo;
+    public JobInfo getJobInfo() {
+        return jobInfo;
     }
 
-    public void setTitleWorkInfo(WorkInfo titleWorkInfo) {
-        this.titleWorkInfo = titleWorkInfo;
+    public void setJobInfo(JobInfo jobInfo) {
+        this.jobInfo = jobInfo;
     }
 
-    public Department getTitleDepartment() {
-        return titleDepartment;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setTitleDepartment(Department titleDepartment) {
-        this.titleDepartment = titleDepartment;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

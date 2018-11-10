@@ -18,59 +18,59 @@ public class Game implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "GAME_ID", unique = true, updatable = false, nullable = false)
-    private String gameId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "GAME_NAME", nullable = false)
-    private String gameName;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @Column(name = "GAME_SUMMARY", nullable = false)
-    private String gameSummary;
+    @Column(name = "SUMMARY", nullable = false)
+    private String summary;
 
-    @Column(name = "GAME_DESCRIPTION")
-    private String gameDescription;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "GAME_RELEASE_DATE")
-    private Date gameReleaseDate;
+    @Column(name = "RELEASE_DATE")
+    private Date releaseDate;
 
-    public String getGameId() {
-        return gameId;
+    public String getId() {
+        return id;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getGameName() {
-        return gameName;
+    public String getName() {
+        return name;
     }
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGameSummary() {
-        return gameSummary;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setGameSummary(String gameSummary) {
-        this.gameSummary = gameSummary;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
-    public String getGameDescription() {
-        return gameDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setGameDescription(String gameDescription) {
-        this.gameDescription = gameDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getGameReleaseDate() {
-        return gameReleaseDate;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setGameReleaseDate(Date gameReleaseDate) {
-        this.gameReleaseDate = gameReleaseDate;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <span>
-    <b-btn class="triggerButton" v-b-modal.edit-completed-hours variant="outline-success" size="sm">+</b-btn>
+    <b-btn class="triggerButton" v-b-modal.edit-completed-hours variant="outline-success" size="sm"> + </b-btn>
     <!-- Modal Component -->
       <b-modal id="edit-completed-hours"
                title="Edit Completed Hours"
@@ -14,8 +14,7 @@
           <div>
             <b-row class="row">
               <b-col class="col-sm-2"></b-col>
-              <b-col class="col-sm-4"><b-btn variant="secondary">Substract Hours</b-btn></b-col>
-              <b-col class="col-sm-4"><b-btn variant="primary">Add Hours</b-btn></b-col>
+              <b-col class="col-sm-4"><b-btn variant="primary" v-on:click="addHours"> Add Hours </b-btn></b-col>
               <b-col class="col-sm-2"></b-col>
             </b-row>
           </div>
@@ -26,9 +25,14 @@
 
 <script>
   export default {
-    data() {
+    data () {
       return {
-        modificationAmount
+        modificationAmount: 0
+      }
+    },
+    methods: {
+      addHours () {
+
       }
     }
   }

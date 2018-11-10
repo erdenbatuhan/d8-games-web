@@ -1,21 +1,30 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="employeeCardDto">
-      <b-card :title="employeeCardDto.employeeFullName"
+      <b-card :title="employeeCardDto.fullName"
               :img-src="employeeImage"
               img-alt="Image"
               img-top>
         <div class="card-body">
           <hr class="card-separator">
-          <p class="card-text text-left"><b>Title<br></b> {{ employeeCardDto.titleName }} </p>
-          <p class="card-text text-left"><b>Department<br></b> {{ employeeCardDto.departmentName }} </p>
-          <p class="card-text text-left"><b> Manager </b><br> {{ employeeCardDto.employeeManagerFullName }} </p>
-          <p class="card-text text-left"><b>Email<br></b> {{ employeeCardDto.employeeEmail }} </p>
-          <p class="card-text text-left"><b>Phone Number<br></b> {{ employeeCardDto.employeePhoneNumber }} </p>
-          <p class="card-text text-left"><b> Completed Work (Hours) </b><br>{{ employeeCardDto.employeeCompletedWorkInHours }}
-            <WorkInfoManagerEdit v-if=isManagerIdEqualToLoginID()></WorkInfoManagerEdit>
+
+          <p class="card-text text-left"><b> Title <br></b> {{ employeeCardDto.titleName }} </p>
+          <p class="card-text text-left"><b> Department <br></b> {{ employeeCardDto.departmentName }} </p>
+          <p class="card-text text-left"><b> Manager </b><br> {{ employeeCardDto.managerFullName }} </p>
+          <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.email }} </p>
+          <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.phoneNumber }} </p>
+          <p class="card-text text-left"><b> Completed Story Points </b><br>{{ employeeCardDto.completedStoryPoints }}
+            <edit-modal v-if=isManager()></edit-modal>
           </p>
-          <p class="card-text text-left"><b> Time Since Join (Days) </b><br> {{ employeeCardDto.timeSinceJoin}}</p>
+          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.employeeTimeSinceJoin }} </p>
+          <div v-if="isCurrentEmployeeProfile()">
+            <hr>
+            <b-button variant="outline-danger"
+                      class="btn-sm"
+                      @click="signOut">
+              Sign out
+            </b-button>
+          </div>
         </div>
       </b-card>
 
@@ -25,28 +34,35 @@
 </template>
 
 <script>
-  import WorkInfoManagerEdit from './work-info-manager-edit.vue'
+  import editModal from './edit-modal.vue'
 
   export default {
-    components: {
-      WorkInfoManagerEdit
-    },
-    props: ['employeeCardDto', 'employeeImage'],
+    props: ['employeeId', 'employeeCardDto', 'employeeImage'],
+    components: {editModal},
     data () {
       return {
         name: 'employeeCard',
         placeholderId: 0
       }
     },
+    computed: {
+      currentEmployeeId () {
+        return (this.$cookies.isKey('currentEmployeeId')) ? this.$cookies.get('currentEmployeeId') : null
+      }
+    },
     methods: {
-      isManagerIdEqualToLoginID: function() {
-        if (this.employeeCardDto.employeeManagerId !== null) {
-          let managerId = this.employeeCardDto.employeeManagerId
-
-          return managerId === this.placeholderId;
-        } else {  // if the employee has no manager
-          return true;
+      isCurrentEmployeeProfile: function () {
+        return this.employeeId === this.currentEmployeeId
+      },
+      isManager: function() {
+        if (this.employeeCardDto.managerId !== null) {
+          return this.employeeCardDto.managerId === this.currentEmployeeId
         }
+
+        return true
+      },
+      signOut: function () {
+        location.replace('/signOut')
       }
     }
   }

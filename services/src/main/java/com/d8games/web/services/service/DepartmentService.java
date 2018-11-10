@@ -8,24 +8,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("unused")
 public class DepartmentService {
 
     @Autowired
-    DepartmentRepository departmentRepository;
+    private DepartmentRepository departmentRepository;
 
     public List<Department> getAll() {
         return departmentRepository.findAll();
     }
 
     public Department getById(String id) {
-        return departmentRepository.getDepartmentByDepartmentId(id);
-    }
-
-    public void save(Department department) {
-        departmentRepository.save(department);
+        return departmentRepository.getDepartmentById(id);
     }
 
     public List<String> getAllDepartmentNames() {
         return departmentRepository.getAllDepartmentNames();
+    }
+
+    public void save(Department department) {
+        departmentRepository.save(department);
     }
 }
