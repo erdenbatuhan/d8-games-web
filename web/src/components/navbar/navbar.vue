@@ -9,7 +9,6 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="navbar-nav-left">
-
             <b-nav-item><a v-on:click="redirectTo('/dashboard')"> Dashboard </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/ourGames')"> Our Games </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/contactUs')"> Contact Us </a></b-nav-item>
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
   import QrAuth from "./qr-auth"
 
   export default {
@@ -113,10 +112,5 @@
   .vouch-buttons {
     margin-top: 15px;
     margin-right: 20px;
-  }
-
-  .login-link {
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
   }
 </style>

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import VueQr from 'vue-qr'
 

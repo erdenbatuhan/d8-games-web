@@ -27,13 +27,14 @@
 </template>
 
 <script>
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import contactCard from "./contact-card";
 
   export default {
-    mixins: [ServicesMixin],
+    mixins: [CommonMixin, ServicesMixin],
     components: {navbar, contactCard},
     data() {
       return {
@@ -49,7 +50,7 @@
         this.spinner = false
       }).catch(error => {
         console.error(error)
-        this.$router.push('/')
+        this.redirectTo('/')
       })
     }
   }

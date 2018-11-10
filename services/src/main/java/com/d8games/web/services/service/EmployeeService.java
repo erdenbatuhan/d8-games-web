@@ -25,6 +25,14 @@ public class EmployeeService {
         return employeeRepository.getEmployeeById(id);
     }
 
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public String getEmployeeFullNameById(String employeeId) {
+        return employeeRepository.getEmployeeFullNameById(employeeId);
+    }
+
     public Employee getByMobilePhoneId(String mobilePhoneId) {
         return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
     }
@@ -43,9 +51,5 @@ public class EmployeeService {
 
     public EmployeeCardDto getEmployeeCardDto(String employeeId) {
         return employeeRepository.getEmployeeCardDto(employeeId);
-    }
-
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
     }
 }

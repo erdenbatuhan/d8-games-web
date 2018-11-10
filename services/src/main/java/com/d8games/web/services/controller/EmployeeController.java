@@ -8,6 +8,7 @@ import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -65,9 +66,26 @@ public class EmployeeController {
     public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
         EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
 
-        if (employeeCardDto == null)
+        if (employeeCardDto == null) {
             throw new EmployeeNotFound(employeeId);
+        } else {
+            String managerId = employeeCardDto.getManagerId();
+            String managerFullName = employeeService.getEmployeeFullNameById(managerId);
+
+            employeeCardDto.setManagerFullName(managerFullName);
+        }
 
         return employeeCardDto;
+    }
+
+    @PostMapping(value = "/addStoryPoints")
+    public HttpStatus addStoryPoints(@RequestParam String employeeId, @RequestParam double storyPointsToAdd) {
+        Employee employee = employeeService.getById(employeeId);
+
+        double completedStoryPoints = employee.getCompletedStoryPoints();
+        employee.setCompletedStoryPoints(completedStoryPoints + storyPointsToAdd);
+
+        employeeService.save(employee);
+        return HttpStatus.OK;
     }
 }

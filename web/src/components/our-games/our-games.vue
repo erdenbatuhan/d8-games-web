@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import ServicesMixin from '../../mixins/services-mixin'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import gameInfoCard from './game-info-card.vue'
@@ -43,7 +43,7 @@
         this.spinner = false
       }).catch(error => {
         console.error(error)
-        this.$router.push('/')
+        this.redirectTo('/')
       })
     }
   }

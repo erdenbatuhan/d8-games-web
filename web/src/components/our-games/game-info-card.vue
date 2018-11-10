@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
 
   export default {
     mixins: [CommonMixin],

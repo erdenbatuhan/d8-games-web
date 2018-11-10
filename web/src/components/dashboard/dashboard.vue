@@ -20,8 +20,8 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import dashboardCard from "./dashboard-card.vue"
@@ -62,7 +62,7 @@
         this.spinner = false
       }).catch(error => {
         console.error(error)
-        this.$router.push('/')
+        this.redirectTo('/')
       })
     },
     methods: {

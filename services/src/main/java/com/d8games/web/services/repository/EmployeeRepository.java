@@ -16,6 +16,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     Employee getEmployeeById(String id);
 
+    @Query(
+    "SELECT concat(e.name, ' ', e.surname) " +
+    "FROM Employee e " +
+    "WHERE e.id = :employeeId")
+    String getEmployeeFullNameById(@Param("employeeId") String employeeId);
+
     Employee getEmployeeByMobilePhoneId(String mobilePhoneId);
 
     @Query(
