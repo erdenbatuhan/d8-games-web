@@ -114,9 +114,9 @@
         let canAuthenticate = authenticatedEmployee.id && (currentIp === authenticatedEmployee.ip)
 
         if (canAuthenticate) {
-          if (!this.$cookies.isKey('currentEmployeeId')) {
+          if (!this.$cookies.isKey('signedInEmployeeId')) {
             this.handleSignIn(authenticatedEmployee.id, nextState)
-          } else if (this.$cookies.get('currentEmployeeId') === authenticatedEmployee.id) {
+          } else if (this.$cookies.get('signedInEmployeeId') === authenticatedEmployee.id) {
             this.handleVouching(authenticatedEmployee.ip, vouchType, nextState)
           } else {
             this.setStateTo(nextErrorState)
@@ -126,13 +126,13 @@
         }
       },
       handleSignIn: function (authenticatedEmployeeId, nextState) {
-        this.$cookies.set('currentEmployeeId', authenticatedEmployeeId)
+        this.$cookies.set('signedInEmployeeId', authenticatedEmployeeId)
         this.setStateTo(nextState)
       },
       handleVouching: function (authenticatedEmployeeIp, vouchType, nextState) {
         // TODO: Call the API for Vouching using the vouchType
         // TODO: Beware that it will be async, it will not be waited!
-        // TODO: Use this.$cookies.get('currentEmployeeId') as employee
+        // TODO: Use this.$cookies.get('signedInEmployeeId') as employee
 
         console.log('vouching')
         this.setStateTo(nextState)

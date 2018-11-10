@@ -1,7 +1,12 @@
 package com.d8games.web.services.util;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 
+@Getter
+@Setter
 public class DateUtil {
 
     public enum DateKey {
@@ -90,22 +95,6 @@ public class DateUtil {
         return stringTokenized;
     }
 
-    public Date getActualDate() {
-        return actualDate;
-    }
-
-    public void setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     private void setDate(String hour, String minute) {
         Calendar calendar = Calendar.getInstance();
 
@@ -114,21 +103,5 @@ public class DateUtil {
         calendar.set(Calendar.SECOND, 0);
 
         this.actualDate = calendar.getTime();
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
-
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
     }
 }

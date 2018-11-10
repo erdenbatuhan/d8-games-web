@@ -13,15 +13,19 @@
           <p class="card-text text-left"><b> Manager </b><br> {{ employeeCardDto.managerFullName }} </p>
           <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.email }} </p>
           <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.phoneNumber }} </p>
-          <p class="card-text text-left"><b> Completed Story Points </b><br>{{ employeeCardDto.completedStoryPoints }}
-            <edit-modal v-if=isManager()></edit-modal>
-          </p>
-          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.employeeTimeSinceJoin }} </p>
-          <div v-if="isCurrentEmployeeProfile()">
+          <p class="card-text text-left"><b> Completed Story Points </b><br>{{ employeeCardDto.completedStoryPoints }} </p>
+          <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
+
+          <div v-if="isSignedInEmployeeManager">
+            <b-btn class="triggerButton" v-b-modal.addStoryPoints variant="outline-success" size="sm"> Add Story Points </b-btn>
+            <edit-modal></edit-modal>
+          </div>
+
+          <div v-if="isSignedInEmployeeProfile">
             <hr>
             <b-button variant="outline-danger"
                       class="btn-sm"
-                      @click="signOut">
+                      v-on:click="signOut">
               Sign out
             </b-button>
           </div>
@@ -46,17 +50,18 @@
       }
     },
     computed: {
-      currentEmployeeId () {
-        return (this.$cookies.isKey('currentEmployeeId')) ? this.$cookies.get('currentEmployeeId') : null
+      signedInEmployeeId () {
+        return (this.$cookies.isKey('signedInEmployeeId')) ? this.$cookies.get('signedInEmployeeId') : null
       }
     },
     methods: {
-      isCurrentEmployeeProfile: function () {
-        return this.employeeId === this.currentEmployeeId
+      isSignedInEmployeeProfile: function () {
+        return this.employeeId === this.signedInEmployeeId
       },
-      isManager: function() {
+      isSignedInEmployeeManager: function () {
+        return true
         if (this.employeeCardDto.managerId !== null) {
-          return this.employeeCardDto.managerId === this.currentEmployeeId
+          return this.employeeCardDto.managerId === this.signedInEmployeeId
         }
 
         return true

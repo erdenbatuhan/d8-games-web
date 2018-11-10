@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 @Setter
-@SuppressWarnings("unused")
 public class EmployeeCardDto {
 
     private String fullName;

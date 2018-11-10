@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/game")
-@SuppressWarnings("unused")
 public class GameController {
 
     @Autowired

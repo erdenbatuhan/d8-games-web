@@ -7,18 +7,14 @@ import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
-import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/employee")
-@SuppressWarnings("unused")
 public class EmployeeController {
 
     @Autowired
@@ -39,8 +35,7 @@ public class EmployeeController {
 
     @PutMapping(value = "/save")
     public String save(@RequestParam String mobilePhoneId, @RequestParam String name, @RequestParam String surname,
-                       @RequestParam String email, @RequestParam String phoneNumber,
-                       @RequestParam Double completedStoryPoints, @RequestParam String titleId) {
+                       @RequestParam String email, @RequestParam String phoneNumber, @RequestParam String titleId) {
         Employee employee = new Employee();
 
         employee.setMobilePhoneId(mobilePhoneId);

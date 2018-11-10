@@ -15,7 +15,6 @@ import java.util.Date;
 @Table(name = "EMPLOYEE")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-@SuppressWarnings("unused")
 public class Employee implements Serializable {
 
     @Id

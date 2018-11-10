@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/department")
-@SuppressWarnings("unused")
 public class DepartmentController {
 
     @Autowired

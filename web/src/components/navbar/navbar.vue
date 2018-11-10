@@ -17,7 +17,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="currentEmployeeId">
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="signedInEmployeeId">
             <ul class="navbar-nav ml-auto">
               <li v-if="canView('IN')" class="nav-item">
                 <b-button variant="outline-success"
@@ -35,7 +35,7 @@
               </li>
               <li>
                 <a class="nav-item" v-on:click="redirectToEmployeeProfile()">
-                  <img :src="getImageSource(EMPLOYEE_IMAGE_DIR + currentEmployeeId)" class="navbar-img" alt="">
+                  <img :src="getImageSource(EMPLOYEE_IMAGE_DIR + signedInEmployeeId)" class="navbar-img" alt="">
                 </a>
               </li>
             </ul>
@@ -72,8 +72,8 @@
       }
     },
     computed: {
-      currentEmployeeId () {
-        return (this.$cookies.isKey('currentEmployeeId')) ? this.$cookies.get('currentEmployeeId') : null
+      signedInEmployeeId () {
+        return (this.$cookies.isKey('signedInEmployeeId')) ? this.$cookies.get('signedInEmployeeId') : null
       }
     },
     methods: {
@@ -82,12 +82,12 @@
       },
       canView: function (vouchType) {
         let isEmployeeProfile = !!this.voucherItemDtoListLength
-        let isCurrentEmployeeProfile = this.employeeId === this.currentEmployeeId
+        let isSignedInEmployeeProfile = this.employeeId === this.signedInEmployeeId
 
         let isVouchTypeIn = (vouchType === 'IN') && this.voucherItemDtoListLength % 2 === 0
         let isVouchTypeOut = (vouchType === 'OUT') && this.voucherItemDtoListLength % 2 !== 0
 
-        return isEmployeeProfile && isCurrentEmployeeProfile && (isVouchTypeIn || isVouchTypeOut)
+        return isEmployeeProfile && isSignedInEmployeeProfile && (isVouchTypeIn || isVouchTypeOut)
       }
     }
   }

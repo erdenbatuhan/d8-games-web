@@ -1,9 +1,9 @@
 <template>
     <div>
       <div class="card-text text-left">
-        <h4> {{ contactCardDto.employeeFullName }} ({{ contactCardDto.titleName }}) </h4><br>
-        <h6> Email <br></h6><p> {{ contactCardDto.employeeEmail }} </p>
-        <h6> Phone Number <br></h6><p> {{ contactCardDto.employeePhoneNumber }} </p>
+        <h4> {{ contactCardDto.fullName }} ({{ contactCardDto.titleName }}) </h4><br>
+        <h6> Email <br></h6><p> {{ contactCardDto.email }} </p>
+        <h6> Phone Number <br></h6><p> {{ contactCardDto.phoneNumber }} </p>
       </div>
 
       <br>
