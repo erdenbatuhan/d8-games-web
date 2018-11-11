@@ -33,6 +33,19 @@ public class VoucherService {
         final String locationOffice = ConfigManager.getLocationOffice();
         final String locationHome = ConfigManager.getLocationHome();
 
+        Voucher voucher = new Voucher();
+
+        voucher.setType(type);
+        voucher.setLocation((officeIp.equals(ip)) ? locationOffice : locationHome);
+        voucher.setEmployee(employeeService.getById(employeeId));
+
+        setDates(voucher);
+
+        voucherRepository.save(voucher);
+        return voucher.getId();
+    }
+
+    private void setDates(Voucher voucher) {
         DateUtil dateUtil = new DateUtil(new Date());
 
         final Date actualDate = dateUtil.getActualDate();
@@ -40,18 +53,10 @@ public class VoucherService {
         final String day = dateUtil.getDay();
         final String hour = dateUtil.getHour();
 
-        Voucher voucher = new Voucher();
-
-        voucher.setType(type);
-        voucher.setLocation((officeIp.equals(ip)) ? locationOffice : locationHome);
         voucher.setActualDate(actualDate);
         voucher.setDate(date);
         voucher.setDay(day);
         voucher.setHour(hour);
-        voucher.setEmployee(employeeService.getById(employeeId));
-
-        voucherRepository.save(voucher);
-        return voucher.getId();
     }
 
     public List<VoucherItemDto> getVoucherItemDtoList(String employeeId) {

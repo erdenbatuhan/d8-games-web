@@ -97,6 +97,7 @@ public class DateUtil {
 
     private void setDate(String hour, String minute) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.actualDate);
 
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minute));

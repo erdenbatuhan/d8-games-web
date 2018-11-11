@@ -62,7 +62,7 @@
     mixins: [CommonMixin, ServicesMixin],
     components: {navbar, employeeCard, employeeSummary, voucherTable},
     props: ['employeeId'],
-    data() {
+    data () {
       return {
         IMAGE_DIR: 'employee/',
         name: 'employeeProfile',

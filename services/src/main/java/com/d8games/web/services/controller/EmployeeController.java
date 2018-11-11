@@ -1,5 +1,6 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.config.ConfigManager;
 import com.d8games.web.services.exception.EmployeeNotFound;
 import com.d8games.web.services.model.dto.ContactCardDto;
 import com.d8games.web.services.model.dto.DashboardCardDto;
@@ -39,11 +40,14 @@ public class EmployeeController {
                        @RequestParam String email, @RequestParam String phoneNumber, @RequestParam String titleId) {
         Employee employee = new Employee();
 
+        if (mobilePhoneId.length() == 0)
+            mobilePhoneId = null;
+
         employee.setMobilePhoneId(mobilePhoneId);
         employee.setName(name);
         employee.setSurname(surname);
         employee.setEmail(email);
-        employee.setPhoneNumber(phoneNumber);
+        employee.setPhoneNumber(ConfigManager.getCountryCode() + " " + phoneNumber);
         employee.setCompletedStoryPoints(0.0);
         employee.setJoinDate(new Date()); // Get the current date
         employee.setTitle(titleService.getById(titleId));

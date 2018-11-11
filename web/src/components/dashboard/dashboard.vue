@@ -25,7 +25,7 @@
   export default {
     mixins: [CommonMixin, ServicesMixin],
     components: {navbar, dashboardCard},
-    data() {
+    data () {
       return {
         name: 'dashboard',
         spinner: true,
@@ -33,7 +33,7 @@
         dashboardCardDtoList: null
       }
     },
-    mounted() {
+    mounted () {
       this.getDashboardCardDtoList().then(dashboardCardDtoList => {
         this.dashboardCardDtoList = dashboardCardDtoList
       }).catch(() => {

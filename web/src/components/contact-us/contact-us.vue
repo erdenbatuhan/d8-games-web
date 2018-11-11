@@ -36,14 +36,14 @@
   export default {
     mixins: [CommonMixin, ServicesMixin],
     components: {navbar, contactUsCard},
-    data() {
+    data () {
       return {
         name: 'contactUs',
         spinner: true,
         contactCardDtoList: null
       }
     },
-    mounted() {
+    mounted () {
       this.getContactCardDtoList().then(contactCardDtoList => {
         this.contactCardDtoList = contactCardDtoList
       }).catch(() => {

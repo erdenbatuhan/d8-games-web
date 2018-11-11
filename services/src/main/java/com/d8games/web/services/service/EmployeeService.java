@@ -29,12 +29,12 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public String getEmployeeFullNameById(String employeeId) {
-        return employeeRepository.getEmployeeFullNameById(employeeId);
-    }
-
     public Employee getByMobilePhoneId(String mobilePhoneId) {
         return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
+    }
+
+    public String getEmployeeFullNameById(String employeeId) {
+        return employeeRepository.getEmployeeFullNameById(employeeId);
     }
 
     public String getEmployeeIdByMobilePhoneId(String mobilePhoneId) {

@@ -16,13 +16,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     Employee getEmployeeById(String id);
 
+    Employee getEmployeeByMobilePhoneId(String mobilePhoneId);
+
     @Query(
     "SELECT concat(e.name, ' ', e.surname) " +
     "FROM Employee e " +
     "WHERE e.id = :employeeId")
     String getEmployeeFullNameById(@Param("employeeId") String employeeId);
-
-    Employee getEmployeeByMobilePhoneId(String mobilePhoneId);
 
     @Query(
     "SELECT e.id " +
@@ -36,7 +36,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     "FROM Employee e " +
     "INNER JOIN Title t ON e.title = t " +
     "INNER JOIN Department d ON t.department = d " +
-    "ORDER BY d.rank")
+    "ORDER BY e.joinDate")
     List<DashboardCardDto> getDashboardCardDtoList();
 
     @Query(

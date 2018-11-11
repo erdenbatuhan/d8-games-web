@@ -17,6 +17,7 @@ public class ConfigManager {
     private static String locationOffice;
     private static String locationHome;
     private static String contactDepartmentName;
+    private static String countryCode;
     private static int authenticationTimeout;
 
     private InputStream inputStream;
@@ -28,6 +29,7 @@ public class ConfigManager {
         ConfigManager.locationOffice = properties.getProperty("locationOffice");
         ConfigManager.locationHome = properties.getProperty("locationHome");
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
+        ConfigManager.countryCode = properties.getProperty("countryCode");
         ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
     }
 
@@ -65,6 +67,10 @@ public class ConfigManager {
 
     public static String getContactDepartmentName() {
         return contactDepartmentName;
+    }
+
+    public static String getCountryCode() {
+        return countryCode;
     }
 
     public static int getAuthenticationTimeout() {
