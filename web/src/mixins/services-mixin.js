@@ -24,7 +24,10 @@ export default {
       GET_CONTACT_CARD_DTO_LIST_ENDPOINT: '/employee/contactCardDtoList',
       GET_GAMES_ENDPOINT: '/game',
       SAVE_NEW_AUTHENTICATION_ENDPOINT: '/authentication/save',
-      POST_STORY_POINTS_ENDPOINT: (employeeId, storyPointsToAdd) => {
+      ADD_VOUCHER_ENDPOINT: (employeeId, ip, type) => {
+        return '/voucher/add?employeeId=' + employeeId + '&ip=' + ip + '&type=' + type
+      },
+      ADD_STORY_POINTS_ENDPOINT: (employeeId, storyPointsToAdd) => {
         return '/employee/addStoryPoints?employeeId=' + employeeId + "&storyPointsToAdd=" + storyPointsToAdd
       }
     }
@@ -137,8 +140,20 @@ export default {
         })
       })
     },
-    postStoryPoints: function (employeeId, storyPointsToAdd) {
-      let endpoint = this.SERVICES_ENDPOINT + this.POST_STORY_POINTS_ENDPOINT(employeeId, storyPointsToAdd)
+    addVoucher: function (employeeId, ip, type) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_ENDPOINT(employeeId, ip, type)
+
+      return new Promise ((resolve, reject) => {
+        Vue.axios.put(endpoint).then(response => {
+          resolve(response.data)
+        }).catch(error => {
+          console.error(error)
+          reject(error)
+        })
+      })
+    },
+    addStoryPoints: function (employeeId, storyPointsToAdd) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_STORY_POINTS_ENDPOINT(employeeId, storyPointsToAdd)
 
       return new Promise ((resolve, reject) => {
         Vue.axios.post(endpoint).then(() => {

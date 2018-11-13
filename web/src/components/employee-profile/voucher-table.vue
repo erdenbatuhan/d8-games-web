@@ -5,6 +5,9 @@
              :per-page="perPage"
              :fields="fields"
              :items="voucherItemDtoList">
+      <template slot="html" slot-scope="data">
+        {{'wqfqw'}}
+      </template>
     </b-table>
     <b-row>
       <b-col md="6" class="my-1">

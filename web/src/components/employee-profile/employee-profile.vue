@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar :employee-id="employeeId" :voucher-item-dto-list-length="voucherItemDtoListLength"></navbar>
+    <navbar :bottom-padding="true" :employee-id="employeeId" :voucher-item-dto-list-length="voucherItemDtoListLength"></navbar>
 
     <div class="container-fluid">
       <div class="row">
@@ -87,28 +87,39 @@
       })
 
       this.getVoucherItemDtoList(this.employeeId).then(voucherItemDtoList => {
-        this.voucherItemDtoList = this.getVoucherItemDtoListPainted(voucherItemDtoList)
+        this.voucherItemDtoList = this.getVoucherItemDtoListModified(voucherItemDtoList)
       }).catch(() => {
         this.redirectTo('/')
       })
     },
     methods: {
-      getVoucherItemDtoListPainted: function (data) {
+      getVoucherItemDtoListModified: function (data) {
         let voucherItemDtoList = data
 
         voucherItemDtoList.forEach(voucherItemDto => {
-          this.cellVariants.some(cellVariant => {
-            let hasSameVouchType = cellVariant.vouchType === voucherItemDto.type
-            let hasSameVouchLocation = cellVariant.vouchLocation === voucherItemDto.location
-
-            if (hasSameVouchType && hasSameVouchLocation) {
-              voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
-              return undefined
-            }
-          })
+          this.setCellVariantsOfVoucherItemDto(voucherItemDto)
         })
 
         return voucherItemDtoList
+      },
+      setCellVariantsOfVoucherItemDto: function (voucherItemDto) {
+        this.cellVariants.some(cellVariant => {
+          let hasSamevoucherType = cellVariant.voucherType === voucherItemDto.type
+          let hasSamevoucherLocation = cellVariant.voucherLocation === voucherItemDto.location
+
+          if (hasSamevoucherType && hasSamevoucherLocation) {
+            if (voucherItemDto.admin) {
+              voucherItemDto['_cellVariants'] = {
+                ' ': cellVariant.value,
+                'type': cellVariant.adminValue,
+              }
+            } else {
+              voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
+            }
+
+            return undefined
+          }
+        })
       }
     }
   }

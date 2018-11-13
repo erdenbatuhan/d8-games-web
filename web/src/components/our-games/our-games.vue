@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
     <div v-if="games" class="container">
       <h3> Our Games </h3>

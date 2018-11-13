@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
     <div v-if="dashboardCardDtoList" class="container mt-40">
       <h3> Dashboard </h3>

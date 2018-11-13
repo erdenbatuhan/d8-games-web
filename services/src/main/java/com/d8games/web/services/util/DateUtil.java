@@ -1,7 +1,9 @@
 package com.d8games.web.services.util;
 
+import com.d8games.web.services.config.ConfigManager;
 import lombok.Getter;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.util.*;
 
@@ -21,12 +23,19 @@ public class DateUtil {
     }
 
     private Date actualDate;
+    private int nightHoursStart;
+    private int nightHoursEnd;
     private String date;
     private String day;
     private String hour;
+    private int hourAsInt;
 
     public DateUtil(Date actualDate) {
         this.actualDate = actualDate;
+
+        nightHoursStart = ConfigManager.getNightHoursStart();
+        nightHoursEnd = ConfigManager.getNightHoursEnd();
+
         parseDate();
     }
 
@@ -79,6 +88,8 @@ public class DateUtil {
                 hourParts.set(i, "0" + hourParts.get(i));
 
         this.hour = hourParts.get(0) + ":" + hourParts.get(1);
+        this.hourAsInt = Integer.parseInt(hourParts.get(0) + hourParts.get(1));
+
         return hourParts;
     }
 
@@ -104,5 +115,37 @@ public class DateUtil {
         calendar.set(Calendar.SECOND, 0);
 
         this.actualDate = calendar.getTime();
+    }
+
+    public boolean isNight() {
+        final int nightHoursStart = this.nightHoursStart * 100; // 2300
+        final int nightHoursEnd = this.nightHoursEnd * 100; // 800
+
+        return !(nightHoursEnd <= hourAsInt && hourAsInt <= nightHoursStart); // not(800 <= hour <= 2300)
+    }
+
+    public static Date getHoursAhead(Date currentDate, int amount) {
+        final int nightHoursEnd = ConfigManager.getNightHoursEnd();
+        final int nightHoursStart = ConfigManager.getNightHoursStart();
+
+        DateTime dateTime = new DateTime(currentDate);
+        dateTime = dateTime.plusHours(amount);
+
+        int hourWithMinute = Integer.parseInt(dateTime.getHourOfDay() + "" + dateTime.getMinuteOfHour());
+
+        while (nightHoursStart * 100 < hourWithMinute || hourWithMinute < nightHoursEnd * 100) {
+            dateTime = dateTime.minusMinutes(30);
+            hourWithMinute = Integer.parseInt(dateTime.getHourOfDay() + "" + dateTime.getMinuteOfHour());
+
+            if (dateTime.getMinuteOfHour() == 0)
+                hourWithMinute *= 10;
+        }
+
+        return dateTime.toDate();
+    }
+
+    public static Date getDaysAhead(Date currentDate, int amount) {
+        DateTime dateTime = new DateTime(currentDate).plusDays(amount);
+        return dateTime.toDate();
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class WorkInfoService {
 
     @Scheduled(fixedRate = 7200000)
     public void addDatesWhenNotPresent() {
-        System.out.println("Adding each week of the next month...");
         List<Date> actualEndDates = workInfoRepository.getActualEndDates();
 
         if (actualEndDates.size() == 0)
@@ -42,6 +40,7 @@ public class WorkInfoService {
         Date latestEndDate = actualEndDates.get(0);
 
         if (currentDate.compareTo(latestEndDate) > 0) { // Current Date is after Latest End Date
+            System.out.println("Adding each week of the current month...");
             List<Employee> employees = employeeService.getAll();
 
             for (Employee employee : employees)
@@ -59,7 +58,7 @@ public class WorkInfoService {
 
         for (int i = 0; i < 4; i++) {
             WorkInfo workInfo = new WorkInfo();
-            Date sixDaysAhead = getDaysAhead(currentDate, 6);
+            Date sixDaysAhead = DateUtil.getDaysAhead(currentDate, 6);
 
             setDates(workInfo, currentDate, sixDaysAhead);
 
@@ -68,7 +67,7 @@ public class WorkInfoService {
             workInfo.setEmployee(employee);
 
             workInfoIdList.add(workInfo.getId());
-            currentDate = getDaysAhead(sixDaysAhead, 1);
+            currentDate = DateUtil.getDaysAhead(sixDaysAhead, 1);
 
             workInfoRepository.save(workInfo);
         }
@@ -91,14 +90,5 @@ public class WorkInfoService {
 
         workInfo.setStartDate(startDate);
         workInfo.setEndDate(endDate);
-    }
-
-    private Date getDaysAhead(Date currentDate, int amount) {
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_MONTH, amount);
-
-        return calendar.getTime();
     }
 }

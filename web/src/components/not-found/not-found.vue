@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
     <b-container>
       <b-row class="row">

@@ -55,7 +55,9 @@
       </b-collapse>
     </b-navbar>
 
-    <br><br>
+    <div v-if="bottomPadding">
+      <br><br>
+    </div>
   </div>
 </template>
 
@@ -66,7 +68,7 @@
   export default {
     mixins: [CommonMixin],
     components: {QrAuth},
-    props: ['employeeId', 'voucherItemDtoListLength'],
+    props: ['bottomPadding', 'employeeId', 'voucherItemDtoListLength'],
     data() {
       return {
         EMPLOYEE_IMAGE_DIR: 'employee/',
@@ -80,17 +82,16 @@
       }
     },
     methods: {
-      showModal: function (vouchType) {
-        this.$refs.qrAuth.showModal(vouchType)
+      showModal: function (voucherType) {
+        this.$refs.qrAuth.showModal(voucherType)
       },
-      canView: function (vouchType) {
-        let isEmployeeProfile = !!this.voucherItemDtoListLength
+      canView: function (voucherType) {
         let isSignedInEmployeeProfile = this.employeeId === this.signedInEmployeeId
 
-        let isVouchTypeIn = (vouchType === 'IN') && this.voucherItemDtoListLength % 2 === 0
-        let isVouchTypeOut = (vouchType === 'OUT') && this.voucherItemDtoListLength % 2 !== 0
+        let isvoucherTypeIn = (voucherType === 'IN') && this.voucherItemDtoListLength % 2 === 0
+        let isvoucherTypeOut = (voucherType === 'OUT') && this.voucherItemDtoListLength % 2 !== 0
 
-        return isEmployeeProfile && isSignedInEmployeeProfile && (isVouchTypeIn || isVouchTypeOut)
+        return isSignedInEmployeeProfile && (isvoucherTypeIn || isvoucherTypeOut)
       }
     }
   }

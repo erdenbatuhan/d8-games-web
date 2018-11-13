@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
     <div v-if="contactCardDtoList">
       <h3>Contact Us</h3>

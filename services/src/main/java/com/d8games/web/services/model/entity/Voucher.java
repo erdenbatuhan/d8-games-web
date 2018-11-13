@@ -30,6 +30,10 @@ public class Voucher implements Serializable {
     private String location;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "EXACT_VOUCHER_DATE", nullable = false)
+    private Date exactVoucherDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ACTUAL_DATE", nullable = false)
     private Date actualDate;
 
@@ -41,6 +45,9 @@ public class Voucher implements Serializable {
 
     @Column(name = "HOUR", nullable = false)
     private String hour;
+
+    @Column(name = "ADMIN", nullable = false)
+    private boolean admin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID", nullable = false)

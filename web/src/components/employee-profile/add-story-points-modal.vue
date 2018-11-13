@@ -47,7 +47,7 @@
         if (this.storyPointsToAdd > 0) {
           this.$refs.waitToAddStoryPointsModal.show()
 
-          this.postStoryPoints(this.employeeId, this.storyPointsToAdd).then(() => {
+          this.addStoryPoints(this.employeeId, this.storyPointsToAdd).then(() => {
             this.redirectToEmployeeProfile(this.employeeId)
           }).catch(() => {
             this.redirectTo('/')
