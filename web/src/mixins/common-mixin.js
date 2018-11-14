@@ -6,8 +6,22 @@ export default {
     }
   },
   methods: {
-    getImageSource: function (imagesDir, imageId) {
-      return this.STATIC_IMAGES_DIR + imagesDir + imageId + this.IMAGE_TYPE
+    getImageSource: function (image) {
+      return this.STATIC_IMAGES_DIR + image + this.IMAGE_TYPE
+    },
+    redirectToEmployeeProfile: function (employeeId) {
+      let nextLocation = '/'
+
+      if (employeeId) {
+        nextLocation = '/employeeProfile/' + employeeId
+      } else if (this.$cookies.isKey('signedInEmployeeId')) {
+        nextLocation = '/employeeProfile/' + this.$cookies.get('signedInEmployeeId')
+      }
+
+      this.redirectTo(nextLocation)
+    },
+    redirectTo: function (nextLocation) {
+      location.assign(nextLocation)
     }
   }
 }

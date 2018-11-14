@@ -11,14 +11,14 @@ import java.util.List;
 public class GameService {
 
     @Autowired
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public List<Game> getAll() {
         return gameRepository.getAllGames();
     }
 
     public Game getById(String id) {
-        return gameRepository.getGameByGameId(id);
+        return gameRepository.getGameById(id);
     }
 
     public void save(Game game) {

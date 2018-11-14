@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
     <b-container>
       <b-row class="row">
@@ -16,7 +16,7 @@
 
       <b-row>
         <b-col class="col" sm="2"></b-col>
-        <b-col class="col" sm="6"><img src="/static/images/not-found/not-found.jpg" alt=""></b-col>
+        <b-col class="col" sm="6"><img src="/static/images/not-found.jpg" alt=""></b-col>
         <b-col class="col" sm="4"></b-col>
       </b-row>
 
@@ -45,8 +45,6 @@
       <b-col class="col" sm="4"></b-col>
       </b-row>
     </b-container>
-
-    <br><br>
   </div>
 </template>
 

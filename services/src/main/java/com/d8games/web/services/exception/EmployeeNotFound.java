@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EmployeeNotFound extends RuntimeException {
 
     public EmployeeNotFound(String employeeId) {
-        super(String.format("Employee with ID = %s not found", employeeId));
+        super(String.format("Employee with ID = %s not found!", employeeId));
     }
 }

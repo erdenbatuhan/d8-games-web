@@ -1,0 +1,26 @@
+[
+  {
+    "voucherType": "IN",
+    "voucherLocation": "OFFICE",
+    "value": "success",
+    "adminValue": "primary"
+  },
+  {
+    "voucherType": "OUT",
+    "voucherLocation": "OFFICE",
+    "value": "danger",
+    "adminValue": "primary"
+  },
+  {
+    "voucherType": "IN",
+    "voucherLocation": "HOME",
+    "value": "info",
+    "adminValue": "primary"
+  },
+  {
+    "voucherType": "OUT",
+    "voucherLocation": "HOME",
+    "value": "warning",
+    "adminValue": "primary"
+  }
+]

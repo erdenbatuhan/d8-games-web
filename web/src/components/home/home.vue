@@ -1,14 +1,7 @@
 <template>
   <div class="background">
-    <navbar></navbar>
-    <b-jumbotron class="floating-above" ontainer-fluid bg-variant="" text-variant="black">
-      <template slot="header">
-        D8 Games
-      </template>
-      <hr class="my-4">
-    </b-jumbotron>
-
-    <br>
+    <navbar class="flow-on-top" :bottom-padding="false"></navbar>
+    <img class="background image" src="/static/images/background-image.png"/>
   </div>
 </template>
 
@@ -28,22 +21,17 @@
 </script>
 
 <style scoped>
-  .background {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background: url("/static/images/home/backgroundImage.jpg") no-repeat center;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  .flow-on-top {
+    overflow: visible;
+    height: 0;
   }
 
-  .floating-above {
-    background: transparent;
-    margin-bottom: 0;
+  .background.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
   }
 </style>

@@ -1,35 +1,38 @@
 <template>
-  <div>
-    <div v-if="employeeSummaryDto">
-      <div class="card">
-        <b-card no-body>
-          <div class="card-header"> Summary </div>
-          <b-tabs card>
-            <b-tab title="Week" active>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-left"> Worked So Far: 0 </li>
-                <li class="list-group-item text-left"> Hours Left: </li>
-                <li class="list-group-item text-left"> Overtime Info: </li>
-              </ul>
-            </b-tab>
-            <b-tab title="Month">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-left"> Worked So Far: 0 </li>
-                <li class="list-group-item text-left"> Hours Left: </li>
-                <li class="list-group-item text-left"> Overtime Info: </li>
-              </ul>
-            </b-tab>
-          </b-tabs>
-        </b-card>
-      </div>
+  <div v-if="true">
+    <b-card no-body class="mb-1">
+      <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-btn v-if="weekly" block v-b-toggle.weeklyAccordion variant="info"> Current Week </b-btn>
+        <b-btn v-else block v-b-toggle.monthlyAccordion variant="info"> Current Month </b-btn>
+      </b-card-header>
+      <b-collapse :id="accordionId" visible role="tabpanel" accordion="accordion">
+        <b-card-body>
+          <p class="card-text">
+            <code> {{ summary.interval }} </code>
+          </p>
+          <hr class="card-separator">
 
-      <br>
-    </div>
+          <p class="text-left"><b> Hours Completed <br></b> {{ summary.hoursCompleted }} </p>
+          <p class="text-left"><b> Hours Left <br></b> {{ summary.hoursLeft }} </p>
+          <p class="text-left"><b> Overtime Info <br></b> {{ summary.overtimeInfo }} </p>
+        </b-card-body>
+      </b-collapse>
+    </b-card>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['employeeSummaryDto']
+    props: ['weekly', 'summary'],
+    data () {
+      return {
+        name: 'employeeSummary'
+      }
+    },
+    computed: {
+      accordionId () {
+        return (this.weekly) ? 'weeklyAccordion' : 'monthlyAccordion'
+      }
+    }
   }
 </script>

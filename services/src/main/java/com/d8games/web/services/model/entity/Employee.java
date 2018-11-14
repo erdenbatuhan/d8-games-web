@@ -1,98 +1,51 @@
 package com.d8games.web.services.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "EMPLOYEE")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-@SuppressWarnings("unused")
 public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "EMPLOYEE_ID", unique = true, updatable = false, nullable = false)
-    private String employeeId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "EMPLOYEE_NAME", updatable = false, nullable = false)
-    private String employeeName;
+    @Column(name = "MOBILE_PHONE_ID", unique = true)
+    private String mobilePhoneId;
 
-    @Column(name = "EMPLOYEE_SURNAME", updatable = false, nullable = false)
-    private String employeeSurname;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @Column(name = "EMPLOYEE_EMAIL", nullable = false)
-    private String employeeEmail;
+    @Column(name = "SURNAME", nullable = false)
+    private String surname;
 
-    @Column(name = "EMPLOYEE_PHONE_NUMBER", nullable = false)
-    private String employeePhoneNumber;
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
+
+    @Column(name = "PHONE_NUMBER", nullable = false)
+    private String phoneNumber;
+
+    @Column(name = "COMPLETED_STORY_POINTS", length = 10, precision = 1, nullable = false)
+    private Double completedStoryPoints;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "EMPLOYEE_JOIN_DATE", updatable = false, nullable = false)
-    private Date employeeJoinDate;
+    @Column(name = "JOIN_DATE", nullable = false)
+    private Date joinDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EMPLOYEE_TITLE_ID", referencedColumnName = "TITLE_ID", nullable = false)
-    private Title employeeTitle;
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getEmployeeSurname() {
-        return employeeSurname;
-    }
-
-    public void setEmployeeSurname(String employeeSurname) {
-        this.employeeSurname = employeeSurname;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
-    public String getEmployeePhoneNumber() {
-        return employeePhoneNumber;
-    }
-
-    public void setEmployeePhoneNumber(String employeePhoneNumber) {
-        this.employeePhoneNumber = employeePhoneNumber;
-    }
-
-    public Date getEmployeeJoinDate() {
-        return employeeJoinDate;
-    }
-
-    public void setEmployeeJoinDate(Date employeeJoinDate) {
-        this.employeeJoinDate = employeeJoinDate;
-    }
-
-    public Title getEmployeeTitle() {
-        return employeeTitle;
-    }
-
-    public void setEmployeeTitle(Title employeeTitle) {
-        this.employeeTitle = employeeTitle;
-    }
+    @JoinColumn(name = "TITLE_ID", referencedColumnName = "ID", nullable = false)
+    private Title title;
 }

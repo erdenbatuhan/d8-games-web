@@ -1,7 +1,8 @@
 <template>
-    <div v-if="true">
-      <navbar></navbar>
+  <div>
+    <navbar :bottom-padding="true"></navbar>
 
+    <div v-if="contactCardDtoList">
       <h3>Contact Us</h3>
       <br>
 
@@ -14,42 +15,39 @@
             <br><br>
 
             <b-row class="row">
-              <b-col class="col" sm="6" v-for="contactCardDto in contactCardDtoList">
-                <contact-card :contact-card-dto="contactCardDto"></contact-card>
+              <b-col class="col" sm="6" v-for="contactCardDto in contactCardDtoList" :key="contactCardDto.id">
+                <contact-us-card :contact-card-dto="contactCardDto"></contact-us-card>
               </b-col>
             </b-row>
           </div>
         </b-card>
       </b-container>
-
-      <br>
     </div>
+  </div>
 </template>
 
 <script>
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
-  import contactCard from "./contact-card";
+  import contactUsCard from "./contact-us-card";
 
   export default {
-    mixins: [ServicesMixin],
-    components: {navbar, contactCard},
-    data() {
+    mixins: [CommonMixin, ServicesMixin],
+    components: {navbar, contactUsCard},
+    data () {
       return {
-        API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST: '/employee/contactCard/getAll',
         name: 'contactUs',
         spinner: true,
         contactCardDtoList: null
       }
     },
-    mounted() {
-      this.getApiResponse(this.API_ENDPOINT_TO_GET_CONTACT_CARD_DTO_LIST).then(response => {
-        this.contactCardDtoList = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
-        this.$router.push('/')
+    mounted () {
+      this.getContactCardDtoList().then(contactCardDtoList => {
+        this.contactCardDtoList = contactCardDtoList
+      }).catch(() => {
+        this.redirectTo('/')
       })
     }
   }

@@ -1,9 +1,9 @@
 package com.d8games.web.services.controller;
 
 import com.d8games.web.services.model.entity.WorkInfo;
+import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.WorkInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,33 +13,24 @@ import java.util.List;
 public class WorkInfoController {
 
     @Autowired
-    WorkInfoService workInfoService;
+    private WorkInfoService workInfoService;
 
-    @GetMapping(value = "/getAll")
-    public List<WorkInfo> getAllWorkInfo() {
-        return workInfoService.getAllWorkInfo();
+    @Autowired
+    private EmployeeService employeeService;
+
+    @GetMapping
+    public List<WorkInfo> getAll() {
+        return workInfoService.getAll();
     }
 
-    @GetMapping(value = "/getById")
+    @GetMapping(value = "/get")
     public WorkInfo getById(@RequestParam String id) {
         return workInfoService.getById(id);
     }
 
-    @PutMapping(value = "/save")
-    public HttpStatus saveWorkInfo(@RequestParam String workInfoName, @RequestParam double officeHoursNeededPerMonth,
-                                   @RequestParam double homeHoursNeededPerMonth,
-                                   @RequestParam double unpaidHoursNeededPerMonth,
-                                   @RequestParam double salaryPerHour, @RequestParam double overtimeSalaryPerHour) {
-        WorkInfo workInfo = new WorkInfo();
-
-        workInfo.setWorkInfoName(workInfoName);
-        workInfo.setOfficeHoursNeededPerMonth(officeHoursNeededPerMonth);
-        workInfo.setHomeHoursNeededPerMonth(homeHoursNeededPerMonth);
-        workInfo.setUnpaidHoursNeededPerMonth(unpaidHoursNeededPerMonth);
-        workInfo.setSalaryPerHour(salaryPerHour);
-        workInfo.setOvertimeSalaryPerHour(overtimeSalaryPerHour);
-
-        workInfoService.saveWorkInfo(workInfo);
-        return HttpStatus.OK;
+    @PutMapping(value = "/add")
+    public List<String> add(@RequestParam double officeHoursWorked, @RequestParam double homeHoursWorked,
+                            @RequestParam String employeeId) {
+        return workInfoService.add(officeHoursWorked, homeHoursWorked, employeeService.getById(employeeId));
     }
 }

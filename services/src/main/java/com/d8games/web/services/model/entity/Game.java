@@ -1,6 +1,8 @@
 package com.d8games.web.services.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,69 +10,30 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "GAME")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-@SuppressWarnings("unused")
 public class Game implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "GAME_ID", unique = true, updatable = false, nullable = false)
-    private String gameId;
+    @Column(name = "ID", unique = true, nullable = false)
+    private String id;
 
-    @Column(name = "GAME_NAME", nullable = false)
-    private String gameName;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @Column(name = "GAME_SUMMARY", nullable = false)
-    private String gameSummary;
+    @Column(name = "SUMMARY", nullable = false)
+    private String summary;
 
-    @Column(name = "GAME_DESCRIPTION")
-    private String gameDescription;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "GAME_RELEASE_DATE")
-    private Date gameReleaseDate;
-
-    public String getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
-
-    public String getGameSummary() {
-        return gameSummary;
-    }
-
-    public void setGameSummary(String gameSummary) {
-        this.gameSummary = gameSummary;
-    }
-
-    public String getGameDescription() {
-        return gameDescription;
-    }
-
-    public void setGameDescription(String gameDescription) {
-        this.gameDescription = gameDescription;
-    }
-
-    public Date getGameReleaseDate() {
-        return gameReleaseDate;
-    }
-
-    public void setGameReleaseDate(Date gameReleaseDate) {
-        this.gameReleaseDate = gameReleaseDate;
-    }
+    @Column(name = "RELEASE_DATE")
+    private Date releaseDate;
 }

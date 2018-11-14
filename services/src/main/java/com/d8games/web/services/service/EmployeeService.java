@@ -5,7 +5,7 @@ import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.EmployeeRepository;
-import com.d8games.web.services.util.ProjectConstants;
+import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +22,23 @@ public class EmployeeService {
     }
 
     public Employee getById(String id) {
-        return employeeRepository.getEmployeeByEmployeeId(id);
+        return employeeRepository.getEmployeeById(id);
     }
 
     public void save(Employee employee) {
         employeeRepository.save(employee);
+    }
+
+    public Employee getByMobilePhoneId(String mobilePhoneId) {
+        return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
+    }
+
+    public String getEmployeeFullNameById(String employeeId) {
+        return employeeRepository.getEmployeeFullNameById(employeeId);
+    }
+
+    public String getEmployeeIdByMobilePhoneId(String mobilePhoneId) {
+        return employeeRepository.getEmployeeIdByMobilePhoneId(mobilePhoneId);
     }
 
     public List<DashboardCardDto> getDashboardCardDtoList() {
@@ -34,7 +46,7 @@ public class EmployeeService {
     }
 
     public List<ContactCardDto> getContactCardDtoList() {
-        return employeeRepository.getContactCardDtoList(ProjectConstants.CONTACT_DEPARTMENT_NAME);
+        return employeeRepository.getContactCardDtoList(ConfigManager.getContactDepartmentName());
     }
 
     public EmployeeCardDto getEmployeeCardDto(String employeeId) {

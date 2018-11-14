@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, String> {
 
-    Department getDepartmentByDepartmentId(String departmentId);
+    Department getDepartmentById(String id);
 
     @Query(
-    "SELECT d.departmentName " +
+    "SELECT d.name " +
     "FROM Department d " +
-    "ORDER BY d.departmentRank")
+    "ORDER BY d.rank")
     List<String> getAllDepartmentNames();
 }

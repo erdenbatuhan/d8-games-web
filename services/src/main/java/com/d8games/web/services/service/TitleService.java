@@ -11,14 +11,14 @@ import java.util.List;
 public class TitleService {
 
     @Autowired
-    TitleRepository titleRepository;
+    private TitleRepository titleRepository;
 
     public List<Title> getAll() {
         return titleRepository.findAll();
     }
 
     public Title getById(String id) {
-        return titleRepository.getTitleByTitleId(id);
+        return titleRepository.getTitleById(id);
     }
 
     public void save(Title title) {
