@@ -15,6 +15,12 @@ export default {
       GET_EMPLOYEE_CARD_DTO_ENDPOINT: employeeId => {
         return '/employee/employeeCardDto?employeeId=' + employeeId
       },
+      GET_WEEKLY_SUMMARY_DTO_ENDPOINT: employeeId => {
+        return '/workInfo/weekly?employeeId=' + employeeId
+      },
+      GET_MONTHLY_SUMMARY_DTO_ENDPOINT: employeeId => {
+        return '/workInfo/monthly?employeeId=' + employeeId
+      },
       GET_VOUCHER_ITEM_DTO_LIST_ENDPOINT: employeeId => {
         return '/voucher/voucherItemDtoList?employeeId=' + employeeId
       },
@@ -35,90 +41,57 @@ export default {
   methods: {
     getCurrentIp: function () {
       let endpoint = this.GET_CURRENT_IP_ENDPOINT
-
-      return new Promise((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data.ip)
-        }).catch(error => {
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getDepartmentNames: function () {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_DEPARTMENT_NAMES_ENDPOINT
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getDashboardCardDtoList: function () {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_DASHBOARD_CARD_DTO_LIST_ENDPOINT
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getEmployeeCardDto: function (employeeId) {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_EMPLOYEE_CARD_DTO_ENDPOINT(employeeId)
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
+    },
+    getWeeklySummaryDto: function (employeeId) {
+      let endpoint = this.SERVICES_ENDPOINT + this.GET_WEEKLY_SUMMARY_DTO_ENDPOINT(employeeId)
+      return this.get(endpoint)
+    },
+    getMonthlySummaryDto: function (employeeId) {
+      let endpoint = this.SERVICES_ENDPOINT + this.GET_MONTHLY_SUMMARY_DTO_ENDPOINT(employeeId)
+      return this.get(endpoint)
     },
     getVoucherItemDtoList: function (employeeId) {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_VOUCHER_ITEM_DTO_LIST_ENDPOINT(employeeId)
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getAuthenticatedEmployee: function (authenticationId) {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_AUTHENTICATED_EMPLOYEE_ENDPOINT(authenticationId)
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getContactCardDtoList: function () {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_CONTACT_CARD_DTO_LIST_ENDPOINT
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.get(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
+      return this.get(endpoint)
     },
     getGames: function () {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_GAMES_ENDPOINT
-
+      return this.get(endpoint)
+    },
+    saveNewAuthentication: function () {
+      let endpoint = this.SERVICES_ENDPOINT + this.SAVE_NEW_AUTHENTICATION_ENDPOINT
+      return this.put(endpoint);
+    },
+    addVoucher: function (employeeId, ip, type) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_ENDPOINT(employeeId, ip, type)
+      return this.put(endpoint)
+    },
+    addStoryPoints: function (employeeId, storyPointsToAdd) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_STORY_POINTS_ENDPOINT(employeeId, storyPointsToAdd)
+      return this.post(endpoint)
+    },
+    get: function (endpoint) {
       return new Promise ((resolve, reject) => {
         Vue.axios.get(endpoint).then(response => {
           resolve(response.data)
@@ -128,9 +101,7 @@ export default {
         })
       })
     },
-    saveNewAuthentication: function () {
-      let endpoint = this.SERVICES_ENDPOINT + this.SAVE_NEW_AUTHENTICATION_ENDPOINT
-
+    put: function (endpoint) {
       return new Promise ((resolve, reject) => {
         Vue.axios.put(endpoint).then(response => {
           resolve(response.data)
@@ -140,21 +111,7 @@ export default {
         })
       })
     },
-    addVoucher: function (employeeId, ip, type) {
-      let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_ENDPOINT(employeeId, ip, type)
-
-      return new Promise ((resolve, reject) => {
-        Vue.axios.put(endpoint).then(response => {
-          resolve(response.data)
-        }).catch(error => {
-          console.error(error)
-          reject(error)
-        })
-      })
-    },
-    addStoryPoints: function (employeeId, storyPointsToAdd) {
-      let endpoint = this.SERVICES_ENDPOINT + this.ADD_STORY_POINTS_ENDPOINT(employeeId, storyPointsToAdd)
-
+    post: function (endpoint) {
       return new Promise ((resolve, reject) => {
         Vue.axios.post(endpoint).then(() => {
           resolve()

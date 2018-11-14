@@ -3,6 +3,7 @@ package com.d8games.web.services.util;
 import com.d8games.web.services.config.ConfigManager;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.TypeMismatchException;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -147,5 +148,13 @@ public class DateUtil {
     public static Date getDaysAhead(Date currentDate, int amount) {
         DateTime dateTime = new DateTime(currentDate).plusDays(amount);
         return dateTime.toDate();
+    }
+
+    public static int getIntegerDate(DateTime dateTime) {
+        return dateTime.getHourOfDay() * 100 + (dateTime.getMinuteOfHour() * 5 / 3);
+    }
+
+    public static double getDiff(double start, double end) {
+        return (end - start) / 100;
     }
 }

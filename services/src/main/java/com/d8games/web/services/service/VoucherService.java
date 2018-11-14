@@ -24,6 +24,9 @@ public class VoucherService {
     private VoucherRepository voucherRepository;
 
     @Autowired
+    private WorkInfoService workInfoService;
+
+    @Autowired
     private EmployeeService employeeService;
 
     public List<Voucher> getAllByEmployeeId(String employeeId) {
@@ -32,6 +35,10 @@ public class VoucherService {
 
     public Voucher getById(String id) {
         return voucherRepository.getVoucherById(id);
+    }
+
+    public List<VoucherItemDto> getVoucherItemDtoList(String employeeId) {
+        return voucherRepository.getVoucherItemDtoList(employeeId);
     }
 
     @Scheduled(fixedRate = 7200000)
@@ -59,18 +66,20 @@ public class VoucherService {
 
                 Date outDate = DateUtil.getHoursAhead(
                         lastVoucherDto.getActualDate(), ConfigManager.getVoucherNoOutPunishment());
-                add(outDate, ConfigManager.getVoucherTypeOut(), lastVoucherDto.getLocation(), employee);
+                add(lastVoucherDto.getActualDate(), outDate, ConfigManager.getVoucherTypeOut(),
+                        lastVoucherDto.getLocation(), employee);
             }
         }
     }
 
-    private void add(Date actualDate, String type, String location, Employee employee) {
+    private void add(Date actualInDate, Date outDate, String type, String location, Employee employee) {
         Voucher voucher = new Voucher();
-        DateUtil dateUtil = new DateUtil(actualDate);
+        DateUtil outDateUtil = new DateUtil(outDate);
 
         setProperties(voucher, type, location, true, employee);
-        setDates(voucher, dateUtil);
+        setDates(voucher, outDateUtil);
 
+        workInfoService.addHours(actualInDate, outDateUtil.getActualDate(), location, employee);
         voucherRepository.save(voucher);
     }
 
@@ -88,6 +97,9 @@ public class VoucherService {
 
         setProperties(voucher, type, location, admin, employeeService.getById(employeeId));
         setDates(voucher, dateUtil);
+
+        if (type.equals(ConfigManager.getVoucherTypeOut()))
+            addHours(dateUtil, location, employeeId);
 
         voucherRepository.save(voucher);
         return voucher.getId();
@@ -136,7 +148,14 @@ public class VoucherService {
         voucher.setHour(hour);
     }
 
-    public List<VoucherItemDto> getVoucherItemDtoList(String employeeId) {
-        return voucherRepository.getVoucherItemDtoList(employeeId);
+    private void addHours(DateUtil dateUtil, String location, String employeeId) {
+        List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employeeId);
+
+        if (voucherDtoList != null && voucherDtoList.size() > 0) {
+            VoucherDto lastVoucherDto = voucherDtoList.get(0);
+            Employee employee = employeeService.getById(employeeId);
+
+            workInfoService.addHours(lastVoucherDto.getActualDate(), dateUtil.getActualDate(), location, employee);
+        }
     }
 }

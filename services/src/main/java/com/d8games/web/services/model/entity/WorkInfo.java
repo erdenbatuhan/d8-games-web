@@ -37,11 +37,14 @@ public class WorkInfo {
     @Column(name = "END_DATE", nullable = false)
     private String endDate;
 
-    @Column(name = "OFFICE_HOURS_WORKED", length = 10, precision = 1, nullable = false)
-    private Double officeHoursWorked;
+    @Column(name = "OFFICE_HOURS_COMPLETED", length = 10, precision = 1, nullable = false)
+    private Double officeHoursCompleted;
 
-    @Column(name = "HOME_HOURS_WORKED", length = 10, precision = 1, nullable = false)
-    private Double homeHoursWorked;
+    @Column(name = "HOME_HOURS_COMPLETED", length = 10, precision = 1, nullable = false)
+    private Double homeHoursCompleted;
+
+    @Column(name = "EXCUSED_HOURS_USED", length = 10, precision = 1, nullable = false)
+    private Double excusedHoursUsed;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID", nullable = false)

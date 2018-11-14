@@ -13,33 +13,54 @@ import java.util.Properties;
 public class ConfigManager {
 
     private static final String PROPERTIES_FILE_NAME = "config.properties";
+    private InputStream inputStream;
+
+    /* --------------- Config Properties --------------- */
     private static String officeIp;
+
     private static String voucherLocationOffice;
     private static String voucherLocationHome;
+
     private static String voucherTypeIn;
     private static String voucherTypeOut;
+
+    private static String nightHoursStartAsString;
+    private static String nightHoursEndAsString;
+
     private static int nightHoursStart;
     private static int nightHoursEnd;
-    private static int voucherNoOutPunishment;
-    private static String contactDepartmentName;
-    private static String countryCode;
-    private static int authenticationTimeout;
 
-    private InputStream inputStream;
+    private static int voucherNoOutPunishment;
+
+    private static String contactDepartmentName;
+
+    private static String countryCode;
+
+    private static int authenticationTimeout;
 
     public ConfigManager() throws IOException {
         Properties properties = getProperties();
 
         ConfigManager.officeIp = properties.getProperty("officeIp");
+
         ConfigManager.voucherLocationOffice = properties.getProperty("voucherLocationOffice");
         ConfigManager.voucherLocationHome = properties.getProperty("voucherLocationHome");
+
         ConfigManager.voucherTypeIn = properties.getProperty("voucherTypeIn");
         ConfigManager.voucherTypeOut = properties.getProperty("voucherTypeOut");
+
+        ConfigManager.nightHoursStartAsString = properties.getProperty("nightHoursStart");
+        ConfigManager.nightHoursEndAsString = properties.getProperty("nightHoursEnd");
+
         ConfigManager.nightHoursStart = Integer.parseInt(properties.getProperty("nightHoursStart"));
         ConfigManager.nightHoursEnd = Integer.parseInt(properties.getProperty("nightHoursEnd"));
+
         ConfigManager.voucherNoOutPunishment = Integer.parseInt(properties.getProperty("voucherNoOutPunishment"));
+
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
+
         ConfigManager.countryCode = properties.getProperty("countryCode");
+
         ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
     }
 
@@ -81,6 +102,14 @@ public class ConfigManager {
 
     public static String getVoucherTypeOut() {
         return voucherTypeOut;
+    }
+
+    public static String getNightHoursStartAsString() {
+        return nightHoursStartAsString;
+    }
+
+    public static String getNightHoursEndAsString() {
+        return nightHoursEndAsString;
     }
 
     public static int getNightHoursStart() {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true">
+  <div v-if="summary">
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
         <b-btn v-if="weekly" block v-b-toggle.weeklyAccordion variant="info"> Current Week </b-btn>
@@ -12,9 +12,21 @@
           </p>
           <hr class="card-separator">
 
-          <p class="text-left"><b> Hours Completed <br></b> {{ summary.hoursCompleted }} </p>
-          <p class="text-left"><b> Hours Left <br></b> {{ summary.hoursLeft }} </p>
-          <p class="text-left"><b> Overtime Info <br></b> {{ summary.overtimeInfo }} </p>
+          <p class="text-left"><b> Hours Completed <br></b>
+            {{ getHourAdditionText(summary.officeHoursCompleted, summary.homeHoursCompleted, summary.totalCompleted) }}
+          </p>
+          <p class="text-left"><b> Hours Left <br></b>
+            {{ getHourAdditionText(summary.officeHoursLeft, summary.homeHoursLeft, summary.totalLeft) }}
+          </p>
+          <p v-if="summary.excusedHoursUsed > 0" class="text-left"><b> Excused Hours Used <br></b>
+            {{ summary.excusedHoursUsed }}h
+          </p>
+          <p class="text-left"><b> Overtime <br></b>
+            {{ summary.overtimeHoursCompleted }}h
+          </p>
+          <p v-if="summary.currentSalary" class="text-left"><b> Current Salary <br></b>
+            {{ summary.currentSalary }} TL
+          </p>
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -32,6 +44,11 @@
     computed: {
       accordionId () {
         return (this.weekly) ? 'weeklyAccordion' : 'monthlyAccordion'
+      }
+    },
+    methods: {
+      getHourAdditionText: function (first, second, total) {
+        return first + "h (Office)" + " + " + second + "h (Home)" + " = " + total + "h";
       }
     }
   }

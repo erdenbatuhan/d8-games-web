@@ -1,5 +1,8 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.model.dto.MonthlySummaryDto;
+import com.d8games.web.services.model.dto.WeeklySummaryDto;
+import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.model.entity.WorkInfo;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.WorkInfoService;
@@ -29,8 +32,19 @@ public class WorkInfoController {
     }
 
     @PutMapping(value = "/add")
-    public List<String> add(@RequestParam double officeHoursWorked, @RequestParam double homeHoursWorked,
-                            @RequestParam String employeeId) {
-        return workInfoService.add(officeHoursWorked, homeHoursWorked, employeeService.getById(employeeId));
+    public List<String> add(@RequestParam double officeHoursCompleted, @RequestParam double homeHoursCompleted,
+                            @RequestParam double excusedHoursUsed, @RequestParam String employeeId) {
+        Employee employee = employeeService.getById(employeeId);
+        return workInfoService.add(officeHoursCompleted, homeHoursCompleted, excusedHoursUsed, employee);
+    }
+
+    @GetMapping(value = "/weekly")
+    public WeeklySummaryDto getWeeklySummaryDto(@RequestParam String employeeId) {
+        return workInfoService.getWeeklySummaryDto(employeeId);
+    }
+
+    @GetMapping(value = "/monthly")
+    public MonthlySummaryDto getMonthlySummaryDto(@RequestParam String employeeId) {
+        return workInfoService.getMonthlySummaryDto(employeeId);
     }
 }
