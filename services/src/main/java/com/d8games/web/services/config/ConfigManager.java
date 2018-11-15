@@ -18,6 +18,8 @@ public class ConfigManager {
     /* --------------- Config Properties --------------- */
     private static String officeIp;
 
+    private static String voucherNotApplicable;
+
     private static String voucherLocationOffice;
     private static String voucherLocationHome;
 
@@ -42,6 +44,8 @@ public class ConfigManager {
         Properties properties = getProperties();
 
         ConfigManager.officeIp = properties.getProperty("officeIp");
+
+        ConfigManager.voucherNotApplicable = properties.getProperty("voucherNotApplicable");
 
         ConfigManager.voucherLocationOffice = properties.getProperty("voucherLocationOffice");
         ConfigManager.voucherLocationHome = properties.getProperty("voucherLocationHome");
@@ -86,6 +90,10 @@ public class ConfigManager {
 
     public static String getOfficeIp() {
         return officeIp;
+    }
+
+    public static String getVoucherNotApplicable() {
+        return voucherNotApplicable;
     }
 
     public static String getVoucherLocationOffice() {

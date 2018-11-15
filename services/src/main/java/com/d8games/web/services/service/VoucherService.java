@@ -10,6 +10,7 @@ import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.model.entity.Voucher;
 import com.d8games.web.services.repository.VoucherRepository;
 import com.d8games.web.services.util.DateUtil;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,23 @@ public class VoucherService {
 
     public List<VoucherItemDto> getVoucherItemDtoList(String employeeId) {
         return voucherRepository.getVoucherItemDtoList(employeeId);
+    }
+
+    public String addEmpty(String employeeId) {
+        Voucher voucher = new Voucher();
+
+        voucher.setType(ConfigManager.getVoucherNotApplicable());
+        voucher.setLocation(ConfigManager.getVoucherNotApplicable());
+        voucher.setExactVoucherDate(null);
+        voucher.setActualDate(DateTime.parse("2000-01-01").toDate());
+        voucher.setDate(ConfigManager.getVoucherNotApplicable());
+        voucher.setDay(ConfigManager.getVoucherNotApplicable());
+        voucher.setHour(ConfigManager.getVoucherNotApplicable());
+        voucher.setAdmin(true);
+        voucher.setEmployee(employeeService.getById(employeeId));
+
+        voucherRepository.save(voucher);
+        return voucher.getId();
     }
 
     @Scheduled(fixedRate = 7200000)
