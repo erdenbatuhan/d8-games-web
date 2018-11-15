@@ -24,7 +24,7 @@
           <p class="text-left"><b> Overtime <br></b>
             {{ summary.overtimeHoursCompleted }}h
           </p>
-          <p v-if="summary.currentSalary" class="text-left"><b> Current Salary <br></b>
+          <p v-if="!weekly" class="text-left"><b> Current Salary <br></b>
             {{ summary.currentSalary }} TL
           </p>
           <p class="text-left info-sm">

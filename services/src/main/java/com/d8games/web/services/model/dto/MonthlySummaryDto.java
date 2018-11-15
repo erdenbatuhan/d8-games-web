@@ -52,6 +52,7 @@ public class MonthlySummaryDto {
 
         currentSalary = (totalCompleted - overtimeHoursCompleted) * salaryPerHour +
                 overtimeHoursCompleted * overtimeSalaryPerHour;
+        currentSalary = (currentSalary > 0) ? currentSalary : 0;
     }
 
     private void fetchFromWeeklySummaries(List<WeeklySummaryDto> weeklySummaryDtoList) {
