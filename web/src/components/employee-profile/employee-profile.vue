@@ -108,11 +108,7 @@
             if (voucherItemDto.admin) {
               voucherItemDto['_cellVariants'] = {
                 ' ': cellVariant.value,
-                'date': cellVariant.adminValue,
-                'day': cellVariant.adminValue,
-                'hour': cellVariant.adminValue,
                 'type': cellVariant.adminValue,
-                'location': cellVariant.adminValue
               }
             } else {
               voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }

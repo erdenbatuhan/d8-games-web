@@ -27,6 +27,9 @@
           <p v-if="summary.currentSalary" class="text-left"><b> Current Salary <br></b>
             {{ summary.currentSalary }} TL
           </p>
+          <p class="text-left info-sm">
+            * = Hours committed away from the office
+          </p>
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -48,8 +51,15 @@
     },
     methods: {
       getHourAdditionText: function (first, second, total) {
-        return first + "h (Office)" + " + " + second + "h (Home)" + " = " + total + "h";
+        return first + "h + " + second + "h (*)" + " = " + total + "h";
       }
     }
   }
 </script>
+
+<style scoped>
+  .info-sm {
+    font-size: 10px;
+    font-style: italic;
+  }
+</style>
