@@ -7,6 +7,7 @@ import com.d8games.web.services.exception.NightHoursException;
 import com.d8games.web.services.model.dto.VoucherDto;
 import com.d8games.web.services.model.dto.VoucherItemDto;
 import com.d8games.web.services.model.entity.Employee;
+import com.d8games.web.services.model.entity.JobInfo;
 import com.d8games.web.services.model.entity.Voucher;
 import com.d8games.web.services.repository.VoucherRepository;
 import com.d8games.web.services.util.DateUtil;
@@ -23,6 +24,9 @@ public class VoucherService {
 
     @Autowired
     private VoucherRepository voucherRepository;
+
+    @Autowired
+    private JobInfoService jobInfoService;
 
     @Autowired
     private WorkInfoService workInfoService;
@@ -81,9 +85,14 @@ public class VoucherService {
 
             if (lastVoucherDto.getType().equals(ConfigManager.getVoucherTypeIn())) {
                 System.out.println(employee.getName() + " forgot to Vouch OUT. We are punishing him/her!");
+                int voucherNoOutPunishment = ConfigManager.getVoucherNoOutPunishment();
 
-                Date outDate = DateUtil.getHoursAhead(
-                        lastVoucherDto.getActualDate(), ConfigManager.getVoucherNoOutPunishment());
+                if (lastVoucherDto.getLocation().equals(ConfigManager.getVoucherLocationHome())) {
+                    JobInfo jobInfo = jobInfoService.getByEmployee(employee);
+                    voucherNoOutPunishment = (int) (jobInfo.getHomeHoursNeededPerMonth() / 4);
+                }
+
+                Date outDate = DateUtil.getHoursAhead(lastVoucherDto.getActualDate(), voucherNoOutPunishment);
                 add(lastVoucherDto.getActualDate(), outDate, ConfigManager.getVoucherTypeOut(),
                         lastVoucherDto.getLocation(), employee);
             }
