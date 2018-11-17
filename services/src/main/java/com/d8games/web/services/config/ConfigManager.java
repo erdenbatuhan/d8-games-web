@@ -6,33 +6,66 @@ import org.springframework.stereotype.Component;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.Properties;
 
 @Component
 @PropertySource("classpath:application.properties")
-@SuppressWarnings("unused")
 public class ConfigManager {
 
     private static final String PROPERTIES_FILE_NAME = "config.properties";
-    private static String officeIp;
-    private static String locationOffice;
-    private static String locationHome;
-    private static String dateFormat;
-    private static String contactDepartmentName;
-    private static int authenticationTimeout;
-
     private InputStream inputStream;
 
-    public ConfigManager() throws IOException, ParseException {
+    /* --------------- Config Properties --------------- */
+    private static String officeIp;
+
+    private static String voucherNotApplicable;
+
+    private static String voucherLocationOffice;
+    private static String voucherLocationHome;
+
+    private static String voucherTypeIn;
+    private static String voucherTypeOut;
+
+    private static String nightHoursStart;
+    private static String nightHoursEnd;
+
+    private static int integerNightHoursStart;
+    private static int integerNightHoursEnd;
+
+    private static int voucherNoOutPunishment;
+
+    private static int authenticationTimeout;
+
+    private static String contactDepartmentName;
+
+    private static String countryCode;
+
+    public ConfigManager() throws IOException {
         Properties properties = getProperties();
 
         ConfigManager.officeIp = properties.getProperty("officeIp");
-        ConfigManager.locationOffice = properties.getProperty("locationOffice");
-        ConfigManager.locationHome = properties.getProperty("locationHome");
-        ConfigManager.dateFormat = properties.getProperty("dateFormat");
-        ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
+
+        ConfigManager.voucherNotApplicable = properties.getProperty("voucherNotApplicable");
+
+        ConfigManager.voucherLocationOffice = properties.getProperty("voucherLocationOffice");
+        ConfigManager.voucherLocationHome = properties.getProperty("voucherLocationHome");
+
+        ConfigManager.voucherTypeIn = properties.getProperty("voucherTypeIn");
+        ConfigManager.voucherTypeOut = properties.getProperty("voucherTypeOut");
+
+        ConfigManager.nightHoursStart = properties.getProperty("nightHoursStart");
+        ConfigManager.nightHoursEnd = properties.getProperty("nightHoursEnd");
+
+        ConfigManager.integerNightHoursStart = Integer.parseInt(properties.getProperty("integerNightHoursStart"));
+        ConfigManager.integerNightHoursEnd = Integer.parseInt(properties.getProperty("integerNightHoursEnd"));
+
         ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
+
+        ConfigManager.voucherNoOutPunishment = Integer.parseInt(properties.getProperty("voucherNoOutPunishment"));
+
+        ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
+
+        ConfigManager.countryCode = properties.getProperty("countryCode");
     }
 
     private Properties getProperties() throws IOException {
@@ -59,20 +92,52 @@ public class ConfigManager {
         return officeIp;
     }
 
-    public static String getLocationOffice() {
-        return locationOffice;
+    public static String getVoucherNotApplicable() {
+        return voucherNotApplicable;
     }
 
-    public static String getLocationHome() {
-        return locationHome;
+    public static String getVoucherLocationOffice() {
+        return voucherLocationOffice;
     }
 
-    public static String getDateFormat() {
-        return dateFormat;
+    public static String getVoucherLocationHome() {
+        return voucherLocationHome;
+    }
+
+    public static String getVoucherTypeIn() {
+        return voucherTypeIn;
+    }
+
+    public static String getVoucherTypeOut() {
+        return voucherTypeOut;
+    }
+
+    public static String getNightHoursStart() {
+        return nightHoursStart;
+    }
+
+    public static String getNightHoursEnd() {
+        return nightHoursEnd;
+    }
+
+    public static int getIntegerNightHoursStart() {
+        return integerNightHoursStart;
+    }
+
+    public static int getIntegerNightHoursEnd() {
+        return integerNightHoursEnd;
+    }
+
+    public static int getVoucherNoOutPunishment() {
+        return voucherNoOutPunishment;
     }
 
     public static String getContactDepartmentName() {
         return contactDepartmentName;
+    }
+
+    public static String getCountryCode() {
+        return countryCode;
     }
 
     public static int getAuthenticationTimeout() {

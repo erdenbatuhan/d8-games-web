@@ -1,81 +1,42 @@
 package com.d8games.web.services.model.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("unused")
+@Getter
+@Setter
 public class EmployeeCardDto {
 
-    private String employeeFullName;
+    private String fullName;
     private String titleName;
     private String departmentName;
-    private String employeeEmail;
-    private String employeePhoneNumber;
-    private Long employeeTimeSinceJoin;
+    private String managerId;
+    private String managerFullName;
+    private String email;
+    private String phoneNumber;
+    private Double completedStoryPoints;
+    private Long timeSinceJoin;
 
-    public EmployeeCardDto(String employeeFullName, String titleName, String departmentName,
-                           String employeeEmail, String employeePhoneNumber, Date employeeJoinDate) {
-        this.employeeFullName = employeeFullName;
+    public EmployeeCardDto(String fullName, String titleName, String departmentName, String managerId,
+                           String email, String phoneNumber, Double completedStoryPoints, Date joinDate) {
+        this.fullName = fullName;
         this.titleName = titleName;
         this.departmentName = departmentName;
-        this.employeeEmail = employeeEmail;
-        this.employeePhoneNumber = employeePhoneNumber;
+        this.managerId = managerId;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.completedStoryPoints = completedStoryPoints;
 
-        setTimeSinceJoin(employeeJoinDate);
+        setTimeSinceJoin(joinDate);
     }
 
-    public String getEmployeeFullName() {
-        return employeeFullName;
-    }
-
-    public void setEmployeeFullName(String employeeFullName) {
-        this.employeeFullName = employeeFullName;
-    }
-
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
-    public String getEmployeePhoneNumber() {
-        return employeePhoneNumber;
-    }
-
-    public void setEmployeePhoneNumber(String employeePhoneNumber) {
-        this.employeePhoneNumber = employeePhoneNumber;
-    }
-
-    public Long getEmployeeTimeSinceJoin() {
-        return employeeTimeSinceJoin;
-    }
-
-    public void setEmployeeTimeSinceJoin(Long employeeTimeSinceJoin) {
-        this.employeeTimeSinceJoin = employeeTimeSinceJoin;
-    }
-
-    public void setTimeSinceJoin(Date employeeJoinDate) {
-        long timeInMillies = new Date().getTime() - employeeJoinDate.getTime();
+    public void setTimeSinceJoin(Date joinDate) {
+        long timeInMillies = new Date().getTime() - joinDate.getTime();
         long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
 
-        this.employeeTimeSinceJoin = timeInDays;
+        this.timeSinceJoin = timeInDays;
     }
 }

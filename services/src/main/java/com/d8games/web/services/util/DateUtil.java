@@ -1,7 +1,14 @@
 package com.d8games.web.services.util;
 
+import com.d8games.web.services.config.ConfigManager;
+import lombok.Getter;
+import lombok.Setter;
+import org.joda.time.DateTime;
+
 import java.util.*;
 
+@Getter
+@Setter
 public class DateUtil {
 
     public enum DateKey {
@@ -19,6 +26,7 @@ public class DateUtil {
     private String date;
     private String day;
     private String hour;
+    private int integerHour;
 
     public DateUtil(Date actualDate) {
         this.actualDate = actualDate;
@@ -74,6 +82,8 @@ public class DateUtil {
                 hourParts.set(i, "0" + hourParts.get(i));
 
         this.hour = hourParts.get(0) + ":" + hourParts.get(1);
+        this.integerHour = Integer.parseInt(hourParts.get(0) + hourParts.get(1));
+
         return hourParts;
     }
 
@@ -90,24 +100,9 @@ public class DateUtil {
         return stringTokenized;
     }
 
-    public Date getActualDate() {
-        return actualDate;
-    }
-
-    public void setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     private void setDate(String hour, String minute) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.actualDate);
 
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
@@ -116,19 +111,33 @@ public class DateUtil {
         this.actualDate = calendar.getTime();
     }
 
-    public String getDay() {
-        return day;
+    public static Date getDaysAhead(Date currentDate, int amount) {
+        DateTime dateTime = new DateTime(currentDate).plusDays(amount);
+        return dateTime.toDate();
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public static Date getHoursAhead(Date currentDate, int amount) {
+        DateTime dateTime = new DateTime(currentDate);
+        dateTime = dateTime.plusHours(amount);
+
+        while (isNight(getIntegerDate(dateTime)))
+            dateTime = dateTime.minusMinutes(30);
+
+        return dateTime.toDate();
     }
 
-    public String getHour() {
-        return hour;
+    public static boolean isNight(int integerHour) {
+        final boolean afterNightHoursStart = ConfigManager.getIntegerNightHoursStart() < integerHour;
+        final boolean beforeNightHoursEnd = integerHour < ConfigManager.getIntegerNightHoursEnd();
+
+        return afterNightHoursStart || beforeNightHoursEnd;
     }
 
-    public void setHour(String hour) {
-        this.hour = hour;
+    public static int getIntegerDate(DateTime dateTime) {
+        return dateTime.getHourOfDay() * 100 + (dateTime.getMinuteOfHour() * 5 / 3);
+    }
+
+    public static double getDiff(double start, double end) {
+        return (end - start) / 100;
     }
 }

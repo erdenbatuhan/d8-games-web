@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("unused")
 public class EmployeeService {
 
     @Autowired
@@ -26,8 +25,16 @@ public class EmployeeService {
         return employeeRepository.getEmployeeById(id);
     }
 
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
     public Employee getByMobilePhoneId(String mobilePhoneId) {
         return employeeRepository.getEmployeeByMobilePhoneId(mobilePhoneId);
+    }
+
+    public String getEmployeeFullNameById(String employeeId) {
+        return employeeRepository.getEmployeeFullNameById(employeeId);
     }
 
     public String getEmployeeIdByMobilePhoneId(String mobilePhoneId) {
@@ -44,9 +51,5 @@ public class EmployeeService {
 
     public EmployeeCardDto getEmployeeCardDto(String employeeId) {
         return employeeRepository.getEmployeeCardDto(employeeId);
-    }
-
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
     }
 }

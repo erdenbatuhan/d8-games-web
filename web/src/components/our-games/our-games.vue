@@ -1,9 +1,9 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar :bottom-padding="true"></navbar>
 
-    <div class="container">
-      <h3 id="header"> Our Games </h3>
+    <div v-if="games" class="container">
+      <h3> Our Games </h3>
       <hr>
 
       <div class="row">
@@ -12,13 +12,11 @@
         </b-col>
       </div>
     </div>
-
-    <br>
   </div>
 </template>
 
 <script>
-  import ServicesMixin from '../../mixins/services-mixin'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import gameInfoCard from './game-info-card.vue'
@@ -34,16 +32,14 @@
         API_ENDPOINT_TO_GET_ALL_GAMES: '/game',
         name: 'our-games',
         spinner: true,
-        games: []
+        games: null
       }
     },
     mounted() {
-      this.get(this.API_ENDPOINT_TO_GET_ALL_GAMES).then(response => {
-        this.games = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
-        this.$router.push('/')
+      this.getGames().then(games => {
+        this.games = games
+      }).catch(() => {
+        this.redirectTo('/')
       })
     }
   }

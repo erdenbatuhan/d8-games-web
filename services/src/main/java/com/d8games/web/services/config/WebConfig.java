@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@SuppressWarnings("unused")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

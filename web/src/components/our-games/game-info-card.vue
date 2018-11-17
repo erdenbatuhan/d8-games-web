@@ -2,6 +2,7 @@
   <div>
     <div v-if="game">
       <br>
+
       <b-card class="mb-2"
               :title="game.name"
               :img-src="getImageSource(IMAGE_DIR + game.id)"
@@ -13,14 +14,12 @@
         <br>
         <b-button href="#" variant="primary"> More information </b-button>
       </b-card>
-
-      <br>
     </div>
   </div>
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
 
   export default {
     mixins: [CommonMixin],

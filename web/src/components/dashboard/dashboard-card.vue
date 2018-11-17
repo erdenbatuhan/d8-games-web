@@ -1,22 +1,22 @@
 <template>
   <div>
     <div v-if="dashboardCardDto">
-      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.employeeId)" v-scroll-to="'#app'">
+      <br>
+
+      <a v-on:click="redirectToEmployeeProfile(dashboardCardDto.id)" v-scroll-to="'#app'">
         <div class="box">
-          <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.employeeId)" alt="">
+          <img :src="getImageSource(IMAGE_DIR + dashboardCardDto.id)" alt="">
           <div class="box-content">
-            <p class="title"><b> {{ dashboardCardDto.employeeFullName }} </b><br> {{ dashboardCardDto.titleName }} </p>
+            <p class="title"><b> {{ dashboardCardDto.fullName }} </b><br> {{ dashboardCardDto.titleName }} </p>
           </div>
         </div>
       </a>
-
-      <br>
     </div>
   </div>
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
 
   export default {
     mixins: [CommonMixin],

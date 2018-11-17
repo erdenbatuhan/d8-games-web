@@ -1,22 +1,26 @@
 [
   {
-    "vouchType": "IN",
-    "vouchLocation": "OFFICE",
-    "value": "success"
+    "voucherType": "IN",
+    "voucherLocation": "OFFICE",
+    "value": "success",
+    "adminValue": "dark"
   },
   {
-    "vouchType": "OUT",
-    "vouchLocation": "OFFICE",
-    "value": "danger"
+    "voucherType": "OUT",
+    "voucherLocation": "OFFICE",
+    "value": "danger",
+    "adminValue": "dark"
   },
   {
-    "vouchType": "IN",
-    "vouchLocation": "HOME",
-    "value": "info"
+    "voucherType": "IN",
+    "voucherLocation": "HOME",
+    "value": "info",
+    "adminValue": "dark"
   },
   {
-    "vouchType": "OUT",
-    "vouchLocation": "HOME",
-    "value": "warning"
+    "voucherType": "OUT",
+    "voucherLocation": "HOME",
+    "value": "warning",
+    "adminValue": "dark"
   }
 ]

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services/controller/title")
-@SuppressWarnings("unused")
 public class TitleController {
 
     @Autowired

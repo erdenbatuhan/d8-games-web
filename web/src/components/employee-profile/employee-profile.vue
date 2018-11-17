@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar :employee-id="employeeId" :voucher-item-dto-list-length="voucherItemDtoListLength"></navbar>
+    <navbar :bottom-padding="true" :employee-id="employeeId" :voucher-item-dto-list-length="voucherItemDtoListLength"></navbar>
 
     <div class="container-fluid">
       <div class="row">
@@ -13,8 +13,8 @@
           </employee-card>
 
           <div role="tablist" class="container">
-            <employee-summary :weekly="true" :summary="summaryTemp.weekly"></employee-summary>
-            <employee-summary :weekly="false" :summary="summaryTemp.monthly"></employee-summary>
+            <employee-summary :weekly="true" :summary="weeklySummaryDto"></employee-summary>
+            <employee-summary :weekly="false" :summary="monthlySummaryDto"></employee-summary>
           </div>
 
           <br>
@@ -29,53 +29,34 @@
         <div class="col-md-0 col-xl-1"> <!-- Empty Column --> </div>
       </div>
     </div>
-
-    <br><br>
   </div>
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin'
-  import ServicesMixin from '../../mixins/services-mixin'
+  import CommonMixin from '../../mixins/common-mixin.js'
+  import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import employeeCard from './employee-card.vue'
   import employeeSummary from './employee-summary.vue'
-  import voucherTable from './voucher-table';
+  import voucherTable from './voucher-table'
 
   import cellVariants from '../../assets/cellVariants.json'
-
-  const summaryTemp = {
-    'weekly': {
-      'interval': '05 Nov 2018 - 12 Nov 2018',
-      'hoursCompleted': '22h (Office) + 2h (Home) = 24h',
-      'hoursLeft': '0h (Office) + 2h (Home) = 2h',
-      'overtimeInfo': '4h'
-    },
-    'monthly': {
-      'interval': '05 Nov 2018 - 02 Dec 2018',
-      'hoursCompleted': '62h (Office) + 8h (Home) = 70h',
-      'hoursLeft': '2h (Office) + 8h (Home) = 10h',
-      'overtimeInfo': '0h'
-    }
-  }
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
     components: {navbar, employeeCard, employeeSummary, voucherTable},
     props: ['employeeId'],
-    data() {
+    data () {
       return {
         IMAGE_DIR: 'employee/',
-        API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO: '/employee/employeeCardDto?employeeId=',
-        API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST: '/voucher/voucherItemDtoList?employeeId=',
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
-        employeeSummaryDto: null,
+        weeklySummaryDto: null,
+        monthlySummaryDto: null,
         voucherItemDtoList: null,
         cellVariants: cellVariants,
-        summaryTemp: summaryTemp // TODO: Remove this line
       }
     },
     computed: {
@@ -84,39 +65,58 @@
       }
     },
     mounted () {
-      this.get(this.API_ENDPOINT_TO_GET_EMPLOYEE_CARD_DTO + this.employeeId).then(response => {
-        this.employeeCardDto = response.data
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
-        this.$router.push('/')
+      this.getEmployeeCardDto(this.employeeId).then(employeeCardDto => {
+        this.employeeCardDto = employeeCardDto
+      }).catch(() => {
+        this.redirectTo('/')
       })
 
-      this.get(this.API_ENDPOINT_TO_GET_VOUCHER_ITEM_DTO_LIST + this.employeeId).then(response => {
-        this.voucherItemDtoList = this.getVoucherItemDtoListPainted(response.data)
-        this.spinner = false
-      }).catch(error => {
-        console.error(error)
-        this.$router.push('/')
+      this.getWeeklySummaryDto(this.employeeId).then(weeklySummaryDto => {
+        this.weeklySummaryDto = weeklySummaryDto
+      }).catch(() => {
+        this.redirectTo('/')
+      })
+
+      this.getMonthlySummaryDto(this.employeeId).then(monthlySummaryDto => {
+        this.monthlySummaryDto = monthlySummaryDto
+      }).catch(() => {
+        this.redirectTo('/')
+      })
+
+      this.getVoucherItemDtoList(this.employeeId).then(voucherItemDtoList => {
+        this.voucherItemDtoList = this.getVoucherItemDtoListModified(voucherItemDtoList)
+      }).catch(() => {
+        this.redirectTo('/')
       })
     },
     methods: {
-      getVoucherItemDtoListPainted: function (data) {
+      getVoucherItemDtoListModified: function (data) {
         let voucherItemDtoList = data
 
         voucherItemDtoList.forEach(voucherItemDto => {
-          this.cellVariants.some(cellVariant => {
-            let hasSameVouchType = cellVariant.vouchType === voucherItemDto.type
-            let hasSameVouchLocation = cellVariant.vouchLocation === voucherItemDto.location
-
-            if (hasSameVouchType && hasSameVouchLocation) {
-              voucherItemDto['_cellVariants'] = { '': cellVariant.value }
-              return undefined
-            }
-          })
+          this.setCellVariantsOfVoucherItemDto(voucherItemDto)
         })
 
         return voucherItemDtoList
+      },
+      setCellVariantsOfVoucherItemDto: function (voucherItemDto) {
+        this.cellVariants.some(cellVariant => {
+          let hasSamevoucherType = cellVariant.voucherType === voucherItemDto.type
+          let hasSamevoucherLocation = cellVariant.voucherLocation === voucherItemDto.location
+
+          if (hasSamevoucherType && hasSamevoucherLocation) {
+            if (voucherItemDto.admin) {
+              voucherItemDto['_cellVariants'] = {
+                ' ': cellVariant.value,
+                'type': cellVariant.adminValue,
+              }
+            } else {
+              voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
+            }
+
+            return undefined
+          }
+        })
       }
     }
   }
