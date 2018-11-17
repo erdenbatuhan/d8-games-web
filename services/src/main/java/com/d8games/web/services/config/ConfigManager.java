@@ -26,19 +26,19 @@ public class ConfigManager {
     private static String voucherTypeIn;
     private static String voucherTypeOut;
 
-    private static String nightHoursStartAsString;
-    private static String nightHoursEndAsString;
+    private static String nightHoursStart;
+    private static String nightHoursEnd;
 
-    private static int nightHoursStart;
-    private static int nightHoursEnd;
+    private static int integerNightHoursStart;
+    private static int integerNightHoursEnd;
 
     private static int voucherNoOutPunishment;
+
+    private static int authenticationTimeout;
 
     private static String contactDepartmentName;
 
     private static String countryCode;
-
-    private static int authenticationTimeout;
 
     public ConfigManager() throws IOException {
         Properties properties = getProperties();
@@ -53,19 +53,19 @@ public class ConfigManager {
         ConfigManager.voucherTypeIn = properties.getProperty("voucherTypeIn");
         ConfigManager.voucherTypeOut = properties.getProperty("voucherTypeOut");
 
-        ConfigManager.nightHoursStartAsString = properties.getProperty("nightHoursStart");
-        ConfigManager.nightHoursEndAsString = properties.getProperty("nightHoursEnd");
+        ConfigManager.nightHoursStart = properties.getProperty("nightHoursStart");
+        ConfigManager.nightHoursEnd = properties.getProperty("nightHoursEnd");
 
-        ConfigManager.nightHoursStart = Integer.parseInt(properties.getProperty("nightHoursStart"));
-        ConfigManager.nightHoursEnd = Integer.parseInt(properties.getProperty("nightHoursEnd"));
+        ConfigManager.integerNightHoursStart = Integer.parseInt(properties.getProperty("integerNightHoursStart"));
+        ConfigManager.integerNightHoursEnd = Integer.parseInt(properties.getProperty("integerNightHoursEnd"));
+
+        ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
 
         ConfigManager.voucherNoOutPunishment = Integer.parseInt(properties.getProperty("voucherNoOutPunishment"));
 
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
 
         ConfigManager.countryCode = properties.getProperty("countryCode");
-
-        ConfigManager.authenticationTimeout = Integer.parseInt(properties.getProperty("authenticationTimeout"));
     }
 
     private Properties getProperties() throws IOException {
@@ -112,20 +112,20 @@ public class ConfigManager {
         return voucherTypeOut;
     }
 
-    public static String getNightHoursStartAsString() {
-        return nightHoursStartAsString;
-    }
-
-    public static String getNightHoursEndAsString() {
-        return nightHoursEndAsString;
-    }
-
-    public static int getNightHoursStart() {
+    public static String getNightHoursStart() {
         return nightHoursStart;
     }
 
-    public static int getNightHoursEnd() {
+    public static String getNightHoursEnd() {
         return nightHoursEnd;
+    }
+
+    public static int getIntegerNightHoursStart() {
+        return integerNightHoursStart;
+    }
+
+    public static int getIntegerNightHoursEnd() {
+        return integerNightHoursEnd;
     }
 
     public static int getVoucherNoOutPunishment() {

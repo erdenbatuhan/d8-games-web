@@ -68,7 +68,7 @@ public class AuthenticationController {
             mobilePhoneId = authenticationDto.getMobilePhoneId();
 
             if (timeElapsed >= authenticationTimeout)
-                throw new TimeoutException("You have to take an action in 20 seconds!");
+                throw new TimeoutException("You have to take an action in " + authenticationTimeout + " seconds!");
         }
 
         String employeeId = employeeService.getEmployeeIdByMobilePhoneId(mobilePhoneId);

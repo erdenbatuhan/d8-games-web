@@ -122,10 +122,10 @@ public class WorkInfoService {
         DateTime vouchInDateTime = new DateTime(vouchInDate);
         DateTime vouchOutDateTime = new DateTime(vouchOutDate);
 
-        int vouchInDateInt = DateUtil.getIntegerDate(vouchInDateTime);
-        int vouchOutDateInt = DateUtil.getIntegerDate(vouchOutDateTime);
+        int integerVouchInDate = DateUtil.getIntegerDate(vouchInDateTime);
+        int integerVouchOutDate = DateUtil.getIntegerDate(vouchOutDateTime);
 
-        double hoursWorked = DateUtil.getDiff(vouchInDateInt, vouchOutDateInt);
+        double hoursWorked = DateUtil.getDiff(integerVouchInDate, integerVouchOutDate);
 
         if (location.equals(ConfigManager.getVoucherLocationOffice())) {
             setOfficeHoursCompleted(workInfo, hoursWorked);

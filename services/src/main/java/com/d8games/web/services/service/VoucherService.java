@@ -34,6 +34,9 @@ public class VoucherService {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private MissingVoucherHistoryService missingVoucherHistoryService;
+
     public List<Voucher> getAllByEmployeeId(String employeeId) {
         return voucherRepository.getAllByEmployeeIdOrderByActualDateDesc(employeeId);
     }
@@ -68,19 +71,18 @@ public class VoucherService {
         Date currentDate = new Date();
         DateUtil dateUtil = new DateUtil(currentDate);
 
-        if (dateUtil.isNight()) {
+        if (DateUtil.isNight(dateUtil.getIntegerHour())) {
             List<Employee> employees = employeeService.getAll();
 
             for (Employee employee : employees) {
                 List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employee.getId());
 
-                if (voucherDtoList == null || voucherDtoList.size() == 0)
-                    return;
+                if (voucherDtoList != null && voucherDtoList.size() > 0) {
+                    VoucherDto lastVoucherDto = voucherDtoList.get(0);
 
-                VoucherDto lastVoucherDto = voucherDtoList.get(0);
-
-                if (lastVoucherDto.getType().equals(ConfigManager.getVoucherTypeIn()))
-                    vouchOutForEmployee(employee, lastVoucherDto);
+                    if (lastVoucherDto.getType().equals(ConfigManager.getVoucherTypeIn()))
+                        vouchOutForEmployee(employee, lastVoucherDto);
+                }
             }
         }
     }
@@ -99,13 +101,13 @@ public class VoucherService {
         String type = ConfigManager.getVoucherTypeOut();
         String location = lastVoucherDto.getLocation();
 
-        add(inDate, outDate, type, location, employee);
+        Voucher voucher = add(inDate, outDate, type, location, employee);
 
-        // TODO: Add MISSING_VOUCHER_HISTORY Entity to keep the track of the missing vouchers
+        missingVoucherHistoryService.add(voucher);
         System.out.println(employee.getName() + " forgot to Vouch OUT. We have punished him/her!");
     }
 
-    private void add(Date inDate, Date outDate, String type, String location, Employee employee) {
+    private Voucher add(Date inDate, Date outDate, String type, String location, Employee employee) {
         Voucher voucher = new Voucher();
         DateUtil outDateUtil = new DateUtil(outDate);
 
@@ -114,6 +116,8 @@ public class VoucherService {
 
         workInfoService.addHours(inDate, outDateUtil.getActualDate(), location, employee);
         voucherRepository.save(voucher);
+
+        return voucher;
     }
 
     public String add(String type, String ip, String employeeId, boolean admin)
@@ -140,7 +144,7 @@ public class VoucherService {
 
     private void checkVoucherConstraints(DateUtil dateUtil, String type, String location, String employeeId)
             throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {
-        if (dateUtil.isNight())
+        if (DateUtil.isNight(dateUtil.getIntegerHour()))
             throw new NightHoursException();
 
         List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employeeId);

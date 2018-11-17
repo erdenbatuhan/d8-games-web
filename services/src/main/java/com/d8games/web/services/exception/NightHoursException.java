@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class NightHoursException extends RuntimeException {
 
     public NightHoursException() {
-        super(String.format("You cannot vouch between %s:00 and %s:00!",
-                ConfigManager.getNightHoursStartAsString(), ConfigManager.getNightHoursEndAsString()));
+        super(String.format("You cannot vouch after %s and before %s!",
+                ConfigManager.getNightHoursStart(), ConfigManager.getNightHoursEnd()));
     }
 }
