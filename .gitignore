@@ -8,3 +8,6 @@ package-lock.json
 .DS_Store
 ehthumbs.db
 Thumbs.db
+
+# NGINX generated files
+nginx_signing.key
