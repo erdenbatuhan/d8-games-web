@@ -64,7 +64,7 @@ public class VoucherService {
     }
 
     @Scheduled(fixedRate = 7200000)
-    public void performChecksForForgottenOutVouchers() {
+    public void performChecksForMissingVouchers() {
         Date currentDate = new Date();
         DateUtil dateUtil = new DateUtil(currentDate);
 
@@ -72,41 +72,47 @@ public class VoucherService {
             List<Employee> employees = employeeService.getAll();
 
             for (Employee employee : employees) {
-                punishEmployeeIfNeeded(employee);
+                List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employee.getId());
+
+                if (voucherDtoList == null || voucherDtoList.size() == 0)
+                    return;
+
+                VoucherDto lastVoucherDto = voucherDtoList.get(0);
+
+                if (lastVoucherDto.getType().equals(ConfigManager.getVoucherTypeIn()))
+                    vouchOutForEmployee(employee, lastVoucherDto);
             }
         }
     }
 
-    private void punishEmployeeIfNeeded(Employee employee) {
-        List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employee.getId());
+    private void vouchOutForEmployee(Employee employee, VoucherDto lastVoucherDto) {
+        int hoursToAdd = ConfigManager.getVoucherNoOutPunishment();
 
-        if (voucherDtoList != null && voucherDtoList.size() > 0) {
-            VoucherDto lastVoucherDto = voucherDtoList.get(0);
-
-            if (lastVoucherDto.getType().equals(ConfigManager.getVoucherTypeIn())) {
-                System.out.println(employee.getName() + " forgot to Vouch OUT. We are punishing him/her!");
-                int voucherNoOutPunishment = ConfigManager.getVoucherNoOutPunishment();
-
-                if (lastVoucherDto.getLocation().equals(ConfigManager.getVoucherLocationHome())) {
-                    JobInfo jobInfo = jobInfoService.getByEmployee(employee);
-                    voucherNoOutPunishment = (int) (jobInfo.getHomeHoursNeededPerMonth() / 4);
-                }
-
-                Date outDate = DateUtil.getHoursAhead(lastVoucherDto.getActualDate(), voucherNoOutPunishment);
-                add(lastVoucherDto.getActualDate(), outDate, ConfigManager.getVoucherTypeOut(),
-                        lastVoucherDto.getLocation(), employee);
-            }
+        if (lastVoucherDto.getLocation().equals(ConfigManager.getVoucherLocationHome())) {
+            JobInfo jobInfo = jobInfoService.getByEmployee(employee);
+            hoursToAdd = (int) (jobInfo.getHomeHoursNeededPerMonth() / 4);
         }
+
+        Date inDate = lastVoucherDto.getActualDate();
+        Date outDate = DateUtil.getHoursAhead(lastVoucherDto.getActualDate(), hoursToAdd);
+
+        String type = ConfigManager.getVoucherTypeOut();
+        String location = lastVoucherDto.getLocation();
+
+        add(inDate, outDate, type, location, employee);
+
+        // TODO: Add MISSING_VOUCHER_HISTORY Entity to keep the track of the missing vouchers
+        System.out.println(employee.getName() + " forgot to Vouch OUT. We have punished him/her!");
     }
 
-    private void add(Date actualInDate, Date outDate, String type, String location, Employee employee) {
+    private void add(Date inDate, Date outDate, String type, String location, Employee employee) {
         Voucher voucher = new Voucher();
         DateUtil outDateUtil = new DateUtil(outDate);
 
         setProperties(voucher, type, location, true, employee);
         setDates(voucher, outDateUtil);
 
-        workInfoService.addHours(actualInDate, outDateUtil.getActualDate(), location, employee);
+        workInfoService.addHours(inDate, outDateUtil.getActualDate(), location, employee);
         voucherRepository.save(voucher);
     }
 
