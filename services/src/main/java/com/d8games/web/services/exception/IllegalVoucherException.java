@@ -3,7 +3,7 @@ package com.d8games.web.services.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.FORBIDDEN)
+@ResponseStatus(value = HttpStatus.FAILED_DEPENDENCY)
 public class IllegalVoucherException extends RuntimeException {
 
     public IllegalVoucherException(String voucherTypeInLocation, String voucherTypeOutLocation) {

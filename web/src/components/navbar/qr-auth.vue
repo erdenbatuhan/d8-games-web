@@ -69,13 +69,13 @@
         this.startAuthenticating(voucherType)
       },
       startAuthenticating: function (voucherType) {
-        this.getCurrentIp().then(currentIp => {
+        this.getCurrentIp().then(currentIpResponse => {
           this.saveNewAuthentication().then(authenticationId => {
             this.authenticationId = authenticationId
             this.setStateTo(1)
 
             this.getAuthenticatedEmployee(authenticationId).then(authenticatedEmployee => {
-              this.handleAuthentication(currentIp, authenticatedEmployee, voucherType, 2)
+              this.handleAuthentication(currentIpResponse.ip, authenticatedEmployee, voucherType, 2)
             }).catch((error) => {
               this.handleError(error.response, -2)
             })

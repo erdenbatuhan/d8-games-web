@@ -20,9 +20,6 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private EmployeeService employeeService;
-
     @GetMapping
     public List<Authentication> getAll() {
         return authenticationService.getAll();
@@ -33,48 +30,18 @@ public class AuthenticationController {
         return authenticationService.getById(id);
     }
 
-    @PutMapping(value = "/save")
-    public String save() {
-        Authentication authentication = new Authentication();
-        authentication.setCreatedDate(new Date());
-
-        authenticationService.save(authentication);
-        return authentication.getId();
-    }
-
     @PostMapping(value = "/update")
     public String update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
-        Authentication authentication = authenticationService.getById(id);
+        return authenticationService.update(id, ip, mobilePhoneId);
+    }
 
-        authentication.setIp(ip);
-        authentication.setMobilePhoneId(mobilePhoneId);
-
-        authenticationService.save(authentication);
-        return id;
+    @PutMapping(value = "/save")
+    public String save() {
+        return authenticationService.save();
     }
 
     @GetMapping(value = "/authenticatedEmployee")
-    public AuthenticatedEmployeeDto getAuthenticationDto(@RequestParam String authenticationId) throws TimeoutException {
-        int authenticationTimeout = ConfigManager.getAuthenticationTimeout();
-        long start = System.currentTimeMillis();
-
-        String mobilePhoneId = null;
-        AuthenticationDto authenticationDto = null;
-
-        while (mobilePhoneId == null) {
-            long timeElapsed = System.currentTimeMillis() - start;
-
-            authenticationDto = authenticationService.getAuthenticationDto(authenticationId);
-            mobilePhoneId = authenticationDto.getMobilePhoneId();
-
-            if (timeElapsed >= authenticationTimeout)
-                throw new TimeoutException("You have to take an action in 20 seconds!");
-        }
-
-        String employeeId = employeeService.getEmployeeIdByMobilePhoneId(mobilePhoneId);
-        String ip = authenticationDto.getIp();
-
-
-        return new AuthenticatedEmployeeDto(employeeId, ip);
+    public AuthenticatedEmployeeDto getAuthenticatedEmployeeDto(@RequestParam String authenticationId) throws TimeoutException {
+        return authenticationService.getAuthenticatedEmployeeDto(authenticationId);
     }
 }

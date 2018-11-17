@@ -28,6 +28,11 @@ public class VoucherController {
         return voucherService.getById(id);
     }
 
+    @PutMapping(value = "/admin/addEmpty")
+    public String addEmpty(@RequestParam String employeeId) {
+        return voucherService.addEmpty(employeeId);
+    }
+
     @PutMapping(value = "/add")
     public String add(@RequestParam String type, @RequestParam String ip, @RequestParam String employeeId)
             throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {

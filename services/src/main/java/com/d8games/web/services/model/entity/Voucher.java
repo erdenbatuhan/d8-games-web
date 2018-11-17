@@ -30,7 +30,7 @@ public class Voucher implements Serializable {
     private String location;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EXACT_VOUCHER_DATE", nullable = false)
+    @Column(name = "EXACT_VOUCHER_DATE")
     private Date exactVoucherDate;
 
     @Temporal(TemporalType.TIMESTAMP)

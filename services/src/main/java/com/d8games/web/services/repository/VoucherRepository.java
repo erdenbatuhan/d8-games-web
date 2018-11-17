@@ -22,6 +22,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, String> {
             "v.date, v.day, v.hour, v.type, v.location, v.admin) " +
     "FROM Voucher v " +
     "WHERE v.employee.id = :employeeId " +
+    "AND v.exactVoucherDate IS NOT NULL " +
     "ORDER BY v.exactVoucherDate DESC")
     List<VoucherItemDto> getVoucherItemDtoList(@Param("employeeId") String employeeId);
 
@@ -29,6 +30,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, String> {
     "SELECT new com.d8games.web.services.model.dto.VoucherDto(v.actualDate, v.type, v.location) " +
     "FROM Voucher v " +
     "WHERE v.employee.id = :employeeId " +
+    "AND v.exactVoucherDate IS NOT NULL " +
     "ORDER BY v.exactVoucherDate DESC")
     List<VoucherDto> getVoucherDtoList(@Param("employeeId") String employeeId);
 }

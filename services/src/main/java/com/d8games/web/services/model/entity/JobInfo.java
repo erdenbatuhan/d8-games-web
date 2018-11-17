@@ -35,6 +35,9 @@ public class JobInfo implements Serializable {
     @Column(name = "HOME_HOURS_NEEDED_PER_MONTH", length = 10, precision = 1, nullable = false)
     private Double homeHoursNeededPerMonth;
 
+    @Column(name = "EXCUSED_HOURS_ALLOWED_PER_MONTH", length = 10, precision = 1, nullable = false)
+    private Double excusedHoursAllowedPerMonth;
+
     @Column(name = "SALARY_PER_HOUR", length = 10, precision = 1, nullable = false)
     private Double salaryPerHour;
 

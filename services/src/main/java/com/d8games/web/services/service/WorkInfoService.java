@@ -1,9 +1,14 @@
 package com.d8games.web.services.service;
 
+import com.d8games.web.services.config.ConfigManager;
+import com.d8games.web.services.model.dto.MonthlySummaryDto;
+import com.d8games.web.services.model.dto.WeeklySummaryDto;
 import com.d8games.web.services.model.entity.Employee;
+import com.d8games.web.services.model.entity.JobInfo;
 import com.d8games.web.services.model.entity.WorkInfo;
 import com.d8games.web.services.repository.WorkInfoRepository;
 import com.d8games.web.services.util.DateUtil;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,9 @@ public class WorkInfoService {
     private WorkInfoRepository workInfoRepository;
 
     @Autowired
+    private JobInfoService jobInfoService;
+
+    @Autowired
     private EmployeeService employeeService;
 
     public List<WorkInfo> getAll() {
@@ -27,6 +35,15 @@ public class WorkInfoService {
 
     public WorkInfo getById(String id) {
         return workInfoRepository.getWorkInfoById(id);
+    }
+
+    public WeeklySummaryDto getWeeklySummaryDto(String employeeId) {
+        return workInfoRepository.getWeeklySummaryDto(new Date(), employeeId);
+    }
+
+    public MonthlySummaryDto getMonthlySummaryDto(String employeeId) {
+        List<WeeklySummaryDto> weeklySummaryDtoList = workInfoRepository.getWeeklySummaryDtoList(employeeId).subList(0, 4);
+        return new MonthlySummaryDto(weeklySummaryDtoList);
     }
 
     @Scheduled(fixedRate = 7200000)
@@ -49,10 +66,15 @@ public class WorkInfoService {
     }
 
     private void add(Employee employee) {
-        add(0.0, 0.0, employee);
+        JobInfo jobInfo = jobInfoService.getByEmployee(employee);
+
+        double unpaidHoursNeededPerWeek = jobInfo.getUnpaidHoursNeededPerMonth() / 4;
+        double initialOfficeHoursCompleted = 0 - unpaidHoursNeededPerWeek;
+
+        add(initialOfficeHoursCompleted, 0.0, 0.0, employee);
     }
 
-    public List<String> add(double officeHoursWorked, double homeHoursWorked, Employee employee) {
+    public List<String> add(double officeHoursCompleted, double homeHoursCompleted, double excusedHoursUsed, Employee employee) {
         List<String> workInfoIdList = new ArrayList<>();
         Date currentDate = new Date();
 
@@ -62,8 +84,9 @@ public class WorkInfoService {
 
             setDates(workInfo, currentDate, sixDaysAhead);
 
-            workInfo.setOfficeHoursWorked(officeHoursWorked);
-            workInfo.setHomeHoursWorked(homeHoursWorked);
+            workInfo.setOfficeHoursCompleted(officeHoursCompleted);
+            workInfo.setHomeHoursCompleted(homeHoursCompleted);
+            workInfo.setExcusedHoursUsed(excusedHoursUsed);
             workInfo.setEmployee(employee);
 
             workInfoIdList.add(workInfo.getId());
@@ -90,5 +113,41 @@ public class WorkInfoService {
 
         workInfo.setStartDate(startDate);
         workInfo.setEndDate(endDate);
+    }
+
+    public void addHours(Date vouchInDate, Date vouchOutDate, String location, Employee employee) {
+        JobInfo jobInfo = jobInfoService.getByEmployee(employee);
+        WorkInfo workInfo = workInfoRepository.getCurrentWorkInfo(vouchOutDate, employee);
+
+        DateTime vouchInDateTime = new DateTime(vouchInDate);
+        DateTime vouchOutDateTime = new DateTime(vouchOutDate);
+
+        int integerVouchInDate = DateUtil.getIntegerDate(vouchInDateTime);
+        int integerVouchOutDate = DateUtil.getIntegerDate(vouchOutDateTime);
+
+        double hoursWorked = DateUtil.getDiff(integerVouchInDate, integerVouchOutDate);
+
+        if (location.equals(ConfigManager.getVoucherLocationOffice())) {
+            setOfficeHoursCompleted(workInfo, hoursWorked);
+        } else {
+            setHomeHoursCompleted(jobInfo, workInfo, hoursWorked);
+        }
+
+        workInfoRepository.save(workInfo);
+    }
+
+    private void setOfficeHoursCompleted(WorkInfo workInfo, double hoursWorked) {
+        double officeHoursCompleted = workInfo.getOfficeHoursCompleted() + hoursWorked;
+        workInfo.setOfficeHoursCompleted(officeHoursCompleted);
+    }
+
+    private void setHomeHoursCompleted(JobInfo jobInfo, WorkInfo workInfo, double hoursWorked) {
+        double homeHoursNeededPerWeek = jobInfo.getHomeHoursNeededPerMonth() / 4;
+        double homeHoursCompleted = workInfo.getHomeHoursCompleted() + hoursWorked;
+
+        if (homeHoursCompleted > homeHoursNeededPerWeek)
+            homeHoursCompleted = homeHoursNeededPerWeek;
+
+        workInfo.setHomeHoursCompleted(homeHoursCompleted);
     }
 }

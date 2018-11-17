@@ -3,24 +3,24 @@
     "voucherType": "IN",
     "voucherLocation": "OFFICE",
     "value": "success",
-    "adminValue": "primary"
+    "adminValue": "dark"
   },
   {
     "voucherType": "OUT",
     "voucherLocation": "OFFICE",
     "value": "danger",
-    "adminValue": "primary"
+    "adminValue": "dark"
   },
   {
     "voucherType": "IN",
     "voucherLocation": "HOME",
     "value": "info",
-    "adminValue": "primary"
+    "adminValue": "dark"
   },
   {
     "voucherType": "OUT",
     "voucherLocation": "HOME",
     "value": "warning",
-    "adminValue": "primary"
+    "adminValue": "dark"
   }
 ]

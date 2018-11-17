@@ -14,10 +14,6 @@
             <b-nav-item><a v-on:click="redirectTo('/contactUs')"> Contact Us </a></b-nav-item>
         </b-navbar-nav>
 
-        <div>
-          <b-progress :value="100" variant="success" striped :animated="true" class="mb-2"></b-progress>
-        </div>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" v-if="signedInEmployeeId">

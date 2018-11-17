@@ -13,8 +13,8 @@
           </employee-card>
 
           <div role="tablist" class="container">
-            <employee-summary :weekly="true" :summary="summaryTemp.weekly"></employee-summary>
-            <employee-summary :weekly="false" :summary="summaryTemp.monthly"></employee-summary>
+            <employee-summary :weekly="true" :summary="weeklySummaryDto"></employee-summary>
+            <employee-summary :weekly="false" :summary="monthlySummaryDto"></employee-summary>
           </div>
 
           <br>
@@ -43,21 +43,6 @@
 
   import cellVariants from '../../assets/cellVariants.json'
 
-  const summaryTemp = {
-    'weekly': {
-      'interval': '05 Nov 2018 - 12 Nov 2018',
-      'hoursCompleted': '22h (Office) + 2h (Home) = 24h',
-      'hoursLeft': '0h (Office) + 2h (Home) = 2h',
-      'overtimeInfo': '4h'
-    },
-    'monthly': {
-      'interval': '05 Nov 2018 - 02 Dec 2018',
-      'hoursCompleted': '62h (Office) + 8h (Home) = 70h',
-      'hoursLeft': '2h (Office) + 8h (Home) = 10h',
-      'overtimeInfo': '0h'
-    }
-  }
-
   export default {
     mixins: [CommonMixin, ServicesMixin],
     components: {navbar, employeeCard, employeeSummary, voucherTable},
@@ -68,10 +53,10 @@
         name: 'employeeProfile',
         spinner: true,
         employeeCardDto: null,
-        employeeSummaryDto: null,
+        weeklySummaryDto: null,
+        monthlySummaryDto: null,
         voucherItemDtoList: null,
         cellVariants: cellVariants,
-        summaryTemp: summaryTemp // TODO: Remove this line
       }
     },
     computed: {
@@ -82,6 +67,18 @@
     mounted () {
       this.getEmployeeCardDto(this.employeeId).then(employeeCardDto => {
         this.employeeCardDto = employeeCardDto
+      }).catch(() => {
+        this.redirectTo('/')
+      })
+
+      this.getWeeklySummaryDto(this.employeeId).then(weeklySummaryDto => {
+        this.weeklySummaryDto = weeklySummaryDto
+      }).catch(() => {
+        this.redirectTo('/')
+      })
+
+      this.getMonthlySummaryDto(this.employeeId).then(monthlySummaryDto => {
+        this.monthlySummaryDto = monthlySummaryDto
       }).catch(() => {
         this.redirectTo('/')
       })
