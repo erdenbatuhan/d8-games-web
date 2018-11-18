@@ -59,11 +59,11 @@
       }
     },
     methods: {
+      isManagerSignedIn: function () {
+        return (this.isEmployeeSignedIn() && !this.employeeCardDto.managerId) || this.employeeCardDto.managerId === this.signedInEmployeeId
+      },
       isEmployeeSignedIn: function () {
         return this.employeeId === this.signedInEmployeeId
-      },
-      isManagerSignedIn: function () {
-        return !this.employeeCardDto.managerId || this.employeeCardDto.managerId === this.signedInEmployeeId
       },
       signOut: function () {
         this.redirectTo('/signOut')
