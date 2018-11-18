@@ -4,15 +4,24 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft ="16dp"
-    android:paddingRight ="16dp"
-    android:paddingTop = "16dp"
     tools:context=".MainActivity">
+
     <SurfaceView
         android:id="@+id/cameraPreview"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
     </SurfaceView>
+
+    <TextView
+        android:layout_below="@+id/cameraPreview"
+        android:id="@+id/status_text"
+        android:text="@string/result_text_default"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
 </RelativeLayout>
