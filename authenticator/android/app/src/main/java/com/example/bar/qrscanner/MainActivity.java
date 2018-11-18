@@ -17,24 +17,36 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String GET_IP_URL = "http://api.ipify.org/?format=json";
+
     private static final int REQUEST_CAMERA_PERMISSION_ID = 1001;
     private static final int VIBRATION_DURATION = 250;
-    private static final int SLEEP_AFTER_READ = 5000;
 
     private SurfaceView cameraPreview;
     private TextView barcodeInfo;
-    private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private String android_id;
+    private RequestQueue requestQueue;
+    private String authenticationId = null;
+    private String authenticationIp = null;
+    private String employeeMobilePhoneId = null;
     private boolean qrCodeReadable;
 
     @Override
@@ -57,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        android_id = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        requestQueue = Volley.newRequestQueue(this);
+
+        fetchIp();
+
+        System.out.println(authenticationIp);
+
+        employeeMobilePhoneId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
         qrCodeReadable = true;
 
         super.onCreate(savedInstanceState);
@@ -68,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         barcodeInfo = (TextView) findViewById(R.id.status_text);
         barcodeInfo.setVisibility(View.INVISIBLE);
 
-        barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.QR_CODE)
-                .build();
+        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
+            .setBarcodeFormats(Barcode.QR_CODE)
+            .build();
         cameraSource = new CameraSource
-                .Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(640, 480)
-                .build();
+            .Builder(this, barcodeDetector)
+            .setRequestedPreviewSize(640, 480)
+            .build();
 
         cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
 
@@ -119,7 +137,11 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            // TODO: SERVICES IMPLEMENTATION HERE: qrcodes.valueAt(0).displayValue
+                            fetchIp();
+
+                            System.out.println(authenticationIp); // TODO: Remove
+                            authenticationId = qrcodes.valueAt(0).displayValue;
+                            System.out.println(authenticationId); // TODO: Remove
 
                             Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(VIBRATION_DURATION);
@@ -128,14 +150,14 @@ public class MainActivity extends AppCompatActivity {
 
                             builder.setTitle("Success");
                             builder.setMessage("QR Code is successfully read!")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                .setCancelable(false)
+                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
 
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            qrCodeReadable = true;
-                                        }
-                                    });
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                    qrCodeReadable = true;
+                                    }
+                                });
 
                             builder.create().show();
                         }
@@ -143,5 +165,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void fetchIp() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, GET_IP_URL, null,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        authenticationIp = response.getString("ip");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            }
+        );
+
+        requestQueue.add(request);
     }
 }
