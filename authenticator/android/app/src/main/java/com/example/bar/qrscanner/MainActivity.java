@@ -2,10 +2,10 @@ package com.example.bar.qrscanner;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.provider.Settings.Secure;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +16,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView barcodeInfo;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
+    private String android_id;
     private boolean qrCodeReadable;
 
     @Override
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        android_id = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
         qrCodeReadable = true;
 
         super.onCreate(savedInstanceState);
