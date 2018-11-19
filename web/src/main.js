@@ -27,22 +27,7 @@ import * as firebase from "firebase";
 Vue.use(VueRouter)
 Vue.use(VueCookies)
 Vue.use(VueScrollTo)
-Vue.use(VueFire)
 Vue.use(BootstrapVue)
-Vue.use(firebase)
-
-var config = {
-  apiKey: 'AIzaSyAPsS8tBER6f96Q5OwL-0uzsS6R8a-bXeQ',
-  authDomain: 'd8-games.firebaseapp.com',
-  databaseURL: 'https://d8-games.firebaseio.com',
-  projectId: 'd8-games',
-  storageBucket: '',
-  messagingSenderId: '610592817043'
-};
-
-firebase.initializeApp(config);
-
-export const db = firebase.firestore();
 
 Vue.use(VueScrollTo, {
   container: "body",
@@ -57,6 +42,21 @@ Vue.use(VueScrollTo, {
   x: false,
   y: true
 })
+
+Vue.use(VueFire)
+Vue.use(firebase)
+
+let config = {
+  apiKey: 'AIzaSyAPsS8tBER6f96Q5OwL-0uzsS6R8a-bXeQ',
+  authDomain: 'd8-games.firebaseapp.com',
+  databaseURL: 'https://d8-games.firebaseio.com',
+  projectId: 'd8-games',
+  storageBucket: '',
+  messagingSenderId: '610592817043'
+};
+
+firebase.initializeApp(config);
+export const firebaseDb = firebase.firestore();
 
 Vue.config.productionTip = false
 

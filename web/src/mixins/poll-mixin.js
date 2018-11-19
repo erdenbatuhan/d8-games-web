@@ -1,36 +1,38 @@
-import { db } from "../main";
+import {firebaseDb} from "../main.js";
 
 export default {
   data () {
     return {
-
+      name: 'pollService'
     }
   },
   methods: {
     getPolls: function () {
-      return db.collection('polls').get();
+      return firebaseDb.collection('polls').get();
     },
     getPollWithPollName: function (pollName) { // IMPORTANT: pollName is jellyPoll or portalPoll
-      let polls = [];
-      polls = this.getPolls();
+      let polls = this.getPolls();
       return polls.collection(pollName).getAll();
     },
-    getPollItemsWithPollName: function (pollName) {
-      let path = '/' + pollName + 'Items';
-      let pollItems = [];
+    getPollItemsWithPollNamePromise: function (pollName) {
+      return new Promise((resolve, reject) => {
+        let path = '/' + pollName + 'Items';
+        let pollItems = [];
 
-      db.collection(path)
-      .get()
-      .then((function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          console.log(doc.data());
-          pollItems.push(doc.data());
-        })
-      }));
-      return pollItems;
+        firebaseDb.collection(path).get().then((querySnapshot => {
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
+            pollItems.push(doc.data());
+          });
+
+          resolve(pollItems);
+        })).catch(error => {
+          reject(error)
+        });
+      })
     },
     addPollWithName: function (pollName) {
-      db.collection('polls').collection(pollName).set({
+      firebaseDb.collection('polls').collection(pollName).set({
         pollItems: []
       });
     },
@@ -39,7 +41,7 @@ export default {
       let numberOfItems = this.getPollWithPollName(pollName).length;
       let imagePath = '../../static/images/' +  pollName + image;  // IMPORTANT: directory names should be camelCase
 
-      db.collection(path).doc(numberOfItems).set({
+      firebaseDb.collection(path).doc(numberOfItems).set({
         ratings: [{}],
         imagePath: imagePath
       })
@@ -60,6 +62,6 @@ export default {
           }
         }
       })
-    },
+    }
   }
 }
