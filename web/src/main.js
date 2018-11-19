@@ -18,11 +18,31 @@ import ourGames from './components/our-games/our-games.vue'
 import contactUs from "./components/contact-us/contact-us.vue"
 import notFound from './components/not-found/not-found.vue'
 import signOut from './components/employee-profile/sign-out.vue'
+import poll from './components/poll/poll.vue'
+
+import VueFire from 'vuefire'
+import 'firebase/firestore'
+import * as firebase from "firebase";
 
 Vue.use(VueRouter)
 Vue.use(VueCookies)
 Vue.use(VueScrollTo)
+Vue.use(VueFire)
 Vue.use(BootstrapVue)
+Vue.use(firebase)
+
+var config = {
+  apiKey: 'AIzaSyAPsS8tBER6f96Q5OwL-0uzsS6R8a-bXeQ',
+  authDomain: 'd8-games.firebaseapp.com',
+  databaseURL: 'https://d8-games.firebaseio.com',
+  projectId: 'd8-games',
+  storageBucket: '',
+  messagingSenderId: '610592817043'
+};
+
+firebase.initializeApp(config);
+
+export const db = firebase.firestore();
 
 Vue.use(VueScrollTo, {
   container: "body",
@@ -70,6 +90,10 @@ const router = new VueRouter({
     {
       path: '/404',
       component: notFound
+    },
+    {
+      path: '/poll',
+      component: poll
     },
     {
       path: '*',
