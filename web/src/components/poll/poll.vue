@@ -1,16 +1,20 @@
 <template>
   <div>
-    {{this.pollItems[0].imagePath}}
-    <poll-item v-for="pollItem in pollItems" :image="'/static/images/poll/' + pollItem.imagePath">hi</poll-item>
+    {{this.pollItems}}
+    <poll-item v-for="pollItem in pollItems" :image="pollItem.imagePath"></poll-item>
   </div>
 </template>
 
  <script>
    import navbar from '../navbar/navbar.vue'
    import pollMixin from '../../mixins/poll-mixin'
+   import pollItem from './poll-item.vue'
 
    export default {
-     components: navbar,
+     components: {
+       navbar,
+       pollItem
+     },
      mixins: [pollMixin],
      data () {
        return {
@@ -22,8 +26,6 @@
      mounted () {
        this.getPollItemsWithPollNamePromise(this.pollName).then(pollItems => {
          this.pollItems = pollItems;
-
-         console.log(this.pollItems[0].imagePath);
        }).catch(error => {
          console.error(error)
        });

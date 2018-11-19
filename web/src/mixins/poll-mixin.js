@@ -7,13 +7,25 @@ export default {
     }
   },
   methods: {
-    getPolls: function () {
-      return firebaseDb.collection('polls').get();
+    getPollsPromise: function () {
+      return new Promise((resolve,reject) => {
+        firebaseDb.collection('polls').get().then((querySnapshot => {
+          resolve(querySnapshot);
+        })).catch(error => {
+          reject(error)
+        });
+      })
     },
-    getPollWithPollName: function (pollName) { // IMPORTANT: pollName is jellyPoll or portalPoll
-      let polls = this.getPolls();
-      return polls.collection(pollName).getAll();
-    },
+    getPollWithPollNamePromise: function (pollName) { // IMPORTANT: pollName is jellyPoll or portalPoll
+      return new Promise((resolve, reject) => {
+          firebaseDb.collection('polls').get()
+                    .collection(pollName).get().then((querySnapshot => {
+            resolve(querySnapshot);
+          })).catch(error => {
+            reject(error)
+          })
+      })
+  },
     getPollItemsWithPollNamePromise: function (pollName) {
       return new Promise((resolve, reject) => {
         let path = '/' + pollName + 'Items';
@@ -21,7 +33,6 @@ export default {
 
         firebaseDb.collection(path).get().then((querySnapshot => {
           querySnapshot.forEach(function (doc) {
-            console.log(doc.data());
             pollItems.push(doc.data());
           });
 
@@ -47,7 +58,7 @@ export default {
       })
     },
     addRatingTo: function (pollName, pollItem, rating) {  // jelly/pollItems/1 is a pollItem, pollName is jellyPoll
-      let itemRatings = this.getPollWithPollName(pollName).collection('ratings');
+      let itemRatings = this.getPollWithPollNamePromise(pollName).collection('ratings');
       let numberOfRatings = itemRatings.length;
 
       itemRatings.doc('rating' + numberOfRatings).set({

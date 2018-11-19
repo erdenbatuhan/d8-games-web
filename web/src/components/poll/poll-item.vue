@@ -1,14 +1,23 @@
 <template>
-  <img src="{{image}}">
+  <div>
+    <img :src="this.getImagePath()" alt="">
+  </div>
 </template>
 
 <script>
-
   export default {
+    props: ['image'],
     data () {
       return {
         name: 'poll-item',
-        image: ''
+        poll: ''
+      }
+    },
+    methods: {
+      getImagePath: function () {
+        let path = '../../../static/images/jellyPoll/' + this.image // delete jellyPoll
+        console.log(path);
+        return path
       }
     }
   }
