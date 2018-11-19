@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.provider.Settings.Secure;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -36,6 +36,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private static final String GET_IP_URL = "http://api.ipify.org/?format=json";
+    private static final String POST_AUTHENTICATION_URL = "http://142.93.173.131:8888/api/services/controller/authentication/update";
 
     private static final int REQUEST_CAMERA_PERMISSION_ID = 1001;
     private static final int VIBRATION_DURATION = 250;
@@ -44,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView barcodeInfo;
     private CameraSource cameraSource;
     private RequestQueue requestQueue;
-    private String authenticationId = null;
-    private String authenticationIp = null;
+
     private String employeeMobilePhoneId = null;
     private boolean qrCodeReadable;
 
@@ -54,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CAMERA_PERMISSION_ID: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    if (ActivityCompat.checkSelfPermission(this,
+                            android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
                         return;
 
                     try {
                         cameraSource.start(cameraPreview.getHolder());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (IOException exception) {
+                        handleException(exception);
                     }
                 }
             }
@@ -71,11 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestQueue = Volley.newRequestQueue(this);
 
-        fetchIp();
-
-        System.out.println(authenticationIp);
-
-        employeeMobilePhoneId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        employeeMobilePhoneId = new SecureIdVendor(getContentResolver()).get();
         qrCodeReadable = true;
 
         super.onCreate(savedInstanceState);
@@ -98,13 +95,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    ActivityCompat.requestPermissions(MainActivity.this, new String []{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_ID);
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    ActivityCompat.requestPermissions(MainActivity.this, new String [] {
+                        Manifest.permission.CAMERA
+                    }, REQUEST_CAMERA_PERMISSION_ID);
 
                 try {
                     cameraSource.start(cameraPreview.getHolder());
-                } catch (IOException e){
-                    e.printStackTrace();
+                } catch (IOException exception) {
+                    handleException(exception);
                 }
             }
 
@@ -131,35 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
 
                 if (qrcodes.size() != 0 && qrCodeReadable) {
+                    final String authenticationId = qrcodes.valueAt(0).displayValue;
                     qrCodeReadable = false;
 
                     barcodeInfo.post(new Runnable() {
 
                         @Override
                         public void run() {
-                            fetchIp();
-
-                            System.out.println(authenticationIp); // TODO: Remove
-                            authenticationId = qrcodes.valueAt(0).displayValue;
-                            System.out.println(authenticationId); // TODO: Remove
-
-                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(VIBRATION_DURATION);
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                            builder.setTitle("Success");
-                            builder.setMessage("QR Code is successfully read!")
-                                .setCancelable(false)
-                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                    qrCodeReadable = true;
-                                    }
-                                });
-
-                            builder.create().show();
+                            getIpThenPostAuthentication(authenticationId);
                         }
                     });
                 }
@@ -167,25 +146,78 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchIp() {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, GET_IP_URL, null,
-            new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        authenticationIp = response.getString("ip");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            }
-        );
+    private void getIpThenPostAuthentication(final String authenticationId) {
+        JsonObjectRequest getIpRequest = new JsonObjectRequest(Request.Method.GET, GET_IP_URL,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String authenticationIp = null;
 
-        requestQueue.add(request);
+                try {
+                    authenticationIp = response.getString("ip");
+                } catch (JSONException exception) {
+                    handleException(exception);
+                }
+
+                postAuthentication(authenticationId, authenticationIp);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                handleException(volleyError);
+            }
+        });
+
+        requestQueue.add(getIpRequest);
+    }
+
+    private void postAuthentication(final String authenticationId, final String authenticationIp) {
+        final String postAuthenticationUrl = POST_AUTHENTICATION_URL +
+                "?id=" + authenticationId +
+                "&ip=" + authenticationIp +
+                "&mobilePhoneId=" + employeeMobilePhoneId;
+
+        StringRequest postAuthenticationRequest = new StringRequest(Request.Method.POST,
+                postAuthenticationUrl, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                showSuccessDialog();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                handleException(volleyError);
+            }
+        });
+
+        requestQueue.add(postAuthenticationRequest);
+    }
+
+    private void showSuccessDialog() {
+        Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VIBRATION_DURATION);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setTitle("Success");
+        builder.setMessage("QR Code is successfully read!")
+                .setCancelable(false)
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        qrCodeReadable = true;
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    private void handleException(Exception exception) {
+        exception.printStackTrace();
+        System.exit(0);
     }
 }
