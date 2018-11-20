@@ -1,7 +1,12 @@
 <template>
   <div>
-    {{this.pollItems}}
-    <poll-item v-for="pollItem in pollItems" :image="pollItem.imagePath"></poll-item>
+    <navbar></navbar>
+    <br><br>
+    <h1>Welcome to the poll!</h1>
+    <hr>
+    <br>
+    <poll-item v-for="pollItem in pollItems" :poll-name="pollName" :image="pollItem.imagePath"
+               :poll-item-count="generatePollItemCount()"></poll-item>
   </div>
 </template>
 
@@ -20,7 +25,8 @@
        return {
          name: 'poll',
          pollName: 'jellyPoll',  // will be passed from jellyPoll component when instantiating the poll
-         pollItems: []
+         pollItems: [],
+         pollItemCount: 0
        }
      },
      mounted () {
@@ -29,6 +35,13 @@
        }).catch(error => {
          console.error(error)
        });
+     },
+     methods: {
+       generatePollItemCount: function () {
+         let oldValue = this.pollItemCount;
+         this.pollItemCount++;
+         return oldValue;
+       }
      }
    }
  </script>
