@@ -61,7 +61,7 @@ public class DateUtil {
 
         int h = Integer.parseInt(hourParts.get(DateKey.H.key));
         int m = Integer.parseInt(hourParts.get(DateKey.M.key));
-        int s = Integer.parseInt(hourParts.get(DateKey.S.key));
+        // int s = Integer.parseInt(hourParts.get(DateKey.S.key));
 
         hourParts.remove(hourParts.get(DateKey.S.key));
 
