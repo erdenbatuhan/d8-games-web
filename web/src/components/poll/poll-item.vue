@@ -1,59 +1,47 @@
 <template>
   <div>
-    <h3>Drawing No: {{pollItemCount}}</h3>
+    <h3> Drawing No: {{pollItemCount}} </h3>
     <br>
     <form>
-      <div class="b-col col-sm-4">
+      <div class="b-col col-sm-6">
         <img :src="getImagePath()" alt="">
         <br><br>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6">
-              <ratings v-for="type in types.slice(0,2)" :type="type"></ratings>
-            </div>
-            <div class="col-sm-6">
-              <ratings v-for="type in types.slice(2,4)" :type="type"></ratings>
-            </div>
-          </div>
-        <br>
-        <div class="form-group">
-          <p><em>If you have any additional comments, ideas or feedbacks please add them here.</em></p>
-          <textarea class="form-control" rows="2" v-model="comments" placeholder="Write your comments here"></textarea>
-        </div>
-        <br><br>
-        </div>
+        <rating ref="ratingComponent"></rating>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-  import ratings from './ratings.vue'
+  import rating from './rating.vue'
 
   export default {
-    components: {ratings},
-    props: ['pollName' , 'image', 'pollItemCount'],
+    components: {rating},
+    props: ['pollName' , 'pollItem', 'pollItemCount', 'signedInEmployeeId'],
     data () {
       return {
         name: 'poll-item',
         poll: '',
-        comments: '',
-        types: ['Main', 'NPC', 'Villain', 'Skin']
+        rating: null
       }
     },
     methods: {
       getImagePath: function () {
-        let path = '../../../static/images/' + this.pollName + '/' + this.image // delete jellyPoll use pollName prop
-        console.log(path);
-        return path
+        return '../../../static/images/' + this.pollName + '/' + this.pollItem.imagePath
+      },
+      getRatingFromRatingComponent: function () {
+        let rating = this.$refs.ratingComponent.rating
+        rating.employeeId = this.signedInEmployeeId
+
+        return rating
       }
-    },
+    }
   }
 </script>
 
 <style scoped>
-  .col-sm-4 {
+  .col-sm-6 {
     margin:auto
   }
   img {

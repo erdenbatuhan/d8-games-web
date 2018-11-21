@@ -58,7 +58,7 @@ export default {
       })
     },
     addRatingTo: function (pollName, pollItem, rating) {  // jelly/pollItems/1 is a pollItem, pollName is jellyPoll
-      let itemRatings = this.getPollWithPollNamePromise(pollName).collection('ratings');
+      let itemRatings = this.getPollWithPollNamePromise(pollName).collection('rating');
       let numberOfRatings = itemRatings.length;
 
       itemRatings.doc('rating' + numberOfRatings).set({
@@ -66,12 +66,23 @@ export default {
           employeeComment: rating.employeeComment,
           employeeId: rating.employeeId,
           itemRatings: {
-            mainRating: rating.ratings.mainRating,
-            npcRating: rating.ratings.npcRating,
-            skinRating: rating.ratings.skinRating,
-            villainRating: rating.ratings.villainRating
+            mainRating: rating.rating.mainRating,
+            npcRating: rating.rating.npcRating,
+            skinRating: rating.rating.skinRating,
+            villainRating: rating.rating.villainRating
           }
         }
+      })
+    },
+    initializePollPromise: function (dirName) {  // dir name is the name under static/images, for example: jellyPoll
+      return new Promise((resolve, reject) => {
+        let images = [];
+        var pollItemsPath = dirName.match(/[A-Z][a-z]+/g);  // returns jelly or portal
+        var path = '/' + pollItemsPath + 'PollItems'
+        var image = new Image();
+
+        firebaseDb.collection(path).doc()
+
       })
     }
   }
