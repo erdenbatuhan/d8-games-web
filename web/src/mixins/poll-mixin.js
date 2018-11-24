@@ -74,15 +74,38 @@ export default {
         }
       })
     },
+    readStaticImages: function (dirName) {
+      var directory = '../static/images/' + dirName
+      console.log(directory)
+      var files = directory.target.files
+      var numberOfFiles = files.length
+      console.log(files)
+      var images = []
+
+      for (let i = 0; i < numberOfFiles; ++i) {
+        let reader = new FileReader();
+        reader.onloadend = function () {
+          images.push({
+            image: reader.result
+          });
+        };
+          reader.readAsDataURL(files[i])
+      }
+      return images;
+    },
     initializePollPromise: function (dirName) {  // dir name is the name under static/images, for example: jellyPoll
       return new Promise((resolve, reject) => {
-        let images = [];
+        let images = []
+        images = this.readStaticImages(dirName);
         var pollItemsPath = dirName.match(/[A-Z][a-z]+/g);  // returns jelly or portal
         var path = '/' + pollItemsPath + 'PollItems'
-        var image = new Image();
 
-        firebaseDb.collection(path).doc()
-
+        for (let i = 0; i < images.length; i++)
+          firebaseDb.collection(path).doc(i).set(images[i]).then(() => {
+            resolve()
+          }).catch(error => {
+            reject()
+          })
       })
     }
   }

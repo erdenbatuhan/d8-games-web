@@ -53,14 +53,10 @@
               type: 'Skin',
               databaseType: 'skinRating',
               value: null
-            },
-            {
-              type: undefined,
-              databaseType: 'employeeComment',
-              value: null
             }
           ],
-          comment: null
+          employeeId: null,
+          employeeComment: null
         },
         options: this.generateOptions()
       }

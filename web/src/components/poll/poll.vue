@@ -60,6 +60,8 @@
          console.error(error)
        })
 
+       this.initializePollPromise(this.pollName)
+
        while (!this.signedInEmployeeId) {}
      }
    }
