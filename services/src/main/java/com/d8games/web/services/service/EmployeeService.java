@@ -21,6 +21,10 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public List<String> getAllIds() {
+        return employeeRepository.getAllEmployeeIds();
+    }
+
     public Employee getById(String id) {
         return employeeRepository.getEmployeeById(id);
     }

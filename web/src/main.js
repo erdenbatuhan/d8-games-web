@@ -84,16 +84,17 @@ const router = new VueRouter({
       component: contactUs
     },
     {
+      path: '/poll/:pollName',
+      component: poll,
+      props: true
+    },
+    {
       path: '/signOut',
       component: signOut
     },
     {
       path: '/404',
       component: notFound
-    },
-    {
-      path: '/poll',
-      component: poll
     },
     {
       path: '*',

@@ -1,4 +1,5 @@
-import {firebaseDb} from "../main.js";
+import {firebaseDb} from '../main.js';
+import ratingFields from '../assets/ratingFields.json'
 
 export default {
   data () {
@@ -7,96 +8,162 @@ export default {
     }
   },
   methods: {
-    getPollsPromise: function () {
+    getPollPromise: function (pollName) {
       return new Promise((resolve,reject) => {
-        firebaseDb.collection('polls').get().then((querySnapshot => {
-          resolve(querySnapshot);
+        firebaseDb.collection('polls').get().then((snapshot => {
+          let poll = null
+
+          snapshot.docs.forEach(doc => {
+            if (doc.data().name.toLowerCase() === pollName) {
+              poll = doc.data()
+            }
+          })
+
+          if (poll === null) {
+            reject("No poll found!")
+          }
+
+          resolve(poll)
         })).catch(error => {
           reject(error)
         });
       })
     },
-    getPollWithPollNamePromise: function (pollName) { // IMPORTANT: pollName is jellyPoll or portalPoll
+    savePollPromise: function (pollName, numberOfPollItems, employeeIds) {
       return new Promise((resolve, reject) => {
-          firebaseDb.collection('polls').get()
-                    .collection(pollName).get().then((querySnapshot => {
-            resolve(querySnapshot);
-          })).catch(error => {
+        let pollCollectionName = 'polls'
+
+        let poll = {
+          name: pollName,
+          items: this.getEmptyItems(pollName, numberOfPollItems, employeeIds)
+        }
+
+        this.getPollId().then(pollId => {
+          firebaseDb.collection(pollCollectionName).doc(pollId).set(poll).then(() => {
+            resolve()
+          }).catch(error => {
             reject(error)
           })
+        }).catch(error => {
+          reject(error)
+        })
       })
-  },
-    getPollItemsWithPollNamePromise: function (pollName) {
+    },
+    getEmptyItems: function (pollName, numberOfPollItems, employeeIds) {
+      let items = []
+
+      Array.apply(null, {length: numberOfPollItems}).map(Number.call, Number).forEach(n => {
+        items.push({
+          name: n,
+          ratings: this.getEmptyRatings(employeeIds)
+        })
+      })
+
+      return items
+    },
+    getEmptyRatings: function (employeeIds) {
+      let ratings = []
+
+      employeeIds.forEach(employeeId => {
+        ratings.push({
+          employeeId: employeeId,
+          ratingFields: ratingFields,
+          employeeComment: null
+        })
+      })
+
+      return ratings
+    },
+    getPollId: function () {
       return new Promise((resolve, reject) => {
-        let path = '/' + pollName + 'Items';
-        let pollItems = [];
+        firebaseDb.collection('polls').get().then(documentSnapshot => {
+          resolve(documentSnapshot.docs.length.toString())
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
+    /*,
+    getPollItemsPromise: function (pollName) {
+      return new Promise((resolve, reject) => {
+        let path = '/' + pollName + 'Items'
+        let pollItems = []
 
         firebaseDb.collection(path).get().then((querySnapshot => {
           querySnapshot.forEach(function (doc) {
-            pollItems.push(doc.data());
-          });
+            pollItems.push(doc.data())
+          })
 
-          resolve(pollItems);
+          resolve(pollItems)
         })).catch(error => {
           reject(error)
-        });
+        })
       })
     },
-    addPollWithName: function (pollName) {
-      firebaseDb.collection('polls').collection(pollName).set({
-        pollItems: []
-      });
-    },
-    addPollItemTo: function (pollName, image) {  // image is like background.png, only the name not the path.
-      let path = '/' + pollName + 'Items';
-      let numberOfItems = this.getPollWithPollName(pollName).length;
-      let imagePath = '../../static/images/' +  pollName + image;  // IMPORTANT: directory names should be camelCase
+    getPollItems: function () {
+      return new Promise((resolve, reject) => {
+        this.getPollPromise(pollId).then(pollSnapshot => {
+          let pollName = pollSnapshot.data().pollName
+          let imagePath = this.IMAGE_DIR + '/' + pollName + '/' + imageName + this.IMAGE_TYPE
 
-      firebaseDb.collection(path).doc(numberOfItems).set({
-        ratings: [{}],
-        imagePath: imagePath
+          pollSnapshot.set({
+            imagePath: imagePath,
+            ratings: [{}]
+          }).then(() => {
+            resolve()
+          }).catch(error => {
+            reject(error)
+          })
+        })
       })
     },
-    addRatingTo: function (pollName, pollItem, rating) {  // jelly/pollItems/1 is a pollItem, pollName is jellyPoll
-      let itemRatings = this.getPollWithPollNamePromise(pollName).collection('rating');
+    savePollItem: function (pollId, imageName) {
+      /*
+      return new Promise((resolve, reject) => {
+        this.getPollPromise(pollId).then(pollSnapshot => {
+          let pollName = pollSnapshot.data().pollName
+          let imagePath = this.IMAGE_DIR + '/' + pollName + '/' + imageName + this.IMAGE_TYPE
+
+          pollSnapshot.set({
+            imagePath: imagePath,
+            ratings: [{}]
+          }).then(() => {
+            resolve()
+          }).catch(error => {
+            reject(error)
+          })
+        })
+      })
+    },
+    getPollPromise: function (pollId) {
+      return new Promise((resolve, reject) => {
+        firebaseDb.collection('polls').doc(pollId).get().then((pollSnapshot => {
+          resolve(pollSnapshot)
+        })).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    addRatingTo: function (pollName, pollItem, rating) {  // jelly/pollItems/1 is a pollItem, pollName is poll
+      let itemRatings = this.getPollPromise(pollName).collection('rating');
       let numberOfRatings = itemRatings.length;
 
       itemRatings.doc('rating' + numberOfRatings).set({
         rating: {
-          employeeComment: rating.employeeComment,
           employeeId: rating.employeeId,
           itemRatings: {
             mainRating: rating.rating.mainRating,
             npcRating: rating.rating.npcRating,
             skinRating: rating.rating.skinRating,
             villainRating: rating.rating.villainRating
-          }
+          },
+          employeeComment: rating.employeeComment
         }
       })
     },
-    readStaticImages: function (dirName) {
-      var directory = '../static/images/' + dirName
-      console.log(directory)
-      var files = directory.target.files
-      var numberOfFiles = files.length
-      console.log(files)
-      var images = []
-
-      for (let i = 0; i < numberOfFiles; ++i) {
-        let reader = new FileReader();
-        reader.onloadend = function () {
-          images.push({
-            image: reader.result
-          });
-        };
-          reader.readAsDataURL(files[i])
-      }
-      return images;
-    },
-    initializePollPromise: function (dirName) {  // dir name is the name under static/images, for example: jellyPoll
+    initializePollPromise: function (dirName) {  // dir name is the name under static/images, for example: poll
       return new Promise((resolve, reject) => {
         let images = []
-        images = this.readStaticImages(dirName);
         var pollItemsPath = dirName.match(/[A-Z][a-z]+/g);  // returns jelly or portal
         var path = '/' + pollItemsPath + 'PollItems'
 
@@ -108,5 +175,6 @@ export default {
           })
       })
     }
+    */
   }
 }

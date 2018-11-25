@@ -30,6 +30,11 @@ public class EmployeeController {
         return employeeService.getAll();
     }
 
+    @GetMapping(value = "/id")
+    public List<String> getAllIds() {
+        return employeeService.getAllIds();
+    }
+
     @GetMapping(value = "/get")
     public Employee getById(@RequestParam String id) {
         return employeeService.getById(id);

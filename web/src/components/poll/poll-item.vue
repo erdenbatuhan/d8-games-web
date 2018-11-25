@@ -1,15 +1,20 @@
 <template>
-  <div>
-    <h3> Drawing No: {{pollItemCount}} </h3>
+  <div v-if="pollItem">
+    <h3> {{getDrawingName()}} </h3>
     <br>
+
     <form>
       <div class="b-col col-sm-6">
         <img :src="getImagePath()" alt="">
         <br><br>
 
-        <rating ref="ratingComponent"></rating>
+        <div v-if="pollItem.ratings">
+          <rating :ratings="pollItem.ratings" :signed-in-employee-id="signedInEmployeeId"></rating>
+        </div>
       </div>
     </form>
+
+    <br>
   </div>
 </template>
 
@@ -18,23 +23,21 @@
 
   export default {
     components: {rating},
-    props: ['pollName' , 'pollItem', 'pollItemCount', 'signedInEmployeeId'],
+    props: ['pollName' , 'pollItem', 'signedInEmployeeId'],
     data () {
       return {
-        name: 'poll-item',
-        poll: '',
+        IMAGE_DIR: '../../static/images/poll',
+        IMAGE_TYPE: '.png',
+        name: 'pollItem',
         rating: null
       }
     },
     methods: {
-      getImagePath: function () {
-        return '../../../static/images/' + this.pollName + '/' + this.pollItem.imagePath
+      getDrawingName: function () {
+        return this.pollName + ' Drawing No: ' + this.pollItem.name
       },
-      getRatingFromRatingComponent: function () {
-        let rating = this.$refs.ratingComponent.rating
-        rating.employeeId = this.signedInEmployeeId
-
-        return rating
+      getImagePath: function () {
+        return this.IMAGE_DIR + '/' + this.pollName.toLowerCase() + '/' + this.pollItem.name + this.IMAGE_TYPE
       }
     }
   }
