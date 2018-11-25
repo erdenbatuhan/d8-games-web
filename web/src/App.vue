@@ -10,6 +10,9 @@
 
 <script>
   export default {
+    created () {
+      this.$cookies.set('signedInEmployeeId', '2ee4d09a-4f60-422b-9e08-3d92e2512e60')
+    },
     methods: {
       isHome: function () {
         return this.$route.path === '/'

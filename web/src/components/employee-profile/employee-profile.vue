@@ -114,7 +114,7 @@
               voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
             }
 
-            return undefined
+            return true
           }
         })
       }

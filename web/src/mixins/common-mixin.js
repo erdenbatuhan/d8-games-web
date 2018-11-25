@@ -6,6 +6,9 @@ export default {
     }
   },
   methods: {
+    getJsonParsed: function (jsonData) {
+      return JSON.parse(JSON.stringify(jsonData))
+    },
     getImageSource: function (image) {
       return this.STATIC_IMAGES_DIR + image + this.IMAGE_TYPE
     },

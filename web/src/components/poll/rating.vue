@@ -8,34 +8,8 @@
       <br>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-2"> <!-- Empty Column --> </div>
-        <div class="col-sm-1" v-for="i in SCALE">
-          <p><b> {{ i }} </b></p>
-        </div>
-      </div>
-    </div>
-
-    <div v-for="ratingField in rating.ratingFields">
-      <hr>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-2">
-            <p><b> {{ ratingField.type }} </b></p>
-          </div>
-          <div class="col-sm-1" v-for="i in SCALE">
-            <label>
-              <input type="radio" :value="i" v-model="ratingField.value" :disabled="alreadyRated">
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <hr>
-    <br>
+    <rating-fields v-if="!alreadyRated" :rating-fields="rating.ratingFields" :disabled="false"></rating-fields>
+    <rating-fields v-else :rating-fields="averageRatingFieldsRated" :disabled="true"></rating-fields>
 
     <div class="left-justified">
       <h6 v-if="!alreadyRated"> 2. Please add your additional comments down below </h6>
@@ -46,7 +20,7 @@
 
     <div v-if="!alreadyRated">
       <textarea class="form-control"
-                v-model="rating.comment"
+                v-model="rating.employeeComment"
                 rows="2"
                 maxlength="500">
       </textarea>
@@ -65,16 +39,21 @@
 
 <script>
   import CommonMixin from '../../mixins/common-mixin.js'
+  import ratingFields from './rating-fields.vue'
+
+  import ratingFieldsConfig from '../../assets/ratingFieldsConfig.json'
 
   export default {
     mixins: [CommonMixin],
+    components: {ratingFields},
     props: ['ratings', 'signedInEmployeeId'],
     data () {
       return {
-        SCALE: 10,
+        LOWEST_SCALE: 0,
         name: 'rating',
         rating: null,
         alreadyRated: false,
+        averageRatingFieldsRated: null,
         additionalComments: null
       }
     },
@@ -97,15 +76,81 @@
         } else {
           let ratingFields = this.rating.ratingFields
 
-          ratingFields.forEach(ratingField => {
+          ratingFields.some(ratingField => {
             if (ratingField.value !== null) {
               this.alreadyRated = true
+
+              this.setAverageRatingFieldsRated()
               this.setAdditionalComments()
 
-              return undefined
+              return true
             }
           })
         }
+      },
+      setAverageRatingFieldsRated: function () {
+        let ratingsRated = this.getRatingsRated()
+
+        let numberOfRatingsRated = ratingsRated.length
+        let averageRatingFieldsRated = this.getJsonParsed(ratingFieldsConfig)
+
+        ratingsRated.forEach(ratingRated => {
+          ratingRated.ratingFieldsRated.forEach(ratingFieldRated => {
+            let averageRatingFieldValue = ratingFieldRated.value / numberOfRatingsRated
+
+            averageRatingFieldsRated.some(averageRatingFieldRated => {
+              if (ratingFieldRated.type === averageRatingFieldRated.type) {
+                if (averageRatingFieldRated.value === null) {
+                  averageRatingFieldRated.value = averageRatingFieldValue
+                } else {
+                  averageRatingFieldRated.value += averageRatingFieldValue
+                }
+
+                return true
+              }
+            })
+          })
+        })
+
+        this.averageRatingFieldsRated = this.getAverageRatingFieldsRatedRounded(averageRatingFieldsRated)
+        console.log(this.averageRatingFieldsRated)
+      },
+      getRatingsRated: function () {
+        let ratingsRated = []
+
+        this.ratings.forEach(rating => {
+          let atLeastOneFieldRated = false
+          let ratingRated = { ratingFieldsRated: [] }
+
+          rating.ratingFields.forEach(ratingField => {
+            if (ratingField.value) {
+              atLeastOneFieldRated = true
+            }
+
+            ratingRated.ratingFieldsRated.push({
+              type: ratingField.type,
+              value: ratingField.value || this.LOWEST_SCALE
+            })
+          })
+
+          if (atLeastOneFieldRated) {
+            ratingsRated.push(ratingRated)
+          }
+        })
+
+        return ratingsRated
+      },
+      getAverageRatingFieldsRatedRounded: function (averageRatingFieldsRated) {
+        let averageRatingFieldsRatedRounded = []
+
+        averageRatingFieldsRated.forEach(averageRatingFieldRated => {
+          averageRatingFieldsRatedRounded.push({
+            type: averageRatingFieldRated.type,
+            value: Math.round(averageRatingFieldRated.value)
+          })
+        })
+
+        return averageRatingFieldsRatedRounded
       },
       setAdditionalComments: function () {
         let additionalComments = []
@@ -133,7 +178,7 @@
     resize: none;
     height: 150px;
   }
-  
+
   .left-justified {
     text-align: left;
   }
