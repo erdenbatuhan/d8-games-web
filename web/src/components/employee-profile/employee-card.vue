@@ -15,13 +15,17 @@
           </p>
           <p class="card-text text-left"><b> Email <br></b> {{ employeeCardDto.email }} </p>
           <p class="card-text text-left"><b> Phone Number <br></b> {{ employeeCardDto.phoneNumber }} </p>
+          <!--
           <p class="card-text text-left"><b> Story Points Completed </b><br>{{ employeeCardDto.completedStoryPoints }} </p>
+          -->
           <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
 
+          <!--
           <div v-if="isManagerSignedIn()">
             <b-btn class="triggerButton" v-b-modal.addStoryPointsModal variant="outline-success" size="sm"> Add Story Points </b-btn>
             <add-story-points-modal :employee-id="employeeId"></add-story-points-modal>
           </div>
+          -->
 
           <div v-if="isEmployeeSignedIn()">
             <hr>
@@ -59,9 +63,10 @@
       }
     },
     methods: {
+      /*
       isManagerSignedIn: function () {
         return (this.isEmployeeSignedIn() && !this.employeeCardDto.managerId) || this.employeeCardDto.managerId === this.signedInEmployeeId
-      },
+      },*/
       isEmployeeSignedIn: function () {
         return this.employeeId === this.signedInEmployeeId
       },

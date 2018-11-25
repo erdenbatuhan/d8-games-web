@@ -13,7 +13,7 @@
 
     <div class="left-justified">
       <h6 v-if="!alreadyRated"> 2. Please add your additional comments down below </h6>
-      <h6 v-else-if="additionalComments"> 2. Additional comments given by the employees </h6>
+      <h6 v-else> 2. Additional comments given by the employees </h6>
 
       <br>
     </div>
@@ -31,6 +31,9 @@
           <p> {{ additionalComment }} </p>
         </li>
       </ul>
+    </div>
+    <div v-else class="left-justified">
+      <i> No additional comments given by the employees </i>
     </div>
 
     <br><br><br><br>
@@ -113,7 +116,6 @@
         })
 
         this.averageRatingFieldsRated = this.getAverageRatingFieldsRatedRounded(averageRatingFieldsRated)
-        console.log(this.averageRatingFieldsRated)
       },
       getRatingsRated: function () {
         let ratingsRated = []

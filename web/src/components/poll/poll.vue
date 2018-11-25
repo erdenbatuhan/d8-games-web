@@ -66,8 +66,6 @@
        })
      },
      mounted () {
-       while (!this.signedInEmployeeId) {}
-
        this.getPollPromise().then(() => {
          console.log('Successfully got ' + this.pollName + ' poll!')
        }).catch(error => {
