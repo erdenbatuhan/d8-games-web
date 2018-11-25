@@ -11,14 +11,16 @@
       <poll-item v-for="item in poll.items"
                  :poll-name="poll.name"
                  :poll-item="item"
-                 :signed-in-employee-id="signedInEmployeeId">
+                 :signed-in-employee-id="signedInEmployeeId"
+                 :key="item.id">
       </poll-item>
 
       <poll-footer></poll-footer>
     </div>
     <div v-else>
       <poll-result v-for="item in poll.items"
-                   :poll-item="item">
+                   :poll-item="item"
+                   :key="item.id">
       </poll-result>
     </div>
   </div>
