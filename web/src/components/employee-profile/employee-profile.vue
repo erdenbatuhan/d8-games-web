@@ -67,6 +67,10 @@
       }
     },
     mounted () {
+      if (!this.$cookies.isKey('signedInEmployeeId')) {
+        this.redirectTo('/')
+      }
+
       this.getEmployeeCardDto(this.employeeId).then(employeeCardDto => {
         this.employeeCardDto = employeeCardDto
       }).catch(() => {

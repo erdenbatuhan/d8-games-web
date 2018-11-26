@@ -34,6 +34,10 @@
       }
     },
     mounted () {
+      if (!this.$cookies.isKey('signedInEmployeeId')) {
+        this.redirectTo('/')
+      }
+
       this.getDashboardCardDtoList().then(dashboardCardDtoList => {
         this.dashboardCardDtoList = dashboardCardDtoList
       }).catch(() => {
