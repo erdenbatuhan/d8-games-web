@@ -1,0 +1,30 @@
+[
+  {
+    "currentStatus": "Online (Working from office)",
+    "voucherType": "IN",
+    "voucherLocation": "OFFICE",
+    "variant": "success",
+    "adminVariant": "dark"
+  },
+  {
+    "currentStatus": "Offline (Last seen at office)",
+    "voucherType": "OUT",
+    "voucherLocation": "OFFICE",
+    "variant": "danger",
+    "adminVariant": "dark"
+  },
+  {
+    "currentStatus": "Online (Working from home)",
+    "voucherType": "IN",
+    "voucherLocation": "HOME",
+    "variant": "info",
+    "adminVariant": "dark"
+  },
+  {
+    "currentStatus": "Offline (Last seen at home)",
+    "voucherType": "OUT",
+    "voucherLocation": "HOME",
+    "variant": "warning",
+    "adminVariant": "dark"
+  }
+]
