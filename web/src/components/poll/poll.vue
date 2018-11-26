@@ -55,14 +55,16 @@
      },
      created () {
        EventBus.$on('submit', () => {
-         this.formSubmitted = true
+         if (!this.formSubmitted) {
+           this.formSubmitted = true
 
-         this.savePollPromise().then(() => {
-           alert('Submission taken!')
-           this.redirectTo('/poll/' + this.pollName)
-         }).catch(error => {
-           console.error(error)
-         })
+           this.savePollPromise().then(() => {
+             alert('Submission taken!')
+             this.redirectTo('/poll/' + this.pollName)
+           }).catch(error => {
+             console.error(error)
+           })
+         }
        })
      },
      mounted () {
