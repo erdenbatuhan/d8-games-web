@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AudioToolbox
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -68,6 +69,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         self.authenticationId = ""
                     }))
                     
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                     present(alert, animated: true, completion: nil)
                 }
             }

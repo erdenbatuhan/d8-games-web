@@ -19,6 +19,10 @@
           <p class="card-text text-left"><b> Story Points Completed </b><br>{{ employeeCardDto.completedStoryPoints }} </p>
           -->
           <p class="card-text text-left"><b> Time Since Join (Days) <br></b> {{ employeeCardDto.timeSinceJoin }} </p>
+          <p v-if="employeeCurrentStatus"
+             class="card-text text-left">
+            <b> Current Status <br></b> {{ employeeCurrentStatus }}
+          </p>
 
           <!--
           <div v-if="isManagerSignedIn()">
@@ -50,7 +54,7 @@
   export default {
     mixins: [CommonMixin],
     components: {addStoryPointsModal},
-    props: ['employeeId', 'employeeCardDto', 'employeeImage'],
+    props: ['employeeId', 'employeeCardDto', 'employeeImage', 'employeeCurrentStatus'],
     data () {
       return {
         name: 'employeeCard',

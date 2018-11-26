@@ -9,7 +9,8 @@
         <div class="col-md-12 col-xl-3">
           <employee-card :employee-id="employeeId"
                          :employee-card-dto="employeeCardDto"
-                         :employee-image="getImageSource(IMAGE_DIR + employeeId)">
+                         :employee-image="getImageSource(IMAGE_DIR + employeeId)"
+                         :employee-current-status="employeeCurrentStatus">
           </employee-card>
 
           <div role="tablist" class="container">
@@ -41,7 +42,7 @@
   import employeeSummary from './employee-summary.vue'
   import voucherTable from './voucher-table'
 
-  import cellVariants from '../../assets/cellVariants.json'
+  import voucherConfig from '../../assets/voucherConfig.json'
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
@@ -52,11 +53,12 @@
         IMAGE_DIR: 'employee/',
         name: 'employeeProfile',
         spinner: true,
+        voucherConfig: voucherConfig,
         employeeCardDto: null,
         weeklySummaryDto: null,
         monthlySummaryDto: null,
         voucherItemDtoList: null,
-        cellVariants: cellVariants,
+        employeeCurrentStatus: null
       }
     },
     computed: {
@@ -65,6 +67,10 @@
       }
     },
     mounted () {
+      if (!this.$cookies.isKey('signedInEmployeeId')) {
+        this.redirectTo('/')
+      }
+
       this.getEmployeeCardDto(this.employeeId).then(employeeCardDto => {
         this.employeeCardDto = employeeCardDto
       }).catch(() => {
@@ -85,6 +91,11 @@
 
       this.getVoucherItemDtoList(this.employeeId).then(voucherItemDtoList => {
         this.voucherItemDtoList = this.getVoucherItemDtoListModified(voucherItemDtoList)
+
+        if (this.voucherItemDtoList.length !== 0) {
+          let lastVoucher = this.voucherItemDtoList[0]
+          this.employeeCurrentStatus = lastVoucher.config.currentStatus
+        }
       }).catch(() => {
         this.redirectTo('/')
       })
@@ -100,20 +111,21 @@
         return voucherItemDtoList
       },
       setCellVariantsOfVoucherItemDto: function (voucherItemDto) {
-        this.cellVariants.some(cellVariant => {
-          let hasSamevoucherType = cellVariant.voucherType === voucherItemDto.type
-          let hasSamevoucherLocation = cellVariant.voucherLocation === voucherItemDto.location
+        this.voucherConfig.some(config => {
+          let hasSameVoucherType = config.voucherType === voucherItemDto.type
+          let hasSameVoucherLocation = config.voucherLocation === voucherItemDto.location
 
-          if (hasSamevoucherType && hasSamevoucherLocation) {
+          if (hasSameVoucherType && hasSameVoucherLocation) {
             if (voucherItemDto.admin) {
               voucherItemDto['_cellVariants'] = {
-                ' ': cellVariant.value,
-                'type': cellVariant.adminValue,
+                ' ': config.variant,
+                'type': config.adminVariant,
               }
             } else {
-              voucherItemDto['_cellVariants'] = { ' ': cellVariant.value }
+              voucherItemDto['_cellVariants'] = { ' ': config.variant }
             }
-
+            
+            voucherItemDto.config = config
             return true
           }
         })

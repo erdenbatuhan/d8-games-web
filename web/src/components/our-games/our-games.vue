@@ -16,13 +16,14 @@
 </template>
 
 <script>
+  import CommonMixin from '../../mixins/common-mixin.js'
   import ServicesMixin from '../../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import gameInfoCard from './game-info-card.vue'
 
   export default {
-    mixins: [ServicesMixin],
+    mixins: [CommonMixin, ServicesMixin],
     components: {
       navbar,
       gameInfoCard
