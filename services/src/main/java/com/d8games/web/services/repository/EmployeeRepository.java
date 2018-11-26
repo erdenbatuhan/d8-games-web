@@ -14,6 +14,11 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
+    @Query(
+    "SELECT e.id " +
+    "FROM Employee e")
+    List<String> getAllEmployeeIds();
+
     Employee getEmployeeById(String id);
 
     Employee getEmployeeByMobilePhoneId(String mobilePhoneId);

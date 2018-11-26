@@ -13,6 +13,7 @@
             <b-nav-item><a v-on:click="redirectTo('/dashboard')"> Dashboard </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/ourGames')"> Our Games </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/contactUs')"> Contact Us </a></b-nav-item>
+            <b-nav-item><a v-on:click="redirectTo('/poll')"> Poll </a></b-nav-item>
         </b-navbar-nav>
 
         <!-- Right-justified nav items -->

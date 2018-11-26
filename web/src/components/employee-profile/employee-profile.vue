@@ -124,9 +124,9 @@
             } else {
               voucherItemDto['_cellVariants'] = { ' ': config.variant }
             }
-
+            
             voucherItemDto.config = config
-            return undefined
+            return true
           }
         })
       }
