@@ -61,12 +61,12 @@ public class DateUtil {
 
         int h = Integer.parseInt(hourParts.get(DateKey.H.key));
         int m = Integer.parseInt(hourParts.get(DateKey.M.key));
-        int s = Integer.parseInt(hourParts.get(DateKey.S.key));
+        // int s = Integer.parseInt(hourParts.get(DateKey.S.key));
 
         hourParts.remove(hourParts.get(DateKey.S.key));
 
         // 2nd half of the minute is rounded up
-        if (s >= 30) { m += 1; }
+        // if (s >= 30) { m += 1; }
 
         if (0 <= m && m < 15) { m = 0; }
         else if (15 <= m && m < 45) { m = 30; }
