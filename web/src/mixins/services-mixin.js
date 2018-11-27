@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       GET_CURRENT_IP_ENDPOINT: 'https://api.ipify.org/?format=json',
-      SERVICES_ENDPOINT: 'http://localhost:8888/api/services/controller',
+      SERVICES_ENDPOINT: 'http://d8games.net/api/services/controller',
       GET_DEPARTMENT_NAMES_ENDPOINT: '/department/name',
       GET_DASHBOARD_CARD_DTO_LIST_ENDPOINT: '/employee/dashboardCardDtoList',
       GET_EMPLOYEE_CARD_DTO_ENDPOINT: employeeId => {
