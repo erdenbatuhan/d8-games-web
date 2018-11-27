@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       GET_CURRENT_IP_ENDPOINT: 'https://api.ipify.org/?format=json',
-      SERVICES_ENDPOINT: 'http://142.93.173.131/api/services/controller',
+      SERVICES_ENDPOINT: 'http://localhost/api/services/controller',
       GET_EMPLOYEE_IDS_ENDPOINT: '/employee/id',
       GET_DEPARTMENT_NAMES_ENDPOINT: '/department/name',
       GET_DASHBOARD_CARD_DTO_LIST_ENDPOINT: '/employee/dashboardCardDtoList',
