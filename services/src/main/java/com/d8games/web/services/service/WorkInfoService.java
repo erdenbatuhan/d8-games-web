@@ -54,9 +54,11 @@ public class WorkInfoService {
             return;
 
         Date currentDate = new Date();
-        Date latestEndDate = actualEndDates.get(0);
 
-        if (currentDate.compareTo(latestEndDate) > 0) { // Current Date is the Latest End Date
+        Date latestEndDate = actualEndDates.get(0);
+        Date latestEndDatePlusOne = DateUtil.getDaysAhead(latestEndDate, 1);
+
+        if (currentDate.compareTo(latestEndDatePlusOne) >= 0) { // Today is after the Latest End Date
             System.out.println("Adding each week of the current month...");
             List<Employee> employees = employeeService.getAll();
 
