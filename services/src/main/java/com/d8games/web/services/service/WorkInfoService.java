@@ -56,33 +56,35 @@ public class WorkInfoService {
         Date currentDate = new Date();
         Date latestEndDate = actualEndDates.get(0);
 
-        if (currentDate.compareTo(latestEndDate) > 0) { // Current Date is after Latest End Date
+        if (currentDate.compareTo(latestEndDate) > 0) { // Current Date is the Latest End Date
             System.out.println("Adding each week of the current month...");
             List<Employee> employees = employeeService.getAll();
 
             for (Employee employee : employees)
-                add(employee);
+                add(latestEndDate, employee);
         }
     }
 
-    private void add(Employee employee) {
+    private void add(Date currentDate, Employee employee) {
         JobInfo jobInfo = jobInfoService.getByEmployee(employee);
 
         double unpaidHoursNeededPerWeek = jobInfo.getUnpaidHoursNeededPerMonth() / 4;
         double initialOfficeHoursCompleted = 0 - unpaidHoursNeededPerWeek;
 
-        add(initialOfficeHoursCompleted, 0.0, 0.0, employee);
+        add(currentDate, initialOfficeHoursCompleted, 0.0, 0.0, employee);
     }
 
-    public List<String> add(double officeHoursCompleted, double homeHoursCompleted, double excusedHoursUsed, Employee employee) {
+    public List<String> add(Date currentDate, double officeHoursCompleted, double homeHoursCompleted, double excusedHoursUsed, Employee employee) {
         List<String> workInfoIdList = new ArrayList<>();
-        Date currentDate = new Date();
+        Date latestEndDate = currentDate;
 
         for (int i = 0; i < 4; i++) {
-            WorkInfo workInfo = new WorkInfo();
-            Date sixDaysAhead = DateUtil.getDaysAhead(currentDate, 6);
+            Date oneDayAhead = DateUtil.getDaysAhead(latestEndDate, 1);
 
-            setDates(workInfo, currentDate, sixDaysAhead);
+            WorkInfo workInfo = new WorkInfo();
+            Date sixDaysAhead = DateUtil.getDaysAhead(oneDayAhead, 6);
+
+            setDates(workInfo, oneDayAhead, sixDaysAhead);
 
             workInfo.setOfficeHoursCompleted(officeHoursCompleted);
             workInfo.setHomeHoursCompleted(homeHoursCompleted);
@@ -90,9 +92,9 @@ public class WorkInfoService {
             workInfo.setEmployee(employee);
 
             workInfoIdList.add(workInfo.getId());
-            currentDate = DateUtil.getDaysAhead(sixDaysAhead, 1);
-
             workInfoRepository.save(workInfo);
+
+            latestEndDate = sixDaysAhead;
         }
 
         return workInfoIdList;

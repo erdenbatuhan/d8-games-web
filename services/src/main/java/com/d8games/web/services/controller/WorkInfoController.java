@@ -9,6 +9,7 @@ import com.d8games.web.services.service.WorkInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class WorkInfoController {
     public List<String> add(@RequestParam double officeHoursCompleted, @RequestParam double homeHoursCompleted,
                             @RequestParam double excusedHoursUsed, @RequestParam String employeeId) {
         Employee employee = employeeService.getById(employeeId);
-        return workInfoService.add(officeHoursCompleted, homeHoursCompleted, excusedHoursUsed, employee);
+        return workInfoService.add(new Date(), officeHoursCompleted, homeHoursCompleted, excusedHoursUsed, employee);
     }
 
     @GetMapping(value = "/weekly")
