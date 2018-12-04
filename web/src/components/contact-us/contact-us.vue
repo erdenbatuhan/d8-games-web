@@ -47,7 +47,7 @@
       this.getContactCardDtoList().then(contactCardDtoList => {
         this.contactCardDtoList = contactCardDtoList
       }).catch(() => {
-        // this.redirectTo('/')
+        this.redirectTo('/')
       })
     }
   }
