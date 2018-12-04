@@ -75,7 +75,7 @@
         return this.employeeId === this.signedInEmployeeId
       },
       signOut: function () {
-        this.redirectTo('/signOut')
+        this.redirectTo('/sign-out')
       }
     }
   }

@@ -8,8 +8,7 @@ Vue.use(VueAxios, axios)
 export default {
   data () {
     return {
-      GET_CURRENT_IP_ENDPOINT: 'https://api.ipify.org/?format=json',
-      SERVICES_ENDPOINT: 'http://localhost:8888/api/services/controller',
+      SERVICES_ENDPOINT: 'http://d8games.net/api/services/controller',
       GET_EMPLOYEE_IDS_ENDPOINT: '/employee/id',
       GET_DEPARTMENT_NAMES_ENDPOINT: '/department/name',
       GET_DASHBOARD_CARD_DTO_LIST_ENDPOINT: '/employee/dashboardCardDtoList',
@@ -40,10 +39,6 @@ export default {
     }
   },
   methods: {
-    getCurrentIp: function () {
-      let endpoint = this.GET_CURRENT_IP_ENDPOINT
-      return this.get(endpoint)
-    },
     getEmployeeIds: function () {
       let endpoint = this.SERVICES_ENDPOINT + this.GET_EMPLOYEE_IDS_ENDPOINT
       return this.get(endpoint)

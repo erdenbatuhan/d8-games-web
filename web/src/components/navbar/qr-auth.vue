@@ -69,28 +69,23 @@
         this.startAuthenticating(voucherType)
       },
       startAuthenticating: function (voucherType) {
-        this.getCurrentIp().then(currentIpResponse => {
-          this.saveNewAuthentication().then(authenticationId => {
-            this.authenticationId = authenticationId
-            this.setStateTo(1)
+        this.saveNewAuthentication().then(authenticationId => {
+          this.authenticationId = authenticationId
+          this.setStateTo(1)
 
-            this.getAuthenticatedEmployee(authenticationId).then(authenticatedEmployee => {
-              this.handleAuthentication(currentIpResponse.ip, authenticatedEmployee, voucherType, 2)
-            }).catch((error) => {
-              this.handleError(error.response, -2)
-            })
+          this.getAuthenticatedEmployee(authenticationId).then(authenticatedEmployee => {
+            this.handleAuthentication(authenticatedEmployee, voucherType, 2)
           }).catch((error) => {
-            this.handleError(error.response, -1)
+            this.handleError(error.response, -2)
           })
         }).catch((error) => {
           this.handleError(error.response, -1)
         })
       },
-      handleAuthentication: function (currentIp, authenticatedEmployee, voucherType, nextState) {
+      handleAuthentication: function (authenticatedEmployee, voucherType, nextState) {
         let nextErrorState = (-1) * nextState
-        let canAuthenticate = authenticatedEmployee.id && (currentIp === authenticatedEmployee.ip)
 
-        if (canAuthenticate) {
+        if (authenticatedEmployee.id) {
           if (!this.$cookies.isKey('signedInEmployeeId')) {
             this.handleSignIn(authenticatedEmployee.id, nextState)
           } else if (this.$cookies.get('signedInEmployeeId') === authenticatedEmployee.id) {

@@ -12,7 +12,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/services/controller/**")
-                .allowedOrigins("http://localhost:8080", "http://142.93.173.131")
+                .allowedOrigins(
+                        "http://localhost:8080",
+                        "http://localhost",
+                        "http://142.93.173.131",
+                        "http://d8games.net")
                 .allowedMethods("GET", "PUT", "POST");
     }
 }

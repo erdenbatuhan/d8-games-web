@@ -71,16 +71,16 @@ const router = new VueRouter({
       component: dashboard
     },
     {
-      path: '/employeeProfile/:employeeId',
+      path: '/employee-profile/:employeeId',
       component: employeeProfile,
       props: true
     },
     {
-      path: '/ourGames',
+      path: '/our-games',
       component: ourGames
     },
     {
-      path: '/contactUs',
+      path: '/contact-us',
       component: contactUs
     },
     {
@@ -89,7 +89,7 @@ const router = new VueRouter({
       props: true
     },
     {
-      path: '/signOut',
+      path: '/sign-out',
       component: signOut
     },
     {

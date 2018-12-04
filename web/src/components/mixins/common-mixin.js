@@ -16,9 +16,9 @@ export default {
       let nextLocation = '/'
 
       if (employeeId) {
-        nextLocation = '/employeeProfile/' + employeeId
+        nextLocation = '/employee-profile/' + employeeId
       } else if (this.$cookies.isKey('signedInEmployeeId')) {
-        nextLocation = '/employeeProfile/' + this.$cookies.get('signedInEmployeeId')
+        nextLocation = '/employee-profile/' + this.$cookies.get('signedInEmployeeId')
       }
 
       this.redirectTo(nextLocation)
