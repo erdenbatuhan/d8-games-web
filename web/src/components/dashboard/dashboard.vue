@@ -16,8 +16,8 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin.js'
-  import ServicesMixin from '../../mixins/services-mixin.js'
+  import CommonMixin from '../mixins/common-mixin.js'
+  import ServicesMixin from '../mixins/services-mixin.js'
 
   import navbar from '../navbar/navbar.vue'
   import dashboardCard from "./dashboard-card.vue"

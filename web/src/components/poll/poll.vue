@@ -22,8 +22,8 @@
    import {firebaseDb} from '../../main.js'
    import {EventBus} from "../../event-bus.js"
 
-   import CommonMixin from '../../mixins/common-mixin.js'
-   import ServicesMixin from '../../mixins/services-mixin.js'
+   import CommonMixin from '../mixins/common-mixin.js'
+   import ServicesMixin from '../mixins/services-mixin.js'
 
    import navbar from '../navbar/navbar.vue'
    import pollItem from './poll-item.vue'

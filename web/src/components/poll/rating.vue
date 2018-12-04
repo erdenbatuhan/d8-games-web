@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin.js'
+  import CommonMixin from '../mixins/common-mixin.js'
   import ratingFields from './rating-fields.vue'
 
   import ratingFieldsConfig from '../../assets/ratingFieldsConfig.json'

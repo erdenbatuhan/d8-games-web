@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin.js'
+  import CommonMixin from '../mixins/common-mixin.js'
   import addStoryPointsModal from './add-story-points-modal.vue'
 
   export default {

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin.js'
+  import CommonMixin from '../mixins/common-mixin.js'
   import QrAuth from "./qr-auth"
 
   export default {

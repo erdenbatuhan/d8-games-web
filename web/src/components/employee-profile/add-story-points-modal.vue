@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  import CommonMixin from '../../mixins/common-mixin.js'
-  import ServicesMixin from '../../mixins/services-mixin.js'
+  import CommonMixin from '../mixins/common-mixin.js'
+  import ServicesMixin from '../mixins/services-mixin.js'
 
   export default {
     mixins: [CommonMixin, ServicesMixin],
