@@ -7,8 +7,11 @@ import com.d8games.web.services.service.AuthenticationService;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -36,8 +39,25 @@ public class AuthenticationController {
     }
 
     @PutMapping(value = "/save")
-    public String save() {
-        return authenticationService.save();
+    public HttpStatus save() {
+        authenticationService.save();
+        return HttpStatus.OK;
+    }
+
+    @PutMapping(value = "/request")
+    public HttpStatus request(@RequestParam String employeeId) throws IOException, MessagingException {
+        authenticationService.request(employeeId);
+        return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/authenticate")
+    public HttpStatus authenticate(@RequestParam String employeeId, @RequestParam String authKey) {
+        Authentication lastAuthentication = authenticationService.getLastAuthenticationByEmployeeId(employeeId);
+
+        if (lastAuthentication.getId().equals(authKey))
+            return HttpStatus.OK;
+
+        return HttpStatus.UNAUTHORIZED;
     }
 
     @GetMapping(value = "/authenticatedEmployee")

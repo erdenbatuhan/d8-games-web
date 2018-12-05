@@ -4,10 +4,13 @@ import com.d8games.web.services.config.ConfigManager;
 import com.d8games.web.services.model.dto.AuthenticatedEmployeeDto;
 import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
+import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -21,12 +24,21 @@ public class AuthenticationService {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<Authentication> getAll() {
         return authenticationRepository.findAll();
     }
 
     public Authentication getById(String id) {
         return authenticationRepository.getAuthenticationById(id);
+    }
+
+    public Authentication getLastAuthenticationByEmployeeId(String employeeId) {
+        List<Authentication> authenticationList = authenticationRepository.
+                getAuthenticationListByEmployeeId(employeeId);
+        return authenticationList.get(0);
     }
 
     public String update(String id, String ip, String mobilePhoneId) {
@@ -39,12 +51,30 @@ public class AuthenticationService {
         return authentication.getId();
     }
 
-    public String save() {
+    public void save() {
         Authentication authentication = new Authentication();
         authentication.setCreatedDate(new Date());
 
         authenticationRepository.save(authentication);
-        return authentication.getId();
+    }
+
+    public void request(String employeeId) throws IOException, MessagingException {
+        Authentication authentication = new Authentication();
+        Employee employee = employeeService.getById(employeeId);
+
+        authentication.setCreatedDate(new Date());
+        authentication.setMobilePhoneId(employee.getMobilePhoneId());
+
+        authenticationRepository.save(authentication);
+        sendEmail(authentication, employee);
+    }
+
+    private void sendEmail(Authentication authentication, Employee employee) throws IOException, MessagingException {
+        final List<String> recipients = employeeService.getAllAdminEmails();
+        final String employeeFullName = employee.getName() + " " + employee.getSurname();
+        final String authKey = authentication.getId();
+
+        emailService.sendMail(recipients, employeeFullName, authKey);
     }
 
     public AuthenticatedEmployeeDto getAuthenticatedEmployeeDto(String authenticationId) throws TimeoutException {

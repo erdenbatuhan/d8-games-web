@@ -19,6 +19,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     "FROM Employee e")
     List<String> getAllEmployeeIds();
 
+    @Query(
+    "SELECT e.email " +
+    "FROM Employee e " +
+    "INNER JOIN Title t ON e.title = t " +
+    "INNER JOIN Department d ON t.department = d " +
+    "WHERE d.manager IS NULL " +
+    "ORDER BY t.name")
+    List<String> getAllAdminEmployeeEmails();
+
     Employee getEmployeeById(String id);
 
     Employee getEmployeeByMobilePhoneId(String mobilePhoneId);

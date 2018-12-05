@@ -40,6 +40,9 @@ public class ConfigManager {
 
     private static String countryCode;
 
+    private static String gmailUsername;
+    private static String gmailPassword;
+
     public ConfigManager() throws IOException {
         Properties properties = getProperties();
 
@@ -66,6 +69,9 @@ public class ConfigManager {
         ConfigManager.contactDepartmentName = properties.getProperty("contactDepartmentName");
 
         ConfigManager.countryCode = properties.getProperty("countryCode");
+
+        ConfigManager.gmailUsername = properties.getProperty("gmailUsername");
+        ConfigManager.gmailPassword = properties.getProperty("gmailPassword");
     }
 
     private Properties getProperties() throws IOException {
@@ -132,6 +138,10 @@ public class ConfigManager {
         return voucherNoOutPunishment;
     }
 
+    public static int getAuthenticationTimeout() {
+        return authenticationTimeout;
+    }
+
     public static String getContactDepartmentName() {
         return contactDepartmentName;
     }
@@ -140,7 +150,11 @@ public class ConfigManager {
         return countryCode;
     }
 
-    public static int getAuthenticationTimeout() {
-        return authenticationTimeout;
+    public static String getGmailUsername() {
+        return gmailUsername;
+    }
+
+    public static String getGmailPassword() {
+        return gmailPassword;
     }
 }
