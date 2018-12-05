@@ -116,6 +116,6 @@ new Vue({
   },
   template: '<App/>',
   mounted () {
-    this.$cookies.config('7d')
+    this.$cookies.config('30d')
   }
 })

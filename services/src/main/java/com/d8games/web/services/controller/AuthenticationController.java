@@ -34,8 +34,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/update")
-    public String update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
-        return authenticationService.update(id, ip, mobilePhoneId);
+    public void update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
+        authenticationService.update(id, ip, mobilePhoneId);
     }
 
     @PutMapping(value = "/save")

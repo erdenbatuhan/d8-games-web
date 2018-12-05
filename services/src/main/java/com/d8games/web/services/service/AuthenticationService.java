@@ -6,7 +6,9 @@ import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.AuthenticationRepository;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -41,14 +43,13 @@ public class AuthenticationService {
         return authenticationList.get(0);
     }
 
-    public String update(String id, String ip, String mobilePhoneId) {
+    public void update(String id, String ip, String mobilePhoneId) {
         Authentication authentication = authenticationRepository.getAuthenticationById(id);
 
         authentication.setIp(ip);
         authentication.setMobilePhoneId(mobilePhoneId);
 
         authenticationRepository.save(authentication);
-        return authentication.getId();
     }
 
     public void save() {
