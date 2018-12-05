@@ -14,7 +14,7 @@
         <!-- ACTION STATE -->
         <div v-if="state === 0">
           <p v-if="requestEmployee.id" class="modal-info float-right">
-            <b-button variant="outline-success" class="btn-sm" @click="handleAuthenticationRequest"> Request Password </b-button>
+            <b-button variant="outline-success" class="btn-sm" @click="request"> Request Password </b-button>
           </p>
           <p v-else class="modal-info float-left">
             ID is not present, please enter your ID...
@@ -33,17 +33,17 @@
 
         <!-- ACTION STATE -->
         <p v-else-if="state === 2" class="modal-info float-right">
-          <b-button variant="outline-success" class="btn-sm" @click="handleSignIn"> Sign in as {{ requestEmployee.name }} </b-button>
+          <b-button variant="outline-success" class="btn-sm" @click="authenticate"> Authenticate in as {{ requestEmployee.name }} </b-button>
         </p>
 
         <!-- TRANSITION STATE (TRYING) -->
         <p v-else-if="state === 3" class="modal-info float-left">
-          Signing in as {{ requestEmployee.name }}...
+          Authenticating as {{ requestEmployee.name }}...
         </p>
 
         <!-- TRANSITION STATE (FAILED) -->
         <p v-else-if="state === -3" class="modal-info modal-error float-left">
-          Sign in is unsuccessful! Please try again.
+          Authentication is unsuccessful! Please try again.
         </p>
       </div>
     </b-modal>
@@ -74,7 +74,10 @@
           name: null,
           authKey: null
         },
-        authenticationId: null
+        voucher: {
+          type: null,
+          location: null
+        }
       }
     },
     mounted () {
@@ -98,12 +101,12 @@
       showModal: function (voucherType) {
         if (voucherType) {
           this.title = 'Vouch ' + voucherType
+          this.voucher.type = voucherType
         }
 
         this.modalShow = !this.modalShow
-        //this.startAuthenticating(voucherType)
       },
-      handleAuthenticationRequest: function () {
+      request: function () {
         this.setStateTo(1)
 
         this.requestAuthentication(this.requestEmployee.id).then(requestEmployeeName => {
@@ -113,21 +116,27 @@
           this.handleError(error, -1)
         })
       },
-      handleSignIn: function () {
+      authenticate: function () {
         this.setStateTo(3)
 
         this.authenticateEmployee(this.requestEmployee.id, this.requestEmployee.authKey).then(() => {
-          this.$cookies.set('signedInEmployeeId', this.requestEmployee.id)
-          this.setStateTo(this.LAST_STATE)
+          if (!this.$cookies.isKey('signedInEmployeeId')) {
+            this.$cookies.set('signedInEmployeeId', this.requestEmployee.id)
+            this.setStateTo(this.LAST_STATE)
+          } else if (this.$cookies.get('signedInEmployeeId') === this.requestEmployee.id) {
+            this.handleVouching(this.LAST_STATE, -3)
+          }
+
+          this.handleError(null, -3)
         }).catch(error => {
           this.handleError(error, -3)
         })
       },
-      handleVouching: function (authenticatedEmployee, voucherType, nextState, nextErrorState) {
-        this.addVoucher(authenticatedEmployee.id, authenticatedEmployee.ip, voucherType).then(() => {
+      handleVouching: function (nextState, nextErrorState) {
+        this.addVoucherWithLocation(this.requestEmployee.id, this.voucher.type, this.voucher.location).then(() => {
           this.setStateTo(nextState)
         }).catch(error => {
-          this.handleError(error.response, nextErrorState)
+          this.handleError(error, nextErrorState)
         })
       },
       handleError: function (error, nextErrorState) {

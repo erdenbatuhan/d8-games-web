@@ -39,6 +39,9 @@ export default {
       ADD_VOUCHER_ENDPOINT: (employeeId, ip, type) => {
         return '/voucher/add?employeeId=' + employeeId + '&ip=' + ip + '&type=' + type
       },
+      ADD_VOUCHER_WITH_LOCATION_ENDPOINT: (employeeId, type, location) => {
+        return '/voucher/addWithLocation?employeeId=' + employeeId + '&type=' + type + '&location=' + location
+      },
       ADD_STORY_POINTS_ENDPOINT: (employeeId, storyPointsToAdd) => {
         return '/employee/addStoryPoints?employeeId=' + employeeId + "&storyPointsToAdd=" + storyPointsToAdd
       }
@@ -99,6 +102,10 @@ export default {
     },
     addVoucher: function (employeeId, ip, type) {
       let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_ENDPOINT(employeeId, ip, type)
+      return this.put(endpoint)
+    },
+    addVoucherWithLocation: function (employeeId, type, location) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_WITH_LOCATION_ENDPOINT(employeeId, type, location)
       return this.put(endpoint)
     },
     addStoryPoints: function (employeeId, storyPointsToAdd) {

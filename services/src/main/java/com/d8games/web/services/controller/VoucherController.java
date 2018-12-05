@@ -39,6 +39,12 @@ public class VoucherController {
         return voucherService.add(type, ip, employeeId, false);
     }
 
+    @PutMapping(value = "/addWithLocation")
+    public String addWithLocation(@RequestParam String type, @RequestParam String location, @RequestParam String employeeId)
+            throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {
+        return voucherService.addWithLocation(type, location, employeeId, false);
+    }
+
     @GetMapping(value = "/voucherItemDtoList")
     public List<VoucherItemDto> getVoucherItemDtoList(@RequestParam String employeeId)
             throws Exception {

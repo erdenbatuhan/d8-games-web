@@ -120,6 +120,16 @@ public class VoucherService {
         return voucher;
     }
 
+    public String addWithLocation(String type, String location, String employeeId, boolean admin) {
+        final String officeIp = ConfigManager.getOfficeIp();
+        final String randomHomeIp = "99.999.999.999";
+
+        if (location.equals(ConfigManager.getVoucherLocationOffice()))
+            return add(type, officeIp, employeeId, admin);
+
+        return add(type, randomHomeIp, employeeId, admin);
+    }
+
     public String add(String type, String ip, String employeeId, boolean admin)
             throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {
         final String officeIp = ConfigManager.getOfficeIp();
