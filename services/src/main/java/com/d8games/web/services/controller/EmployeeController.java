@@ -1,7 +1,7 @@
 package com.d8games.web.services.controller;
 
 import com.d8games.web.services.config.ConfigManager;
-import com.d8games.web.services.exception.EmployeeNotFound;
+import com.d8games.web.services.exception.EmployeeNotFoundException;
 import com.d8games.web.services.model.dto.ContactCardDto;
 import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
@@ -72,11 +72,11 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employeeCardDto")
-    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
+    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFoundException {
         EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
 
         if (employeeCardDto == null) {
-            throw new EmployeeNotFound(employeeId);
+            throw new EmployeeNotFoundException(employeeId);
         } else {
             String managerId = employeeCardDto.getManagerId();
             String managerFullName = employeeService.getEmployeeFullNameById(managerId);

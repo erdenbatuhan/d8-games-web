@@ -6,9 +6,7 @@ import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.AuthenticationRepository;
-import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -59,7 +57,7 @@ public class AuthenticationService {
         authenticationRepository.save(authentication);
     }
 
-    public void request(String employeeId) throws IOException, MessagingException {
+    public Employee requestAuth(String employeeId) throws IOException, MessagingException {
         Authentication authentication = new Authentication();
         Employee employee = employeeService.getById(employeeId);
 
@@ -68,6 +66,8 @@ public class AuthenticationService {
 
         authenticationRepository.save(authentication);
         sendEmail(authentication, employee);
+
+        return employee;
     }
 
     private void sendEmail(Authentication authentication, Employee employee) throws IOException, MessagingException {
