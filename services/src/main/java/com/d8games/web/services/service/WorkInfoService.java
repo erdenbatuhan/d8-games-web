@@ -38,7 +38,7 @@ public class WorkInfoService {
     }
 
     public WeeklySummaryDto getWeeklySummaryDto(String employeeId) {
-        return workInfoRepository.getWeeklySummaryDto(new Date(), employeeId);
+        return workInfoRepository.getWeeklySummaryDto(DateUtil.getCurrentDate(), employeeId);
     }
 
     public MonthlySummaryDto getMonthlySummaryDto(String employeeId) {
@@ -53,7 +53,7 @@ public class WorkInfoService {
         if (actualEndDates.size() == 0)
             return;
 
-        Date currentDate = new Date();
+        Date currentDate = DateUtil.getCurrentDate();
 
         Date latestEndDate = actualEndDates.get(0);
         Date latestEndDatePlusOne = DateUtil.getDaysAhead(latestEndDate, 1);

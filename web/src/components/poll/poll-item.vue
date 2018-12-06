@@ -9,7 +9,7 @@
         <br><br>
 
         <div v-if="pollItem.ratings">
-          <rating :ratings="pollItem.ratings" :signed-in-employee-id="signedInEmployeeId"></rating>
+          <rating :poll-name="pollName" :ratings="pollItem.ratings" :signed-in-employee-id="signedInEmployeeId"></rating>
         </div>
       </div>
     </form>

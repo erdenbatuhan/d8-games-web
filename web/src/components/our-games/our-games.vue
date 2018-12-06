@@ -7,7 +7,7 @@
       <hr>
 
       <div class="row">
-        <b-col class="col-sm-4" v-for="game in games" :key="game.id">
+        <b-col class="col-sm-4" v-for="game in []" :key="game.id">
           <game-info-card :game="game"></game-info-card>
         </b-col>
       </div>
@@ -36,7 +36,7 @@
         games: null
       }
     },
-    mounted() {
+    mounted () {
       this.getGames().then(games => {
         this.games = games
       }).catch(() => {

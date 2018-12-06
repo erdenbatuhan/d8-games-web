@@ -1,18 +1,20 @@
-[
-  {
-    "type": "Main",
-    "value": null
-  },
-  {
-    "type": "NPC",
-    "value": null
-  },
-  {
-    "type": "Villain",
-    "value": null
-  },
-  {
-    "type": "Skin",
-    "value": null
-  }
-]
+{
+  "jelly": [
+    {
+      "type": "Main",
+      "value": null
+    },
+    {
+      "type": "NPC",
+      "value": null
+    },
+    {
+      "type": "Villain",
+      "value": null
+    },
+    {
+      "type": "Skin",
+      "value": null
+    }
+  ]
+}

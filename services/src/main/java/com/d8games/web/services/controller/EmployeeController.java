@@ -1,13 +1,14 @@
 package com.d8games.web.services.controller;
 
 import com.d8games.web.services.config.ConfigManager;
-import com.d8games.web.services.exception.EmployeeNotFound;
+import com.d8games.web.services.exception.EmployeeNotFoundException;
 import com.d8games.web.services.model.dto.ContactCardDto;
 import com.d8games.web.services.model.dto.DashboardCardDto;
 import com.d8games.web.services.model.dto.EmployeeCardDto;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.EmployeeService;
 import com.d8games.web.services.service.TitleService;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class EmployeeController {
         employee.setEmail(email);
         employee.setPhoneNumber(ConfigManager.getCountryCode() + " " + phoneNumber);
         employee.setCompletedStoryPoints(0.0);
-        employee.setJoinDate(new Date()); // Get the current date
+        employee.setJoinDate(DateUtil.getCurrentDate()); // Get the current date
         employee.setTitle(titleService.getById(titleId));
 
         employeeService.save(employee);
@@ -72,11 +73,11 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employeeCardDto")
-    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFound {
+    public EmployeeCardDto getEmployeeCardDto(@RequestParam String employeeId) throws EmployeeNotFoundException {
         EmployeeCardDto employeeCardDto = employeeService.getEmployeeCardDto(employeeId);
 
         if (employeeCardDto == null) {
-            throw new EmployeeNotFound(employeeId);
+            throw new EmployeeNotFoundException(employeeId);
         } else {
             String managerId = employeeCardDto.getManagerId();
             String managerFullName = employeeService.getEmployeeFullNameById(managerId);

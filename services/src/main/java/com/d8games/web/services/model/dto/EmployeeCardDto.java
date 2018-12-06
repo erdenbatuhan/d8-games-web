@@ -1,5 +1,6 @@
 package com.d8games.web.services.model.dto;
 
+import com.d8games.web.services.util.DateUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +35,7 @@ public class EmployeeCardDto {
     }
 
     public void setTimeSinceJoin(Date joinDate) {
-        long timeInMillies = new Date().getTime() - joinDate.getTime();
+        long timeInMillies = DateUtil.getCurrentDate().getTime() - joinDate.getTime();
         long timeInDays = TimeUnit.DAYS.convert(timeInMillies, TimeUnit.MILLISECONDS);
 
         this.timeSinceJoin = timeInDays;

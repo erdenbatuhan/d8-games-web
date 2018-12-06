@@ -13,7 +13,7 @@
             <b-nav-item><a v-on:click="redirectTo('/dashboard')"> Dashboard </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/our-games')"> Our Games </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/contact-us')"> Contact Us </a></b-nav-item>
-            <b-nav-item><a v-on:click="redirectTo('/poll')"> Poll </a></b-nav-item>
+            <b-nav-item><a v-on:click="redirectTo('/poll/' + currentPoll)"> Poll </a></b-nav-item>
         </b-navbar-nav>
 
         <!-- Right-justified nav items -->
@@ -49,7 +49,7 @@
           </b-nav-item>
         </b-navbar-nav>
 
-        <qr-auth ref="qrAuth"></qr-auth>
+        <pass-auth ref="passAuth"></pass-auth>
       </b-collapse>
     </b-navbar>
 
@@ -61,17 +61,18 @@
 
 <script>
   import CommonMixin from '../mixins/common-mixin.js'
-  import QrAuth from "./qr-auth"
+  import passAuth from "./pass-auth.vue"
 
   export default {
     mixins: [CommonMixin],
-    components: {QrAuth},
+    components: {passAuth},
     props: ['bottomPadding', 'employeeId', 'voucherItemDtoListLength'],
     data() {
       return {
         EMPLOYEE_IMAGE_DIR: 'employee/',
         LOGO_PATH: '/static/images/navbar/logo.png',
-        name: 'navbar'
+        name: 'navbar',
+        currentPoll: 'jelly'
       }
     },
     computed: {
@@ -81,7 +82,7 @@
     },
     methods: {
       showModal: function (voucherType) {
-        this.$refs.qrAuth.showModal(voucherType)
+        this.$refs.passAuth.showModal(voucherType)
       },
       canView: function (voucherType) {
         let isSignedInEmployeeProfile = this.employeeId === this.signedInEmployeeId

@@ -8,7 +8,7 @@ Vue.use(VueAxios, axios)
 export default {
   data () {
     return {
-      SERVICES_ENDPOINT: 'http://d8games.net/api/services/controller',
+      SERVICES_ENDPOINT: 'http://localhost:8888/api/services/controller',
       GET_EMPLOYEE_IDS_ENDPOINT: '/employee/id',
       GET_DEPARTMENT_NAMES_ENDPOINT: '/department/name',
       GET_DASHBOARD_CARD_DTO_LIST_ENDPOINT: '/employee/dashboardCardDtoList',
@@ -30,8 +30,17 @@ export default {
       GET_CONTACT_CARD_DTO_LIST_ENDPOINT: '/employee/contactCardDtoList',
       GET_GAMES_ENDPOINT: '/game',
       SAVE_NEW_AUTHENTICATION_ENDPOINT: '/authentication/save',
+      REQUEST_AUTHENTICATION_ENDPOINT: employeeId => {
+        return '/authentication/requestAuth?employeeId=' + employeeId
+      },
+      AUTHENTICATE_EMPLOYEE_ENDPOINT: (employeeId, authKey) => {
+        return '/authentication/authenticate?employeeId=' + employeeId + '&authKey=' + authKey
+      },
       ADD_VOUCHER_ENDPOINT: (employeeId, ip, type) => {
         return '/voucher/add?employeeId=' + employeeId + '&ip=' + ip + '&type=' + type
+      },
+      ADD_VOUCHER_WITH_LOCATION_ENDPOINT: (employeeId, type, location) => {
+        return '/voucher/addWithLocation?employeeId=' + employeeId + '&type=' + type + '&location=' + location
       },
       ADD_STORY_POINTS_ENDPOINT: (employeeId, storyPointsToAdd) => {
         return '/employee/addStoryPoints?employeeId=' + employeeId + "&storyPointsToAdd=" + storyPointsToAdd
@@ -83,8 +92,20 @@ export default {
       let endpoint = this.SERVICES_ENDPOINT + this.SAVE_NEW_AUTHENTICATION_ENDPOINT
       return this.put(endpoint);
     },
+    requestAuthentication: function (employeeId) {
+      let endpoint = this.SERVICES_ENDPOINT + this.REQUEST_AUTHENTICATION_ENDPOINT(employeeId)
+      return this.put(endpoint)
+    },
+    authenticateEmployee: function (employeeId, authKey) {
+      let endpoint = this.SERVICES_ENDPOINT + this.AUTHENTICATE_EMPLOYEE_ENDPOINT(employeeId, authKey)
+      return this.get(endpoint)
+    },
     addVoucher: function (employeeId, ip, type) {
       let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_ENDPOINT(employeeId, ip, type)
+      return this.put(endpoint)
+    },
+    addVoucherWithLocation: function (employeeId, type, location) {
+      let endpoint = this.SERVICES_ENDPOINT + this.ADD_VOUCHER_WITH_LOCATION_ENDPOINT(employeeId, type, location)
       return this.put(endpoint)
     },
     addStoryPoints: function (employeeId, storyPointsToAdd) {

@@ -1,15 +1,16 @@
 package com.d8games.web.services.controller;
 
+import com.d8games.web.services.exception.EmployeeNotAuthorizedException;
 import com.d8games.web.services.model.dto.AuthenticatedEmployeeDto;
-import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
+import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.service.AuthenticationService;
-import com.d8games.web.services.service.EmployeeService;
-import com.d8games.web.services.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -31,13 +32,31 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/update")
-    public String update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
-        return authenticationService.update(id, ip, mobilePhoneId);
+    public void update(@RequestParam String id, @RequestParam String ip, @RequestParam String mobilePhoneId) {
+        authenticationService.update(id, ip, mobilePhoneId);
     }
 
     @PutMapping(value = "/save")
-    public String save() {
-        return authenticationService.save();
+    public HttpStatus save() {
+        authenticationService.save();
+        return HttpStatus.OK;
+    }
+
+    @PutMapping(value = "/requestAuth")
+    public String requestAuth(@RequestParam String employeeId) throws IOException, MessagingException {
+        Employee requestEmployee = authenticationService.requestAuth(employeeId);
+        return requestEmployee.getName();
+    }
+
+    @GetMapping(value = "/authenticate")
+    public HttpStatus authenticate(@RequestParam String employeeId, @RequestParam String authKey)
+            throws EmployeeNotAuthorizedException {
+        Authentication lastAuthentication = authenticationService.getLastAuthenticationByEmployeeId(employeeId);
+
+        if (lastAuthentication.getId().equals(authKey))
+            return HttpStatus.OK;
+
+        throw new EmployeeNotAuthorizedException(employeeId);
     }
 
     @GetMapping(value = "/authenticatedEmployee")

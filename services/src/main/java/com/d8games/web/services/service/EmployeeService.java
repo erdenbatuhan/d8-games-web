@@ -25,6 +25,10 @@ public class EmployeeService {
         return employeeRepository.getAllEmployeeIds();
     }
 
+    public List<String> getAllAdminEmails() {
+        return employeeRepository.getAllAdminEmployeeEmails();
+    }
+
     public Employee getById(String id) {
         return employeeRepository.getEmployeeById(id);
     }

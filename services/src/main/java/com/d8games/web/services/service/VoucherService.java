@@ -68,7 +68,7 @@ public class VoucherService {
 
     @Scheduled(fixedRate = 7200000)
     public void performChecksForMissingVouchers() {
-        Date currentDate = new Date();
+        Date currentDate = DateUtil.getCurrentDate();
         DateUtil dateUtil = new DateUtil(currentDate);
 
         if (DateUtil.isNight(dateUtil.getIntegerHour())) {
@@ -120,14 +120,34 @@ public class VoucherService {
         return voucher;
     }
 
+    public String addWithLocation(String type, String location, String employeeId, boolean admin) {
+        final String officeIp = ConfigManager.getOfficeIp();
+        final String randomHomeIp = "99.999.999.999";
+
+        if (type.equals(ConfigManager.getVoucherTypeOut())) {
+            final List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employeeId);
+            final VoucherDto lastVoucherDto = voucherDtoList.get(0);
+
+            location = lastVoucherDto.getLocation();
+        }
+
+        if (location.equals(ConfigManager.getVoucherLocationOffice()))
+            return add(type, officeIp, employeeId, admin);
+
+        return add(type, randomHomeIp, employeeId, admin);
+    }
+
     public String add(String type, String ip, String employeeId, boolean admin)
             throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {
+        Date currentDate = DateUtil.getCurrentDate();
+
         final String officeIp = ConfigManager.getOfficeIp();
         final String locationOffice = ConfigManager.getVoucherLocationOffice();
         final String locationHome = ConfigManager.getVoucherLocationHome();
 
         Voucher voucher = new Voucher();
-        DateUtil dateUtil = new DateUtil(new Date());
+        DateUtil dateUtil = new DateUtil(currentDate);
+
         String location = (officeIp.equals(ip)) ? locationOffice : locationHome;
 
         checkVoucherConstraints(dateUtil, type, location, employeeId);
@@ -178,7 +198,7 @@ public class VoucherService {
         final String day = dateUtil.getDay();
         final String hour = dateUtil.getHour();
 
-        voucher.setExactVoucherDate(new Date());
+        voucher.setExactVoucherDate(DateUtil.getCurrentDate());
         voucher.setActualDate(actualDate);
         voucher.setDate(date);
         voucher.setDay(day);

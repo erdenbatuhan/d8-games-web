@@ -4,10 +4,15 @@ import com.d8games.web.services.config.ConfigManager;
 import com.d8games.web.services.model.dto.AuthenticatedEmployeeDto;
 import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
+import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.AuthenticationRepository;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -21,6 +26,19 @@ public class AuthenticationService {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Scheduled(fixedRate = 14400000)
+    public void removeAuthenticationsEachNight() {
+        Date currentDate = DateUtil.getCurrentDate();
+        DateUtil dateUtil = new DateUtil(currentDate);
+
+        if (DateUtil.isNight(dateUtil.getIntegerHour())) {
+            authenticationRepository.deleteAll();
+        }
+    }
+
     public List<Authentication> getAll() {
         return authenticationRepository.findAll();
     }
@@ -29,22 +47,47 @@ public class AuthenticationService {
         return authenticationRepository.getAuthenticationById(id);
     }
 
-    public String update(String id, String ip, String mobilePhoneId) {
+    public Authentication getLastAuthenticationByEmployeeId(String employeeId) {
+        List<Authentication> authenticationList = authenticationRepository.
+                getAuthenticationListByEmployeeId(employeeId);
+        return authenticationList.get(0);
+    }
+
+    public void update(String id, String ip, String mobilePhoneId) {
         Authentication authentication = authenticationRepository.getAuthenticationById(id);
 
         authentication.setIp(ip);
         authentication.setMobilePhoneId(mobilePhoneId);
 
         authenticationRepository.save(authentication);
-        return authentication.getId();
     }
 
-    public String save() {
+    public void save() {
         Authentication authentication = new Authentication();
-        authentication.setCreatedDate(new Date());
+        authentication.setCreatedDate(DateUtil.getCurrentDate());
 
         authenticationRepository.save(authentication);
-        return authentication.getId();
+    }
+
+    public Employee requestAuth(String employeeId) throws IOException, MessagingException {
+        Authentication authentication = new Authentication();
+        Employee employee = employeeService.getById(employeeId);
+
+        authentication.setCreatedDate(DateUtil.getCurrentDate());
+        authentication.setMobilePhoneId(employee.getMobilePhoneId());
+
+        authenticationRepository.save(authentication);
+        sendEmail(authentication, employee);
+
+        return employee;
+    }
+
+    private void sendEmail(Authentication authentication, Employee employee) throws IOException, MessagingException {
+        final List<String> recipients = employeeService.getAllAdminEmails();
+        final String employeeFullName = employee.getName() + " " + employee.getSurname();
+        final String authKey = authentication.getId();
+
+        emailService.sendMail(recipients, employeeFullName, authKey);
     }
 
     public AuthenticatedEmployeeDto getAuthenticatedEmployeeDto(String authenticationId) throws TimeoutException {

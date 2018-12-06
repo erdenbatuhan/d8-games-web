@@ -3,6 +3,7 @@ package com.d8games.web.services.service;
 import com.d8games.web.services.model.entity.MissingVoucherHistory;
 import com.d8games.web.services.model.entity.Voucher;
 import com.d8games.web.services.repository.MissingVoucherHistoryRepository;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class MissingVoucherHistoryService {
     public String add(Voucher voucher) {
         MissingVoucherHistory missingVoucherHistory = new MissingVoucherHistory();
 
-        missingVoucherHistory.setCreatedDate(new Date());
+        missingVoucherHistory.setCreatedDate(DateUtil.getCurrentDate());
         missingVoucherHistory.setVoucher(voucher);
 
         missingVoucherHistoryRepository.save(missingVoucherHistory);

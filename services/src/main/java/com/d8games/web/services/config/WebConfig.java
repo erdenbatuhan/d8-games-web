@@ -17,6 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost",
                         "http://142.93.173.131",
                         "http://d8games.net")
-                .allowedMethods("GET", "PUT", "POST");
+                .allowedMethods("GET", "PUT", "POST", "OPTIONS");
     }
 }
