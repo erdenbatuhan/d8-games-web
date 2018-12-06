@@ -124,6 +124,13 @@ public class VoucherService {
         final String officeIp = ConfigManager.getOfficeIp();
         final String randomHomeIp = "99.999.999.999";
 
+        if (type.equals(ConfigManager.getVoucherTypeOut())) {
+            final List<VoucherDto> voucherDtoList = voucherRepository.getVoucherDtoList(employeeId);
+            final VoucherDto lastVoucherDto = voucherDtoList.get(0);
+
+            location = lastVoucherDto.getLocation();
+        }
+
         if (location.equals(ConfigManager.getVoucherLocationOffice()))
             return add(type, officeIp, employeeId, admin);
 
