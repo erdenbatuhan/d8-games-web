@@ -159,7 +159,7 @@
          employeeIds.forEach(employeeId => {
            ratings.push({
              employeeId: employeeId,
-             ratingFields: this.getJsonParsed(ratingFieldsConfig),
+             ratingFields: this.getJsonParsed(ratingFieldsConfig[this.pollName]),
              employeeComment: null
            })
          })

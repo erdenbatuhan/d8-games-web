@@ -49,7 +49,7 @@
   export default {
     mixins: [CommonMixin],
     components: {ratingFields},
-    props: ['ratings', 'signedInEmployeeId'],
+    props: ['pollName', 'ratings', 'signedInEmployeeId'],
     data () {
       return {
         LOWEST_SCALE: 0,
@@ -95,7 +95,7 @@
         let ratingsRated = this.getRatingsRated()
 
         let numberOfRatingsRated = ratingsRated.length
-        let averageRatingFieldsRated = this.getJsonParsed(ratingFieldsConfig)
+        let averageRatingFieldsRated = this.getJsonParsed(ratingFieldsConfig[this.pollName.toLowerCase()])
 
         ratingsRated.forEach(ratingRated => {
           ratingRated.ratingFieldsRated.forEach(ratingFieldRated => {
