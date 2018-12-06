@@ -140,4 +140,8 @@ public class DateUtil {
     public static double getDiff(double start, double end) {
         return (end - start) / 100;
     }
+
+    public static Date getCurrentDate() {
+        return new Date();
+    }
 }

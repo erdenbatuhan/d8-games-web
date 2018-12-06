@@ -68,7 +68,7 @@ public class VoucherService {
 
     @Scheduled(fixedRate = 7200000)
     public void performChecksForMissingVouchers() {
-        Date currentDate = new Date();
+        Date currentDate = DateUtil.getCurrentDate();
         DateUtil dateUtil = new DateUtil(currentDate);
 
         if (DateUtil.isNight(dateUtil.getIntegerHour())) {
@@ -139,12 +139,15 @@ public class VoucherService {
 
     public String add(String type, String ip, String employeeId, boolean admin)
             throws NightHoursException, DuplicateVoucherException, IllegalVoucherException {
+        Date currentDate = DateUtil.getCurrentDate();
+
         final String officeIp = ConfigManager.getOfficeIp();
         final String locationOffice = ConfigManager.getVoucherLocationOffice();
         final String locationHome = ConfigManager.getVoucherLocationHome();
 
         Voucher voucher = new Voucher();
-        DateUtil dateUtil = new DateUtil(new Date());
+        DateUtil dateUtil = new DateUtil(currentDate);
+
         String location = (officeIp.equals(ip)) ? locationOffice : locationHome;
 
         checkVoucherConstraints(dateUtil, type, location, employeeId);
@@ -195,7 +198,7 @@ public class VoucherService {
         final String day = dateUtil.getDay();
         final String hour = dateUtil.getHour();
 
-        voucher.setExactVoucherDate(new Date());
+        voucher.setExactVoucherDate(DateUtil.getCurrentDate());
         voucher.setActualDate(actualDate);
         voucher.setDate(date);
         voucher.setDay(day);

@@ -6,7 +6,9 @@ import com.d8games.web.services.model.dto.AuthenticationDto;
 import com.d8games.web.services.model.entity.Authentication;
 import com.d8games.web.services.model.entity.Employee;
 import com.d8games.web.services.repository.AuthenticationRepository;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -26,6 +28,16 @@ public class AuthenticationService {
 
     @Autowired
     private EmailService emailService;
+
+    @Scheduled(fixedRate = 14400000)
+    public void removeAuthenticationsEachNight() {
+        Date currentDate = DateUtil.getCurrentDate();
+        DateUtil dateUtil = new DateUtil(currentDate);
+
+        if (DateUtil.isNight(dateUtil.getIntegerHour())) {
+            authenticationRepository.deleteAll();
+        }
+    }
 
     public List<Authentication> getAll() {
         return authenticationRepository.findAll();
@@ -52,7 +64,7 @@ public class AuthenticationService {
 
     public void save() {
         Authentication authentication = new Authentication();
-        authentication.setCreatedDate(new Date());
+        authentication.setCreatedDate(DateUtil.getCurrentDate());
 
         authenticationRepository.save(authentication);
     }
@@ -61,7 +73,7 @@ public class AuthenticationService {
         Authentication authentication = new Authentication();
         Employee employee = employeeService.getById(employeeId);
 
-        authentication.setCreatedDate(new Date());
+        authentication.setCreatedDate(DateUtil.getCurrentDate());
         authentication.setMobilePhoneId(employee.getMobilePhoneId());
 
         authenticationRepository.save(authentication);

@@ -1,6 +1,7 @@
 package com.d8games.web.services.service;
 
 import com.d8games.web.services.config.ConfigManager;
+import com.d8games.web.services.util.DateUtil;
 import org.springframework.stereotype.Service;
 import sun.jvm.hotspot.debugger.AddressException;
 import sun.security.krb5.Config;
@@ -21,7 +22,7 @@ public class EmailService {
 
     public void sendMail(final List<String> recipientList, final String employeeFullName, final String authKey)
             throws AddressException, MessagingException, IOException {
-        final Date now = new Date();
+        final Date now = DateUtil.getCurrentDate();
 
         final String username = ConfigManager.getGmailUsername();
         final String password = ConfigManager.getGmailPassword();
