@@ -43,7 +43,7 @@
 
         <!-- ACTION STATE (AUTHENTICATING) -->
         <p v-else-if="state === 2" class="modal-info float-right">
-          <b-button variant="outline-success" class="btn-sm" @click="authenticate"> Authenticate in as {{ requestEmployee.name }} </b-button>
+          <b-button variant="outline-success" class="btn-sm" @click="authenticate"> Authenticate as {{ requestEmployee.name }} </b-button>
         </p>
 
         <!-- TRANSITION STATE (TRYING) -->
