@@ -170,9 +170,8 @@
         this.spinner = false
         this.state = state
 
-        if (error) {
-          console.log(error)
-          this.currentError = error
+        if (error && error.response) {
+          this.currentError = error.response
         } else if (this.state === this.LAST_STATE) {
           this.redirectToEmployeeProfile()
         }

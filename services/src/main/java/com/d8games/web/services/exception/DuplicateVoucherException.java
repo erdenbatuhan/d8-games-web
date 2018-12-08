@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class DuplicateVoucherException extends RuntimeException {
 
+    private static final String MESSAGE = "You cannot have adjacent %ss!";
+
     public DuplicateVoucherException(String type) {
-        super(String.format("You cannot have adjacent %ss!", type));
+        super(String.format(MESSAGE, type));
     }
 }

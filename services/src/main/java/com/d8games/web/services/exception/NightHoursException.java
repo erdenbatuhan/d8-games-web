@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
 public class NightHoursException extends RuntimeException {
 
+    private static final String MESSAGE = "You cannot vouch after %s and before %s!";
+
     public NightHoursException() {
-        super(String.format("You cannot vouch after %s and before %s!",
-                ConfigManager.getNightHoursStart(), ConfigManager.getNightHoursEnd()));
+        super(String.format(MESSAGE, ConfigManager.getNightHoursStart(), ConfigManager.getNightHoursEnd()));
     }
 }
