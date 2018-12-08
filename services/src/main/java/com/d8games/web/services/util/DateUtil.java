@@ -143,6 +143,6 @@ public class DateUtil {
     }
 
     public static Date getCurrentDate() {
-        return DateTime.now(DateTimeZone.forID(ConfigManager.getCurrentTimeZone())).toDate();
+        return new Date();
     }
 }
