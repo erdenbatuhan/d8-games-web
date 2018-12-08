@@ -53,7 +53,7 @@
 
         <!-- TRANSITION STATE (FAILED) -->
         <p v-else-if="state === -3" class="modal-info modal-error float-left">
-          Authentication is unsuccessful! Please try again.
+          {{ currentError.data.message }}
         </p>
 
         <!-- ACTION STATE (VOUCHING) -->
@@ -90,7 +90,12 @@
           name: null,
           authKey: null
         },
-        voucherType: null
+        voucherType: null,
+        currentError: {
+          'data': {
+            'message': 'Authentication is unsuccessful! Please try again.'
+          }
+        },
       }
     },
     computed: {
@@ -167,6 +172,7 @@
 
         if (error) {
           console.log(error)
+          this.currentError = error
         } else if (this.state === this.LAST_STATE) {
           this.redirectToEmployeeProfile()
         }
