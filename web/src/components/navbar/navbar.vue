@@ -11,7 +11,7 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="navbar-nav-left">
             <b-nav-item><a v-on:click="redirectTo('/dashboard')"> Dashboard </a></b-nav-item>
-            <b-nav-item><a v-on:click="redirectTo('/our-games')"> Our Games </a></b-nav-item>
+            <!-- <b-nav-item><a v-on:click="redirectTo('/our-games')"> Our Games </a></b-nav-item> -->
             <b-nav-item><a v-on:click="redirectTo('/contact-us')"> Contact Us </a></b-nav-item>
             <b-nav-item><a v-on:click="redirectTo('/poll/' + currentPoll)"> Poll </a></b-nav-item>
         </b-navbar-nav>
