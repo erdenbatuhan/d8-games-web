@@ -26,6 +26,8 @@ public class ConfigManager {
     private static String voucherTypeIn;
     private static String voucherTypeOut;
 
+    private static String currentTimeZone;
+
     private static String nightHoursStart;
     private static String nightHoursEnd;
 
@@ -55,6 +57,8 @@ public class ConfigManager {
 
         ConfigManager.voucherTypeIn = properties.getProperty("voucherTypeIn");
         ConfigManager.voucherTypeOut = properties.getProperty("voucherTypeOut");
+
+        ConfigManager.currentTimeZone = properties.getProperty("currentTimeZone");
 
         ConfigManager.nightHoursStart = properties.getProperty("nightHoursStart");
         ConfigManager.nightHoursEnd = properties.getProperty("nightHoursEnd");
@@ -116,6 +120,10 @@ public class ConfigManager {
 
     public static String getVoucherTypeOut() {
         return voucherTypeOut;
+    }
+
+    public static String getCurrentTimeZone() {
+        return currentTimeZone;
     }
 
     public static String getNightHoursStart() {

@@ -4,6 +4,7 @@ import com.d8games.web.services.config.ConfigManager;
 import lombok.Getter;
 import lombok.Setter;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.*;
 
@@ -142,6 +143,6 @@ public class DateUtil {
     }
 
     public static Date getCurrentDate() {
-        return new Date();
+        return DateTime.now(DateTimeZone.forID(ConfigManager.getCurrentTimeZone())).toDate();
     }
 }
