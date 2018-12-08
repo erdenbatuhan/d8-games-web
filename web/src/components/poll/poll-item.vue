@@ -1,11 +1,11 @@
 <template>
   <div v-if="pollItem">
-    <h3> {{getDrawingName()}} </h3>
-    <br>
-
     <form>
-      <div class="b-col col-sm-6">
-        <img :src="getImagePath()" alt="">
+      <div>
+        <h3> {{getDrawingName()}} </h3>
+        <br>
+
+        <img :src="getImagePath()" height="300px" alt="">
         <br><br>
 
         <div v-if="pollItem.ratings">

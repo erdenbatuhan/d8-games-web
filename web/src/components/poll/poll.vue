@@ -5,14 +5,19 @@
     <h1> Welcome to the {{poll.name}} Poll! </h1>
 
     <hr>
-    <br>
+    <br><br>
 
-    <poll-item v-for="item in poll.items"
-               :poll-name="poll.name"
-               :poll-item="item"
-               :signed-in-employee-id="signedInEmployeeId"
-               :key="item.id">
-    </poll-item>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 col-xl-4" v-for="item in poll.items">
+          <poll-item :poll-name="poll.name"
+                     :poll-item="item"
+                     :signed-in-employee-id="signedInEmployeeId"
+                     :key="item.id">
+          </poll-item>
+        </div>
+      </div>
+    </div>
 
     <poll-footer></poll-footer>
   </div>
