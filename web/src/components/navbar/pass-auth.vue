@@ -123,7 +123,6 @@
         this.requestEmployee.id = this.signedInEmployeeId
 
         if (this.voucherType === 'OUT') {
-          this.setStateTo(5)
           this.vouch('OUT')
         } else {
           this.request()
