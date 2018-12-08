@@ -25,7 +25,7 @@ public class MissingVoucherHistory implements Serializable {
     private String id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_DATE")
+    @Column(name = "CREATED_DATE", nullable = false)
     private Date createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
